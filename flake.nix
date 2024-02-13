@@ -1,5 +1,5 @@
 {
-  description = "My NixOS / nix-darwin / nixos-generators systems";
+  description = "nivea: silly but pretty";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
@@ -16,5 +16,6 @@
       inherit inputs;
 
       src = ./.;
+      snowfall.namespace = "nivea";
     };
 }
