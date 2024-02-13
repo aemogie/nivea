@@ -1,0 +1,43 @@
+From 8e00e7039fb2a77fa81778f27d3c61867418e235 Mon Sep 17 00:00:00 2001
+From: aemogie <54412618+aemogie@users.noreply.github.com>
+Date: Wed, 4 Oct 2023 17:14:40 +0000
+Subject: [PATCH] Rounded corners, maybe?
+
+---
+ wezterm-gui/src/termwindow/render/fancy_tab_bar.rs | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs b/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
+index 56a50705d9e..08c93d6da0d 100644
+--- a/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
++++ b/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
+@@ -225,23 +225,23 @@ impl crate::TermWindow {
+                     .border_corners(Some(Corners {
+                         top_left: SizedPoly {
+                             width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            height: Dimension::Percent(0.5),
+                             poly: TOP_LEFT_ROUNDED_CORNER,
+                         },
+                         top_right: SizedPoly {
+                             width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            height: Dimension::Percent(0.5),
+                             poly: TOP_RIGHT_ROUNDED_CORNER,
+                         },
+                         bottom_left: SizedPoly {
+                             width: Dimension::Cells(0.),
+-                            height: Dimension::Cells(0.33),
+-                            poly: &[],
++                            height: Dimension::Percent(0.33),
++                            poly: BOTTOM_LEFT_ROUNDED_CORNER,
+                         },
+                         bottom_right: SizedPoly {
+                             width: Dimension::Cells(0.),
+-                            height: Dimension::Cells(0.33),
+-                            poly: &[],
++                            height: Dimension::Percent(0.33),
++                            poly: BOTTOM_RIGHT_ROUNDED_CORNER,
+                         },
+                     }))
+                     .colors({

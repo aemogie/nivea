@@ -1,0 +1,109 @@
+diff --git a/src/from.rs b/src/from.rs
+index 58936b3..15eaf07 100644
+--- a/src/from.rs
++++ b/src/from.rs
+@@ -1,4 +1,4 @@
+-use nu_protocol::{Span, Value};
++use nu_protocol::{Record, Span, Value};
+ 
+ use kdl::{KdlDocument, KdlEntry, KdlNode, KdlValue};
+ 
+@@ -14,7 +14,7 @@ pub(crate) fn parse_document(document: &KdlDocument) -> Value {
+         document.span().offset() + document.len(),
+     );
+ 
+-    Value::record(cols, vals, span)
++    Value::record(Record::from_raw_cols_vals(cols, vals), span)
+ }
+ 
+ fn parse_node(node: &KdlNode) -> Value {
+@@ -51,11 +51,10 @@ fn parse_entry(entry: &KdlEntry) -> Value {
+     };
+ 
+     match entry.name() {
+-        Some(name) => Value::Record {
+-            cols: vec![name.value().to_string()],
+-            vals: vec![value],
++        Some(name) => Value::record(
++            Record::from_raw_cols_vals(vec![name.value().to_string()], vec![value]),
+             span,
+-        },
++        ),
+         None => value,
+     }
+ }
+diff --git a/src/to.rs b/src/to.rs
+index dec7adc..a8eaa0f 100644
+--- a/src/to.rs
++++ b/src/to.rs
+@@ -5,16 +5,8 @@ use kdl::{KdlDocument, KdlEntry, KdlIdentifier, KdlNode, KdlValue};
+ use miette::SourceSpan;
+ 
+ fn span(value: &Value) -> Result<SourceSpan, LabeledError> {
+-    match value.span() {
+-        Ok(Span { start, end, .. }) => Ok(SourceSpan::new(start.into(), (end - start).into())),
+-        Err(_) => {
+-            return Err(LabeledError {
+-                label: "internal error".to_string(),
+-                msg: "Nushell value does not have a span".to_string(),
+-                span: None,
+-            })
+-        }
+-    }
++    let Span { start, end, .. } = value.span();
++    Ok(SourceSpan::new(start.into(), (end - start).into()))
+ }
+ 
+ pub(crate) fn build_document(document: &Value) -> Result<KdlDocument, LabeledError> {
+@@ -24,15 +16,15 @@ pub(crate) fn build_document(document: &Value) -> Result<KdlDocument, LabeledErr
+ 
+     let nodes = doc.nodes_mut();
+ 
+-    let Value::Record { cols, vals, .. } = document else {
++    let Value::Record { val: record, .. } = document else {
+         return Err(LabeledError {
+             label: "invalid input".to_string(),
+             msg: "value not supported for a document, expected record".to_string(),
+-            span: None
+-        })
++            span: None,
++        });
+     };
+ 
+-    for (col, val) in cols.iter().zip(vals) {
++    for (col, val) in record.columns().zip(record.values()) {
+         let node = build_node(col, val)?;
+         nodes.push(node);
+     }
+@@ -78,17 +70,17 @@ fn build_entry(entry: &Value) -> Result<KdlEntry, LabeledError> {
+     let span = span(entry)?;
+ 
+     let mut entry = match entry {
+-        Value::Record { cols, vals, .. } => {
+-            if cols.len() != 1 {
++        Value::Record { val: record, .. } => {
++            if record.len() != 1 {
+                 return Err(LabeledError {
+                     label: "invalid input".to_string(),
+                     msg: "entry is a record but has more than one key".to_string(),
+-                    span: entry.span().ok(),
++                    span: Some(entry.span()),
+                 });
+             }
+ 
+-            let value = &vals[0];
+-            let name = &cols[0];
++            let value = record.values().next().unwrap();
++            let name = record.columns().next().unwrap();
+ 
+             let val = match value {
+                 Value::String { val, .. } => KdlValue::String(val.to_string()),
+@@ -101,7 +93,7 @@ fn build_entry(entry: &Value) -> Result<KdlEntry, LabeledError> {
+                         label: "invalid input".to_string(),
+                         msg: "value not supported, expected string, int, float, bool or null"
+                             .to_string(),
+-                        span: value.span().ok(),
++                        span: Some(value.span()),
+                     });
+                 }
+             };

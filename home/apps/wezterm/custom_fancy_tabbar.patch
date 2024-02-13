@@ -1,0 +1,236 @@
+diff --git a/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs b/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
+index 56a5070..9e116af 100644
+--- a/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
++++ b/wezterm-gui/src/termwindow/render/fancy_tab_bar.rs
+@@ -2,11 +2,12 @@ use crate::customglyph::*;
+ use crate::tabbar::{TabBarItem, TabEntry};
+ use crate::termwindow::box_model::*;
+ use crate::termwindow::render::corners::*;
+-use crate::termwindow::render::rgbcolor_to_window_color;
++use crate::termwindow::render::rgbcolor_alpha_to_window_color;
+ use crate::termwindow::render::window_buttons::window_button_element;
+ use crate::termwindow::{UIItem, UIItemType};
+ use crate::utilsprites::RenderMetrics;
+ use config::{Dimension, DimensionContext, TabBarColors};
++use termwiz::color::LinearRgba;
+ use wezterm_term::color::{ColorAttribute, ColorPalette};
+ use window::{IntegratedTitleButtonAlignment, IntegratedTitleButtonStyle};
+ 
+@@ -60,9 +61,8 @@ impl crate::TermWindow {
+         let items = self.tab_bar.items();
+         let colors = self
+             .config
+-            .colors
+-            .as_ref()
+-            .and_then(|c| c.tab_bar.as_ref())
++            .resolved_palette // fix colours
++            .tab_bar.as_ref()
+             .cloned()
+             .unwrap_or_else(TabBarColors::default);
+ 
+@@ -71,17 +71,17 @@ impl crate::TermWindow {
+         let mut right_eles = vec![];
+         let bar_colors = ElementColors {
+             border: BorderColor::default(),
+-            bg: rgbcolor_to_window_color(if self.focused.is_some() {
++            bg: rgbcolor_alpha_to_window_color(if self.focused.is_some() {
+                 self.config.window_frame.active_titlebar_bg
+             } else {
+                 self.config.window_frame.inactive_titlebar_bg
+-            })
++            }, self.config.window_background_opacity)
+             .into(),
+-            text: rgbcolor_to_window_color(if self.focused.is_some() {
++            text: rgbcolor_alpha_to_window_color(if self.focused.is_some() {
+                 self.config.window_frame.active_titlebar_fg
+             } else {
+                 self.config.window_frame.inactive_titlebar_fg
+-            })
++            }, self.config.text_background_opacity)
+             .into(),
+         };
+ 
+@@ -150,10 +150,10 @@ impl crate::TermWindow {
+                     top: Dimension::Cells(0.2),
+                     bottom: Dimension::Cells(0.25),
+                 })
+-                .border(BoxDimension::new(Dimension::Pixels(1.)))
++                .border(BoxDimension::new(Dimension::Pixels(2.)))
+                 .colors(ElementColors {
+                     border: BorderColor::default(),
+-                    bg: new_tab.bg_color.to_linear().into(),
++                    bg: LinearRgba::TRANSPARENT.into(),
+                     text: new_tab.fg_color.to_linear().into(),
+                 })
+                 .hover_colors(Some(ElementColors {
+@@ -162,34 +162,42 @@ impl crate::TermWindow {
+                     text: new_tab_hover.fg_color.to_linear().into(),
+                 })),
+                 TabBarItem::Tab { active, .. } if active => element
+-                    .vertical_align(VerticalAlign::Bottom)
++                    .vertical_align(VerticalAlign::Top)
+                     .item_type(UIItemType::TabBar(item.item.clone()))
+                     .margin(BoxDimension {
+-                        left: Dimension::Cells(0.),
++                        left: Dimension::Cells(0.25),
+                         right: Dimension::Cells(0.),
+-                        top: Dimension::Cells(0.2),
++                        top: Dimension::Cells(0.),
+                         bottom: Dimension::Cells(0.),
+                     })
+                     .padding(BoxDimension {
+-                        left: Dimension::Cells(0.5),
+-                        right: Dimension::Cells(0.5),
++                        left: Dimension::Cells(1.),
++                        right: Dimension::Cells(1.),
+                         top: Dimension::Cells(0.2),
+                         bottom: Dimension::Cells(0.25),
+                     })
+-                    .border(BoxDimension::new(Dimension::Pixels(1.)))
++                    .border(BoxDimension::new(Dimension::Pixels(3.)))
+                     .border_corners(Some(Corners {
+                         top_left: SizedPoly {
+-                            width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
+                             poly: TOP_LEFT_ROUNDED_CORNER,
+                         },
+                         top_right: SizedPoly {
+-                            width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
+                             poly: TOP_RIGHT_ROUNDED_CORNER,
+                         },
+-                        bottom_left: SizedPoly::none(),
+-                        bottom_right: SizedPoly::none(),
++                        bottom_left: SizedPoly {
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
++                            poly: BOTTOM_LEFT_ROUNDED_CORNER,
++                        },
++                        bottom_right: SizedPoly {
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
++                            poly: BOTTOM_RIGHT_ROUNDED_CORNER,
++                        },
+                     }))
+                     .colors(ElementColors {
+                         border: BorderColor::new(
+@@ -207,41 +215,41 @@ impl crate::TermWindow {
+                             .into(),
+                     }),
+                 TabBarItem::Tab { .. } => element
+-                    .vertical_align(VerticalAlign::Bottom)
++                    .vertical_align(VerticalAlign::Top)
+                     .item_type(UIItemType::TabBar(item.item.clone()))
+                     .margin(BoxDimension {
+-                        left: Dimension::Cells(0.),
++                        left: Dimension::Cells(0.25),
+                         right: Dimension::Cells(0.),
+-                        top: Dimension::Cells(0.2),
++                        top: Dimension::Cells(0.),
+                         bottom: Dimension::Cells(0.),
+                     })
+                     .padding(BoxDimension {
+-                        left: Dimension::Cells(0.5),
+-                        right: Dimension::Cells(0.5),
++                        left: Dimension::Cells(1.),
++                        right: Dimension::Cells(1.),
+                         top: Dimension::Cells(0.2),
+                         bottom: Dimension::Cells(0.25),
+                     })
+-                    .border(BoxDimension::new(Dimension::Pixels(1.)))
++                    .border(BoxDimension::new(Dimension::Pixels(3.)))
+                     .border_corners(Some(Corners {
+                         top_left: SizedPoly {
+-                            width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
+                             poly: TOP_LEFT_ROUNDED_CORNER,
+                         },
+                         top_right: SizedPoly {
+-                            width: Dimension::Cells(0.5),
+-                            height: Dimension::Cells(0.5),
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
+                             poly: TOP_RIGHT_ROUNDED_CORNER,
+                         },
+                         bottom_left: SizedPoly {
+-                            width: Dimension::Cells(0.),
+-                            height: Dimension::Cells(0.33),
+-                            poly: &[],
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
++                            poly: BOTTOM_LEFT_ROUNDED_CORNER,
+                         },
+                         bottom_right: SizedPoly {
+-                            width: Dimension::Cells(0.),
+-                            height: Dimension::Cells(0.33),
+-                            poly: &[],
++                            width: Dimension::Cells(1.),
++                            height: Dimension::Cells(1.),
++                            poly: BOTTOM_RIGHT_ROUNDED_CORNER,
+                         },
+                     }))
+                     .colors({
+@@ -253,7 +261,7 @@ impl crate::TermWindow {
+                         ElementColors {
+                             border: BorderColor {
+                                 left: bg,
+-                                right: edge,
++                                right: bg,
+                                 top: bg,
+                                 bottom: bg,
+                             },
+@@ -395,8 +403,8 @@ impl crate::TermWindow {
+                                 top: Dimension::Cells(0.),
+                                 bottom: Dimension::Cells(0.),
+                             });
+-
+-                            kids.push(x_button);
++                            // declutter, use keybind instead
++                            // kids.push(x_button);
+                             ElementContent::Children(kids)
+                         }
+                     };
+@@ -411,7 +419,7 @@ impl crate::TermWindow {
+         if !left_status.is_empty() {
+             children.push(
+                 Element::new(&font, ElementContent::Children(left_status))
+-                    .colors(bar_colors.clone()),
++                .colors(ElementColors { bg: LinearRgba::TRANSPARENT.into(), ..bar_colors.clone()  }),
+             );
+         }
+ 
+@@ -442,7 +450,7 @@ impl crate::TermWindow {
+         children.push(
+             Element::new(&font, ElementContent::Children(left_eles))
+                 .vertical_align(VerticalAlign::Bottom)
+-                .colors(bar_colors.clone())
++                .colors(ElementColors { bg: LinearRgba::TRANSPARENT.into(), ..bar_colors.clone()  })
+                 .padding(BoxDimension {
+                     left: left_padding,
+                     right: Dimension::Cells(0.),
+@@ -453,7 +461,7 @@ impl crate::TermWindow {
+         );
+         children.push(
+             Element::new(&font, ElementContent::Children(right_eles))
+-                .colors(bar_colors.clone())
++                .colors(ElementColors { bg: LinearRgba::TRANSPARENT.into(), ..bar_colors.clone()  })
+                 .float(Float::Right),
+         );
+ 
+@@ -464,8 +472,8 @@ impl crate::TermWindow {
+             .item_type(UIItemType::TabBar(TabBarItem::None))
+             .min_width(Some(Dimension::Pixels(self.dimensions.pixel_width as f32)))
+             .min_height(Some(Dimension::Pixels(tab_bar_height)))
+-            .vertical_align(VerticalAlign::Bottom)
+-            .colors(bar_colors);
++            .vertical_align(VerticalAlign::Top)
++            .colors(bar_colors.clone());
+ 
+         let border = self.get_os_border();
+ 
