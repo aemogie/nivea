@@ -1,0 +1,6 @@
+# nixos-rebuild build*
+result
+
+# nixos-rebuild build-vm
+*.qcow2
+
