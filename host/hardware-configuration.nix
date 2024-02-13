@@ -7,26 +7,9 @@
   pkgs,
   modulesPath,
   ...
-}: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
-  boot = {
-    initrd = {
-      availableKernelModules = ["vmd" "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod"];
-      kernelModules = [];
-      verbose = false;
-    };
-    kernelModules = ["kvm-intel"];
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
-
-    extraModprobeConfig = ''
-      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-    '';
-  };
-
+}: let
   fileSystems = {
-    "/" = {
+    "/" = lib.mkForce {
       device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
     };
@@ -51,6 +34,31 @@
       device = "/dev/disk/by-label/WINDATA";
       fsType = "ntfs-3g";
       options = ["rw"];
+    };
+  };
+in {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+  boot = {
+    initrd = {
+      availableKernelModules = ["vmd" "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod"];
+      kernelModules = [];
+      verbose = false;
+    };
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+    '';
+  };
+
+  inherit fileSystems;
+  virtualisation.vmVariant = {
+    # virtualisation.useDefaultFilesystems = false;
+    virtualisation = {
+      inherit fileSystems;
     };
   };
 
