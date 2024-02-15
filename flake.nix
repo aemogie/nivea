@@ -17,5 +17,12 @@
 
       src = ./.;
       snowfall.namespace = "nivea";
+      outputs-builder = channels: {
+        packages =
+          channels.nixpkgs.lib.concatMapAttrs (k: v: {
+            "${k}-vm" = v.config.system.build.vm;
+          })
+          inputs.self.nixosConfigurations;
+      };
     };
 }
