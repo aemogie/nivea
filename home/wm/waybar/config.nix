@@ -101,6 +101,7 @@ with lib; let
         warning = 30;
         critical = 15;
       };
+      interval = 5;
       format = "{icon}";
       format-charging = "󰂄";
       format-plugged = "󰚥";
