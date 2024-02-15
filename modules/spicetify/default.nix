@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkOption mkEnableOption optionalString recursiveUpdate;
-  inherit (lib.types) either attrs str pathInStore listOf;
+  inherit (lib.types) either attrs str lines pathInStore listOf;
   inherit (builtins) match isAttrs;
   inherit (pkgs) callPackage;
   cfg = config.programs.spicetify;
@@ -63,7 +63,7 @@ in {
           replace_colors = true;
           overwrite_assets = false;
           spotify_launch_flags = "";
-          check_spicetify_upgrade = false;
+          check_spicetify_update = false;
         };
         Preprocesses = {
           disable_sentry = true;
@@ -80,6 +80,11 @@ in {
         };
         Patch = cfg.theme.patches;
       };
+    };
+    extraCommands = mkOption {
+      type = lines;
+      description = "Extra commands to run after the build.";
+      default = "";
     };
   };
   config = {

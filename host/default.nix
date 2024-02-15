@@ -22,6 +22,7 @@
       trusted-users = ["root" "@wheel"];
       # hard link duplicates automatically
       auto-optimise-store = true;
+      # sandbox = false;
     };
     # TODO: runs way too often, slow it down
     # gc.automatic = true;

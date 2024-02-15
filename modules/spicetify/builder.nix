@@ -3,6 +3,7 @@
   theme,
   extensions,
   custom_apps,
+  extraCommands,
   ...
 }: {
   lib,
@@ -35,9 +36,9 @@
   };
   lnListIntoDir = dir: list: concatStringsSep "\n" (map (path: "ln -s ${path} ${dir}/${baseNameOf path}") list);
 in
-  spotify.overrideAttrs (old: {
+  (builtins.trace "spotify version: ${spotify.version}" spotify).overrideAttrs (old: {
     pname = "spicetify";
-    buildInputs = (old.buildInputs or []) ++ [spicetify-cli coreutils-full makeWrapper];
+    buildInputs = (old.buildInputs or []) ++ [(builtins.trace "spicetify version: ${spicetify-cli.version}" spicetify-cli) coreutils-full makeWrapper];
     postInstall =
       (old.postInstall or "")
       + ''
@@ -88,6 +89,8 @@ in
           ${toINI theme.colorScheme}
           EOF
         ''}
+
+        ${extraCommands}
 
         popd > /dev/null
         spicetify-cli --no-restart backup apply

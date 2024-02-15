@@ -33,6 +33,7 @@
   };
 
   nixConfig = {
+    # sandbox = false;
     builders-use-substitutes = true;
     extra-substituters = [
       "https://helix.cachix.org"

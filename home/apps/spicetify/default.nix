@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [../../../modules/spicetify];
   programs.spicetify = {
     enable = true;
@@ -8,8 +12,6 @@
         inject_theme_js = true;
         replace_colors = true;
         overwrite_assets = true;
-        # TODO: wayland support maybe?
-        # spotify_launch_flags = [""];
       };
       AdditionalOptions = {
         sidebar_config = false;
@@ -23,8 +25,8 @@
         pkgs.fetchFromGitHub {
           owner = "catppuccin";
           repo = "spicetify";
-          rev = "39ce773553e0dbc5ecb3dc91c59b03f905e95f88";
-          sha256 = "sha256-Gmj6vh1smkH+CW7eqoHsDxDMh5hk1wa8LbW+RMPsTL8=";
+          rev = "8717687db9ddcae758f88224295bbe732d8ff724";
+          sha256 = "sha256-BU/M1hRIyju2mQGZKCvpR4JpRBGjJzCcnnty4ypJjDs=";
         }
         + "/catppuccin";
       colorScheme = "mocha";
@@ -38,7 +40,12 @@
         }
         + "/adblock/adblock.js")
     ];
+    # extraCommands = ''
+    #   HOME=/home/aemogie spicetify-cli enable-devtools
+    # '';
   };
+
+  # nix.settings.sandbox = false;
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [
     "workspace special,title:Spotify"

@@ -57,5 +57,5 @@ in {
     git.enable = true;
   };
 
-  config.home-manager.useUserPackages = false;
+  # config.home-manager.useUserPackages = true;
 }
