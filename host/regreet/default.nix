@@ -14,7 +14,7 @@
     enable = true;
     settings = {
       background = {
-        path = ../../assets/summary-nights.png;
+        path = ../../assets/street.png;
         fit = "Cover";
       };
       GTK = {

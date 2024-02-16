@@ -17,6 +17,7 @@
       ../wm/waybar
       ../wm/anyrun
       ../wm/mako.nix
+      ../wm/swaylock.nix
     ]
     ++ [
       ../sh/helix
