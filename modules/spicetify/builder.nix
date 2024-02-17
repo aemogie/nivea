@@ -34,7 +34,7 @@
           else lib.generators.mkValueStringDefault {} v;
       } "=";
   };
-  lnListIntoDir = dir: list: concatStringsSep "\n" (map (path: "ln -s ${path} ${dir}/${baseNameOf path}") list);
+  cpListIntoDir = dir: list: concatStringsSep "\n" (map (path: "cp -rn ${path} ${dir}/${baseNameOf path}") list);
 in
   (builtins.trace "spotify version: ${spotify.version}" spotify).overrideAttrs (old: {
     pname = "spicetify";
@@ -47,7 +47,7 @@ in
         mkdir -p $SPICETIFY_CONFIG
 
         # grab the css map
-        ln -s ${spicetify-cli.src}/css-map.json $SPICETIFY_CONFIG/css-map.json
+        cp -rn ${spicetify-cli.src}/css-map.json $SPICETIFY_CONFIG/css-map.json
 
         pushd $SPICETIFY_CONFIG
 
@@ -65,21 +65,16 @@ in
 
         ${optionalString (theme.enable) ''
           mkdir -p Themes
-          ${
-            if isAttrs theme.colorScheme
-            # cp instead of ln so i can set colorscheme
-            then "cp -rn"
-            else "ln -s"
-          } ${theme.path} Themes/${baseNameOf theme.path}
+          cp -rn ${theme.path} Themes/${baseNameOf theme.path}
           chmod -R a+wr Themes
         ''}
 
         mkdir -p Extensions
-        ${lnListIntoDir "Extensions" extensions}
+        ${cpListIntoDir "Extensions" extensions}
         chmod -R a+wr Extensions
 
         mkdir -p CustomApps
-        ${lnListIntoDir "CustomApps" custom_apps}
+        ${cpListIntoDir "CustomApps" custom_apps}
         chmod -R a+wr CustomApps
 
         ${optionalString (theme.enable && (isAttrs theme.colorScheme)) ''

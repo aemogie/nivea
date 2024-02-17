@@ -25,7 +25,7 @@
         ${pkgs.hyprland}/bin/hyprctl dispatch exec "[workspace special;tile;no anim]" ${pkgs.scrcpy}/bin/scrcpy "$args"
       '')
     ];
-    sessionVariables.NIXOS_OZONE_WL = "1";
+    # sessionVariables.NIXOS_OZONE_WL = "1";
   };
   nixpkgs.overlays = [
     # { waybar = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland; }

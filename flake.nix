@@ -75,5 +75,9 @@
 
     anyrun.url = "github:Kirottu/anyrun";
     ctp.url = "path:/home/aemogie/dev/ctp/nix";
+    spicetify = {
+      url = "github:the-argus/spicetify-nix/48-fix-schema";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
