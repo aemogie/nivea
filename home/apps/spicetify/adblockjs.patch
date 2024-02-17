@@ -1,0 +1,13 @@
+diff --git a/adblock/adblock.js b/adblock/adblock.js
+index d044cd6..b84d09f 100644
+--- a/adblock/adblock.js
++++ b/adblock/adblock.js
+@@ -8,7 +8,7 @@
+
+ (function adblock() {
+     const { Platform } = Spicetify;
+-    if (!Platform) {
++    if (!(Platform && Platform.AdManagers)) {
+         setTimeout(adblock, 300)
+         return
+     }
