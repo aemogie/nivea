@@ -1,3 +1,4 @@
+# thanks https://github.com/IogaMaster/snowfall-starter
 {lib, ...}:
 with lib; rec {
   mkOpt = type: default: description:
