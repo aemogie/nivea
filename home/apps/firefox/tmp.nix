@@ -1,4 +1,52 @@
-{osConfig, ...}: {
+{osConfig, ...}: let
+  theme = {
+    crust,
+    mantle,
+    base,
+    overlay0,
+    text,
+    primary,
+    ...
+  }: {
+    colors = {
+      button_background_active = "rgb(108, 112, 134)";
+      frame = "rgb(17, 17, 27)";
+      frame_inactive = "rgb(17, 17, 27)";
+      icons = "rgb(245, 194, 231)";
+      icons_attention = "rgb(245, 194, 231)";
+      ntp_background = "rgb(30, 30, 46)";
+      ntp_text = "rgb(205, 214, 244)";
+      popup = "rgb(30, 30, 46)";
+      popup_border = "rgb(245, 194, 231)";
+      popup_highlight = "rgb(108, 112, 134)";
+      popup_highlight_text = "rgb(205, 214, 244)";
+      popup_text = "rgb(205, 214, 244)";
+      sidebar = "rgb(30, 30, 46)";
+      sidebar_border = "rgb(245, 194, 231)";
+      sidebar_highlight = "rgb(245, 194, 231)";
+      sidebar_highlight_text = "rgb(17, 17, 27)";
+      sidebar_text = "rgb(205, 214, 244)";
+      tab_background_separator = "rgb(245, 194, 231)";
+      tab_background_text = "rgb(205, 214, 244)";
+      tab_line = "rgba(245, 194, 231, 0)";
+      tab_loading = "rgb(245, 194, 231)";
+      tab_selected = "rgb(30, 30, 46)";
+      tab_text = "rgb(205, 214, 244)";
+      toolbar = "rgb(30, 30, 46)";
+      toolbar_bottom_separator = "rgb(30, 30, 46)";
+      toolbar_field = "rgb(24, 24, 37)";
+      toolbar_field_border = "rgb(30, 30, 46)";
+      toolbar_field_border_focus = "rgb(245, 194, 231)";
+      toolbar_field_focus = "rgb(30, 30, 46)";
+      toolbar_field_highlight = "rgb(245, 194, 231)";
+      toolbar_field_highlight_text = "rgb(30, 30, 46)";
+      toolbar_field_separator = "rgb(245, 194, 231)";
+      toolbar_field_text = "rgb(205, 214, 244)";
+      toolbar_text = "rgb(205, 214, 244)";
+      toolbar_vertical_separator = "rgb(245, 194, 231)";
+    };
+  };
+in {
   manifest_version = 2;
 
   browser_specific_settings.gecko.id = "custom@paint.nix";
@@ -10,45 +58,8 @@
 
   # icons = {"32" = "icon.svg";};
 
-  theme = {
-    colors = let
-      inherit (osConfig.paint.core) crust mantle base overlay0 text primary;
-    in {
-      frame = "#${crust}";
-      icons = "#${primary}";
-      popup = "#${base}";
-      popup_highlight = "#${overlay0}";
-      popup_text = "#${text}";
-      sidebar = "#${base}";
-      sidebar_border = "#${primary}";
-      sidebar_text = "#${text}";
-      tab_background_text = "#${text}";
-      tab_icon_overlay_fill = "rgb(251,251,254)";
-      tab_icon_overlay_stroke = "rgb(66,65,77)";
-      tab_loading = "#${primary}";
-      tab_selected = "#${base}";
-      tab_text = "#${text}";
-      toolbar = "#${base}";
-      toolbar_bottom_separator = "#${base}";
-      toolbar_field = "#${mantle}";
-      toolbar_field_border = "#${base}";
-      toolbar_field_focus = "#${base}";
-      toolbar_field_highlight = "#${primary}";
-      toolbar_field_highlight_text = "#${base}";
-      toolbar_field_separator = "#${primary}";
-      toolbar_field_text = "#${text}";
-      toolbar_text = "#${text}";
-      toolbar_vertical_separator = "#${primary}";
-      toolbar_top_separator = "transparent";
-    };
-    properties = {
-      panel_hover = "color-mix(in srgb; currentColor 9%; transparent)";
-      panel_active = "color-mix(in srgb; currentColor 14%; transparent)";
-      panel_active_darker = "color-mix(in srgb; currentColor 25%; transparent)";
-      toolbar_field_icon_opacity = "1";
-      zap_gradient = "linear-gradient(90deg; #9059FF 0%; #FF4AA2 52.08%; #FFBD4F 100%)";
-    };
-  };
+  theme = theme osConfig.paint.light;
+  dark_theme = theme osConfig.paint.dark;
 
   # theme_experiment = {
   #   colors = {
