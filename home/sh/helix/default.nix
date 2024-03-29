@@ -33,7 +33,7 @@
           display-inlay-hints = true;
           display-messages = true;
         };
-        shell = ["${config.home.loginShell}${config.home.loginShell.shellPath}" "-l" "-c"];
+        shell = config.home.loginShell.cmd;
         soft-wrap = {
           enable = false;
           wrap-at-text-width = true;
@@ -49,10 +49,14 @@
           H = ":buffer-previous";
           K = "hover";
           L = ":buffer-next";
-          space.c = ":buffer-close";
-          space.q = ":quit";
-          space.tab = ":buffer-next";
-          space.w = ":write";
+          space = {
+            c = ":buffer-close";
+            q = ":quit";
+            tab = ":buffer-next";
+            w = ":write";
+            f = "file_picker_in_current_directory";
+            F = "no_op";
+          };
         };
       };
       theme = "catppuccin_${flavor}_transparent";

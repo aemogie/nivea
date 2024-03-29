@@ -8,7 +8,10 @@
   imports = [./config.nix ../../../modules/nushell.nix];
   home = {
     # the benefit of doing it as a nixos module instead of standalone.
-    loginShell = config.programs.nushell.package;
+    loginShell = {
+      package = config.programs.nushell.package;
+      args = ["--login" "--stdin" "--commands"];
+    };
     packages = [
       pkgs.wl-clipboard # wl-copy/wl-paste
       pkgs.libnotify # notify-send
