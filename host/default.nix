@@ -125,6 +125,7 @@
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   programs.adb.enable = true;
+  virtualisation.waydroid.enable = true;
 
   # no tofu
   fonts.packages = with pkgs; [
