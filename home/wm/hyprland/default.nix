@@ -30,8 +30,6 @@
   };
   wayland.windowManager.hyprland = let
     opacity = "0.9";
-    gaps_out = 20;
-    border_size = 3;
   in {
     enable = true;
     settings = {
@@ -52,7 +50,8 @@
       general = let
         inherit (osConfig.paint.active.pal) primary alternate crust;
       in {
-        inherit gaps_out border_size;
+        gaps_out = 20;
+        border_size = 3;
         gaps_in = 10;
         # dont be fooled, these are all hex not dec
         "col.active_border" = "rgb(${primary}) rgb(${alternate}) 45deg";
