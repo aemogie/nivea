@@ -54,7 +54,7 @@
         border_size = 3;
         gaps_in = 10;
         # dont be fooled, these are all hex not dec
-        "col.active_border" = "rgb(${primary}) rgb(${alternate}) 45deg";
+        "col.active_border" = "rgb(${primary})";
         "col.inactive_border" = "rgba(${crust}FF)";
       };
 
