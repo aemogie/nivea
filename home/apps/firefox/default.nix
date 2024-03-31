@@ -3,12 +3,12 @@
   osConfig,
   ...
 }: {
+  /*
   wayland.windowManager.hyprland.settings.windowrulev2 =
     [
       ''opacity 1 override,class:firefox,title:^(.*\[.*\b(youtube\.com|twitch\.tv)\] — Mozilla Firefox)''
       ''opacity 0.9 override,class:firefox,title:^(?!.*\[.*\b(youtube\.com|twitch\.tv)\] — Mozilla Firefox)''
     ]
-    /*
     ++ (let
       hCfg = config.wayland.windowManager.hyprland.settings;
       inherit (hCfg.general) gaps_out;
@@ -17,12 +17,11 @@
       ''move 100%-${toString gaps_out} 100%-${toString gaps_out},class:firefox,title:^(Picture-in-Picture)''
       ''pin,class:firefox,title:^(Picture-in-Picture)''
       ''nofocus,class:firefox,title:^(Picture-in-Picture)''
-    ])
-    */
-    ;
+    ]);
+  */
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override {
+    package = pkgs.firefox-esr.override {
       extraPrefs = let
         reloadStylesheets =
           #js https://gist.github.com/jscher2000/ad268422c3187dbcbc0d15216a3a8060
@@ -65,6 +64,31 @@
             } catch(ex) {};
           '';
       in "";
+
+      extraPolicies.ExtensionSettings = let
+        theme = let
+          manifest = import ./theme.nix {
+            light = osConfig.paint.light.pal;
+            dark = osConfig.paint.dark.pal;
+          };
+        in
+          pkgs.stdenv.mkDerivation {
+            pname = "paintnix-theme";
+            version = manifest.version;
+            nativeBuildInputs = [pkgs.zip];
+            src = pkgs.writeTextDir "manifest.json" (builtins.toJSON manifest);
+            addonId = manifest.browser_specific_settings.gecko.id;
+            buildCommand = ''
+              mkdir $out
+              zip -jr $out/$addonId.xpi $src/*
+            '';
+          };
+      in {
+        ${theme.addonId} = {
+          install_url = "file://${theme}/${theme.addonId}.xpi";
+          installation_mode = "force_installed";
+        };
+      };
     };
     profiles.old.id = 1;
     profiles.default = {
@@ -97,6 +121,10 @@
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
           "apz.fling_friction" = 0.004;
           "apz.overscroll.enabled" = true;
+        }
+        // {
+          "xpinstall.signatures.required" = false;
+          "xpinstall.whitelist.required" = false;
         };
     };
   };
