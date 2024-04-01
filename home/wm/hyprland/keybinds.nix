@@ -65,7 +65,7 @@
   launch_app = let
     inherit (pkgs) grimblast;
     anyrun = config.programs.anyrun.package;
-    firefox = lib.getExe config.programs.firefox.package;
+    firefox = lib.getExe config.programs.firefox.finalPackage;
     foot = lib.getExe config.programs.foot.package;
   in [
     (bind {

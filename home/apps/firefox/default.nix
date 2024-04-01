@@ -21,7 +21,9 @@
   */
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-esr.override {
+    package = pkgs.firefox-devedition;
+    /*
+    .override {
       extraPrefs = let
         reloadStylesheets =
           #js https://gist.github.com/jscher2000/ad268422c3187dbcbc0d15216a3a8060
@@ -90,8 +92,10 @@
         };
       };
     };
+    */
     profiles.old.id = 1;
     profiles.default = {
+      name = "dev-edition-default";
       id = 0;
       settings = let
         inherit (osConfig.paint.active.pal) base text;
@@ -126,6 +130,27 @@
           "xpinstall.signatures.required" = false;
           "xpinstall.whitelist.required" = false;
         };
+      extensions = [
+        (
+          let
+            manifest = import ./theme.nix {
+              light = osConfig.paint.light.pal;
+              dark = osConfig.paint.dark.pal;
+            };
+          in
+            pkgs.stdenv.mkDerivation {
+              pname = "paintnix-theme";
+              version = manifest.version;
+              nativeBuildInputs = [pkgs.zip];
+              src = pkgs.writeTextDir "manifest.json" (builtins.toJSON manifest);
+              buildCommand = ''
+                dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                mkdir -p $dst
+                zip -jr "$dst/${manifest.browser_specific_settings.gecko.id}.xpi" $src/*
+              '';
+            }
+        )
+      ];
     };
   };
 }
