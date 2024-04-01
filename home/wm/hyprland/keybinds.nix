@@ -65,7 +65,7 @@
   launch_app = let
     inherit (pkgs) grimblast;
     anyrun = config.programs.anyrun.package;
-    firefox = config.programs.firefox.package;
+    firefox = lib.getExe config.programs.firefox.package;
     foot = lib.getExe config.programs.foot.package;
   in [
     (bind {
@@ -96,7 +96,7 @@
       mods = main_mod;
       key = "F";
       action = "exec";
-      args = "${firefox}/bin/firefox";
+      args = firefox;
     })
     # (bind {
     #   mods = main_mod;
