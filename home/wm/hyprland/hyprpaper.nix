@@ -6,7 +6,7 @@
 }: let
   wallpaper =
     if osConfig.paint.useDark
-    then ../../../assets/catppuccino-dark.png
+    then ../../../assets/catppuccino-mocha.png
     else ../../../assets/catppuccino-pink.png;
   command = lib.getExe pkgs.hyprpaper;
 in {
