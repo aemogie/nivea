@@ -17,6 +17,7 @@
     ./vaapi.nix
     ./logind.nix
     ./keyd.nix
+    ./battery.nix
   ];
 
   nix = {
@@ -143,6 +144,8 @@
   services.gvfs.enable = true;
 
   hm.programs.tealdeer.enable = true;
+
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 1048576;
 
   system.stateVersion = "23.05";
 }
