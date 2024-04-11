@@ -67,6 +67,7 @@
       {
         inherits = "catppuccin_${flavor}";
         "ui.background" = {};
+        "ui.cursorline.primary" = {};
       };
 
     languages = {

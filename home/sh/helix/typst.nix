@@ -66,4 +66,14 @@ in
     ];
   };
   */
+
+  programs.helix.languages = {
+    language = [
+      {
+        name = "typst";
+        language-servers = ["tinymist"];
+      }
+    ];
+    language-server.tinymist.command = "tinymist";
+  };
 }
