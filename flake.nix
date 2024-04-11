@@ -48,6 +48,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     ue4-nixpkgs.url = "github:yvt/nixpkgs/update-ue4";
+    netbeans-nixpkgs.url = "nixpkgs/976fa3369d722e76f37c77493d99829540d43845";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
