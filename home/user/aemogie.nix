@@ -60,10 +60,12 @@
   home.shellAliases = {
     # `clear` on nushell doesn't clear scrollback
     c = "printf '\\e[H\\e[2J\\e[3J'";
+    cc = "printf '\\e[H\\e[2J\\e[3J'";
     l = "ls -la";
     o = lib.getExe pkgs.bat;
     fk = "cd ${config.home.homeDirectory}/dev/flake";
     q = "exit";
+    qq = "exit";
   };
 
   home.sessionVariables = {
