@@ -63,6 +63,10 @@
            background: #${base} !important;
         }
 
+        html.theme-light span[class*="username__"] {
+            filter: brightness(.5);
+        }
+
         div[class^="chat"] section[class*="forumOrHome_"],
         div[class^="chat"] > div[class^="content"] > div[class^="container"] div[class*="mainCard_"] {
           background: transparent !important;
