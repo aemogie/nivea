@@ -105,6 +105,7 @@
           "devtools.chrome.enabled" = true; # allow running the userChrome debugger
           "browser.tabs.inTitlebar" = 0; # removes the close button, assumed to go from CSD to regular, but i dont hv titlebars
           "ui.key.menuAccessKeyFocuses" = false; # disable the alt menu
+          "privacy.query_stripping.enable" = true; # copy without site tracking
         }
         // {
           # fullscreen
