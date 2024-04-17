@@ -37,11 +37,13 @@
       "https://helix.cachix.org"
       "https://hyprland.cachix.org"
       "https://anyrun.cachix.org"
+      "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
@@ -78,5 +80,6 @@
       url = "github:the-argus/spicetify-nix/48-fix-schema";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    emacs.url = "github:nix-community/emacs-overlay";
   };
 }
