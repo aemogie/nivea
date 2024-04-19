@@ -16,7 +16,7 @@ in {
   options.paint = {
     useDark = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
     };
     active = mkOption {
       type = types.attrs;
@@ -124,6 +124,5 @@ in {
   };
   config.specialisation = {
     dark.configuration.paint.useDark = true;
-    light.configuration.paint.useDark = false;
   };
 }
