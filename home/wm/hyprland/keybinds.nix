@@ -7,10 +7,7 @@
   ...
 }: let
   notify-send = lib.getExe pkgs.libnotify; # todo: implement notifications, possibly with an abstraction
-  main_mod =
-    if isVm
-    then "ALT"
-    else "SUPER";
+  main_mod = "SUPER";
   bind = {
     mods ? "",
     key,

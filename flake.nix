@@ -10,22 +10,14 @@
   } @ inputs: let
     lib = nixpkgs.lib;
   in {
-    nixosConfigurations = let
-      system = {isVm ? false}: let
-        specialArgs = {inherit inputs isVm;};
-      in
-        lib.nixosSystem {
-          inherit specialArgs;
-          modules = [
-            ./host
-            ./home
-            home-manager.nixosModules.home-manager
-            {home-manager.extraSpecialArgs = specialArgs;}
-          ];
-        };
-    in {
-      nixos = system {};
-      vmnix = system {isVm = true;};
+    nixosConfigurations.nixos = lib.nixosSystem rec {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./host
+        ./home
+        home-manager.nixosModules.home-manager
+        {home-manager.extraSpecialArgs = specialArgs;}
+      ];
     };
   };
 
