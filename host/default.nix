@@ -8,7 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ../modules/paint/nixos
-    ./console.nix
+    ./tty.nix
     ./grub.nix
     ./regreet
     ./plymouth.nix
