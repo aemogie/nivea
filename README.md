@@ -1,5 +1,9 @@
 # oldfk (old flake, a story)
 
+update: no longer old, im gonna try refactoring this instead
+
+---
+
 my old flake.
 
 this is my old flake.
