@@ -38,6 +38,7 @@
       ../apps/spicetify
       ../apps/foot.nix
       ../apps/emacs.nix
+      ../apps/scrcpy.nix
       # ../apps/warp
       # ../apps/wezterm
       # ../apps/ue4.nix

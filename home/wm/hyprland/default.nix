@@ -13,19 +13,7 @@
   ];
   home = {
     shellAliases.r = "${pkgs.hyprland}/bin/hyprctl dispatch exec";
-    packages = [
-      pkgs.hyprpicker
-      (pkgs.writeShellScriptBin "scrcpy" ''
-        export SDL_VIDEODRIVER=wayland
-        args="\
-          --turn-screen-off --stay-awake \
-          --power-off-on-close \
-          --display-buffer=200 --audio-buffer=200 --audio-output-buffer=20 \
-        "
-        pkill scrpy
-        ${pkgs.hyprland}/bin/hyprctl dispatch exec "[workspace special;tile;no anim]" ${pkgs.scrcpy}/bin/scrcpy "$args"
-      '')
-    ];
+    packages = [pkgs.hyprpicker];
     sessionVariables.NIXOS_OZONE_WL = "1";
   };
   wayland.windowManager.hyprland = let
