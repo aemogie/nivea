@@ -3,6 +3,7 @@
   osConfig,
   ...
 }: {
+  wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(foot)$";
   programs.foot = {
     enable = true;
     # breaks with login script, idk why

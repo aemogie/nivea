@@ -47,9 +47,15 @@
       };
 
       misc = {
+        enable_swallow = true; # swallow_regex set in terminal module
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_autoreload = true;
+        new_window_takes_over_fullscreen = 2; # unfullscreen the current
+        initial_workspace_tracking = 2; # persistent
+        animate_mouse_windowdragging = true;
+        animate_manual_resizes = true;
+        focus_on_activate = true;
       };
 
       dwindle = {
