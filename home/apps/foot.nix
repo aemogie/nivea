@@ -21,7 +21,7 @@
       cursor.style = "beam";
 
       colors = let
-        # TODO: replace with new module
+        # TODO: replace with a new terminal colors module
         inherit (osConfig.paint.active.palette) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal;
         col = {
           alpha = "0.7";

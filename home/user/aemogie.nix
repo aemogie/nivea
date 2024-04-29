@@ -70,11 +70,6 @@
     qq = "exit";
   };
 
-  home.sessionVariables = {
-    # doesnt work on bash idk why. but nushell works, though.
-    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${osConfig.paint.active.ctpCompat.flavor})";
-  };
-
   programs = {
     tealdeer.enable = true;
     ripgrep.enable = true;

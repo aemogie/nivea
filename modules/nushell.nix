@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  inherit (builtins) toFile toJSON all baseNameOf;
-  inherit (lib) mkOption mkPackageOption mkIf mkDefault hm concatMapStrings optionalString hasPrefix;
-  inherit (lib.types) attrs nullOr bool listOf either package pathInStore addCheck;
+  inherit (builtins) baseNameOf;
+  inherit (lib) mkOption concatMapStrings optionalString hasPrefix;
+  inherit (lib.types) attrs bool listOf pathInStore addCheck;
   cfg = config.programs.nushell;
 in {
   options.programs.nushell = {

@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   pkgs,
   lib,
   ...
@@ -31,32 +30,6 @@
       shell_integration = false;
       use_kitty_protocol = false;
     };
-    extraConfig = let
-      inherit (osConfig.paint.active) isDark;
-      # TODO: migrate fully to paint
-      inherit (osConfig.paint.active.ctpCompat) flavor;
-      nu_scripts = pkgs.fetchFromGitHub {
-        owner = "nushell";
-        repo = "nu_scripts";
-        rev = "4fe113714aab5a2437cc2ab1d83588a2c5c458a7";
-        sha256 = "sha256-D9WSTLWKU7lBMjIgTFECb+WokBYxGlzJ7tdZN8+2bpc=";
-      };
-      theme_name =
-        if flavor == "mocha"
-        then "catppuccin-mocha"
-        else if isDark
-        then "nushelll-dark"
-        else "nushell-light";
-    in
-      #nu color scheme
-      ''
-        $env.config = ($env.config | merge {
-          color_config: (if true {
-            use ${nu_scripts}/themes/themes/${theme_name}.nu
-            ${theme_name}
-          })
-        })
-      '';
     shellAliases = builtins.removeAttrs config.home.shellAliases ["o" "q" "r" "e"]; # are nu functions instead
 
     # manage the file
