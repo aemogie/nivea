@@ -6,7 +6,8 @@
   programs.zathura = {
     enable = true;
     options.selection-notification = false;
-    extraConfig = "include catppuccin-${osConfig.paint.active.ctp.flavor}";
+    # TODO: use absolute path
+    extraConfig = "include catppuccin-${osConfig.paint.active.ctpCompat.flavor}";
   };
 
   xdg.configFile."zathura" = {

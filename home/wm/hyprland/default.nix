@@ -36,7 +36,7 @@
       gestures.workspace_swipe = true;
 
       general = let
-        inherit (osConfig.paint.active.pal) primary alternate crust;
+        inherit (osConfig.paint.active.palette) primary alternate crust;
       in {
         gaps_out = 20;
         border_size = 3;

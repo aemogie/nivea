@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (osConfig.paint.active.pal) base text primary alternate;
+  inherit (osConfig.paint.active.palette) base text primary alternate;
 in {
   services.mako = {
     enable = true;

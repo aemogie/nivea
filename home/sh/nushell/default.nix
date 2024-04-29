@@ -32,8 +32,9 @@
       use_kitty_protocol = false;
     };
     extraConfig = let
-      inherit (osConfig.paint) useDark;
-      inherit (osConfig.paint.active.ctp) flavor;
+      inherit (osConfig.paint.active) isDark;
+      # TODO: migrate fully to paint
+      inherit (osConfig.paint.active.ctpCompat) flavor;
       nu_scripts = pkgs.fetchFromGitHub {
         owner = "nushell";
         repo = "nu_scripts";
@@ -43,7 +44,7 @@
       theme_name =
         if flavor == "mocha"
         then "catppuccin-mocha"
-        else if useDark
+        else if isDark
         then "nushelll-dark"
         else "nushell-light";
     in

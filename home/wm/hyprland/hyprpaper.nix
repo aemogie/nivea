@@ -5,7 +5,7 @@
   ...
 }: let
   wallpaper =
-    if osConfig.paint.useDark
+    if osConfig.paint.active.isDark
     then ../../../assets/catppuccin-wip.png
     else ../../../assets/catppuccino-pink.png;
   command = lib.getExe pkgs.hyprpaper;
@@ -32,6 +32,7 @@ in {
         splash = false;
         ipc = false;
       };
+    # TODO: breaks too often. use something else (maybe dnkl/wbg?)
     onChange =
       #sh
       ''

@@ -98,7 +98,7 @@
       name = "dev-edition-default";
       id = 0;
       settings = let
-        inherit (osConfig.paint.active.pal) base text;
+        inherit (osConfig.paint.active.palette) base text;
       in
         {
           "browser.download.useDownloadDir" = true;
@@ -136,8 +136,8 @@
         (
           let
             manifest = import ./theme.nix {
-              light = osConfig.paint.light.pal;
-              dark = osConfig.paint.dark.pal;
+              light = osConfig.paint.light.palette;
+              dark = osConfig.paint.dark.palette;
             };
           in
             pkgs.stdenv.mkDerivation {

@@ -9,8 +9,8 @@
     enable = true;
     client = "webcord";
     style = let
-      inherit (osConfig.paint.active.ctp) flavor accent;
-      inherit (osConfig.paint.active.pal) base mantle crust;
+      inherit (osConfig.paint.active.ctpCompat) flavor accent;
+      inherit (osConfig.paint.active.palette) base mantle crust;
       ctp = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "discord";

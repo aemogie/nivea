@@ -4,6 +4,7 @@
   inputs,
   ...
 }: let
+  # TODO: drop spicetify-nix and migrate back to custom module
   _ = {
     imports = [../../../modules/spicetify];
     programs.spicetify = {
@@ -31,7 +32,7 @@
             sha256 = "sha256-BU/M1hRIyju2mQGZKCvpR4JpRBGjJzCcnnty4ypJjDs=";
           }
           + "/catppuccin";
-        colorScheme = osConfig.paint.active.flavor;
+        colorScheme = osConfig.paint.active.ctpCompat.flavor;
       };
       extensions = [
         (pkgs.fetchFromGitHub {
@@ -72,7 +73,7 @@ in {
           sha256 = "sha256-VxkgW9qF1pmKnP7Ei7gobF0jVB1+qncfFeykWoXMRCo=";
         };
       };
-    colorScheme = osConfig.paint.active.ctp.flavor;
+    colorScheme = osConfig.paint.active.ctpCompat.flavor;
     enabledExtensions = with spicePkgs.extensions; [
       {
         src = pkgs.fetchFromGitHub {

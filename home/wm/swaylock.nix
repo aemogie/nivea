@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: let
-  inherit (osConfig.paint.active.pal) base rosewater green text lavender peach blue maroon;
+  inherit (osConfig.paint.active.palette) base rosewater green text lavender peach blue maroon;
 in {
   programs.swaylock = {
     enable = true;

@@ -8,7 +8,6 @@
 }: {
   imports =
     [
-      inputs.ctp.homeManagerModules.catppuccin
       ../../modules/fonts.nix
       ../../modules/typst.nix
     ]
@@ -72,7 +71,7 @@
 
   home.sessionVariables = {
     # doesnt work on bash idk why. but nushell works, though.
-    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${osConfig.paint.active.ctp.flavor})";
+    LS_COLORS = "$(${pkgs.vivid}/bin/vivid generate catppuccin-${osConfig.paint.active.ctpCompat.flavor})";
   };
 
   programs = {

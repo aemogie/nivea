@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../modules/paint/nixos
+    ../modules/paint
     ./tty.nix
     ./grub.nix
     ./regreet
@@ -145,6 +145,8 @@
   hm.programs.tealdeer.enable = true;
 
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 1048576;
+
+  # documentation.nixos.includeAllModules = true;
 
   system.stateVersion = "23.05";
 }

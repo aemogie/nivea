@@ -6,7 +6,7 @@
   ...
 }: let
   autostart = false;
-  inherit (osConfig.paint.active.pal) surface2 text red green primary blue yellow peach sky mantle pink;
+  inherit (osConfig.paint.active.palette) surface2 text red green primary blue yellow peach sky mantle pink;
 in {
   imports = [../../modules/zellij.nix];
   home.shellAliases = {

@@ -5,12 +5,12 @@
   ...
 }: let
   inherit (builtins) readFile;
-  inherit (osConfig.lib.paint.misc) replaceVars;
+  replaceVars = vars: lib.replaceStrings (map (k: "@${k}@") (builtins.attrNames vars)) (map toString (builtins.attrValues vars));
 in {
   imports = [./config.nix];
   programs.waybar = {
     enable = true;
-    style = replaceVars osConfig.paint.active.pal (readFile ./style.css);
+    style = replaceVars osConfig.paint.active.palette (readFile ./style.css);
   };
 
   wayland.windowManager.hyprland.settings = {

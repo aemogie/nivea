@@ -4,8 +4,9 @@
   lib,
   ...
 }: let
-  inherit (config.paint.active.pal) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
-  inherit (config.paint) useDark;
+  inherit (config.paint.active.palette) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal overlay0;
+  inherit (config.paint.active) isDark;
+
   _ = [
     "1e1e2e" # base      # bg_default, black
     "585b70" # surface2  # red
@@ -68,7 +69,7 @@ in {
     extraConfig = let
       colors = builtins.mapAttrs (_: c: "${toString c.r},${toString c.g},${toString c.b}") {
         palette-black =
-          if useDark
+          if isDark
           then surface1
           else surface2;
         palette-red = red;
@@ -78,12 +79,12 @@ in {
         palette-magenta = pink;
         palette-cyan = teal;
         palette-light-grey =
-          if useDark
+          if isDark
           then subtext1
           else subtext0;
 
         palette-dark-grey =
-          if useDark
+          if isDark
           then surface2
           else surface1;
         palette-light-red = red;
@@ -93,7 +94,7 @@ in {
         palette-light-magenta = pink;
         palette-light-cyan = teal;
         palette-white =
-          if useDark
+          if isDark
           then subtext0
           else subtext1;
 

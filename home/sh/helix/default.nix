@@ -11,7 +11,7 @@
     # ./nushell.nix
   ];
   programs.helix = let
-    inherit (osConfig.paint.active.ctp) flavor;
+    inherit (osConfig.paint.active.ctpCompat) flavor;
   in {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.helix;
@@ -62,13 +62,11 @@
       theme = "catppuccin_${flavor}_transparent";
     };
 
-    themes."catppuccin_${flavor}_transparent" =
-      # import ./catppuccin_mocha.nix;
-      {
-        inherits = "catppuccin_${flavor}";
-        "ui.background" = {};
-        "ui.cursorline.primary" = {};
-      };
+    themes."catppuccin_${flavor}_transparent" = {
+      inherits = "catppuccin_${flavor}";
+      "ui.background" = {};
+      "ui.cursorline.primary" = {};
+    };
 
     languages = {
       language-server = {

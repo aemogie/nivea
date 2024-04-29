@@ -22,7 +22,7 @@
 
       colors = let
         # TODO: replace with new module
-        inherit (osConfig.paint.active.pal) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal;
+        inherit (osConfig.paint.active.palette) base text surface2 subtext0 surface1 subtext1 red green yellow blue pink teal;
         col = {
           alpha = "0.7";
           background = "${base}";
@@ -45,7 +45,7 @@
           regular7 = "${subtext1}";
         };
       in
-        if (!osConfig.paint.useDark)
+        if (!osConfig.paint.active.isDark)
         then
           col
           // {

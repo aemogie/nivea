@@ -6,7 +6,7 @@
   ...
 }: let
   bgalpha = 0.6; # make into module option
-  inherit (osConfig.paint.active.pal) base crust text primary;
+  inherit (osConfig.paint.active.palette) base crust text primary;
   cssRgba = {
     r,
     g,

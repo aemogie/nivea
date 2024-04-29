@@ -3,7 +3,7 @@
   osConfig,
   ...
 }: let
-  inherit (osConfig.paint.active.ctp) flavor;
+  inherit (osConfig.paint.active.ctpCompat) flavor;
 in {
   programs.starship = {
     enable = true;

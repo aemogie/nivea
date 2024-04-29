@@ -7,10 +7,10 @@
 }: let
   inherit (lib) toUpper substring stringLength;
   caps = s: "${toUpper (substring 0 1 s)}${substring 1 (stringLength s) s}";
-  inherit (osConfig.paint) useDark;
-  inherit (osConfig.paint.active.ctp) flavor accent;
+  inherit (osConfig.paint.active) isDark;
+  inherit (osConfig.paint.active.ctpCompat) flavor accent;
   dark_str =
-    if useDark
+    if isDark
     then "dark"
     else "light";
 in {
@@ -47,7 +47,7 @@ in {
       name =
         "Papirus"
         + (
-          if useDark
+          if isDark
           then ""
           else "-Dark"
         );
@@ -77,11 +77,11 @@ in {
       gtk-xft-hinting = 1;
       gtk-xft-hintstyle = "hintslight";
       gtk-xft-rgba = "rgb";
-      gtk-application-prefer-dark-theme = useDark;
+      gtk-application-prefer-dark-theme = isDark;
     };
 
     gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = useDark;
+      gtk-application-prefer-dark-theme = isDark;
     };
   };
 }

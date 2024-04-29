@@ -2,10 +2,11 @@
   pkgs,
   lib,
   config,
-  osConfig,
   ...
-}: {
-  programs.nushell.extraConfig = osConfig.lib.paint.misc.replaceVars {
+}: let
+  replaceVars = vars: lib.replaceStrings (map (k: "@${k}@") (builtins.attrNames vars)) (map toString (builtins.attrValues vars));
+in {
+  programs.nushell.extraConfig = replaceVars {
     nixfmt = "${lib.getExe pkgs.alejandra} -q";
     pager = lib.getExe pkgs.less;
     z_editor_tab = config.programs.zellij.layouts.editor.command.new-tab;
