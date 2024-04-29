@@ -9,7 +9,6 @@
     # inferior to upstream hm's nix native config `settings`
     # inputs.hyprland.homeManagerModules.default
     ./keybinds.nix
-    ./hyprpaper.nix
   ];
   home = {
     shellAliases.r = "${pkgs.hyprland}/bin/hyprctl dispatch exec";
