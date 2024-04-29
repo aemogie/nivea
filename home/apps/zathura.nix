@@ -1,8 +1,4 @@
-{
-  pkgs,
-  osConfig,
-  ...
-}: let
+{osConfig, ...}: let
   inherit (osConfig.paint.active.palette) text base surface0 surface2 error warning primary alternate;
   theme = {
     default-fg = "#${text}";
@@ -52,7 +48,7 @@ in {
         guioptions = "none";
         recolor = true;
         adjust-open = "width";
-        selection-clipboard = "cliboard";
+        selection-clipboard = "clipboard";
         selection-notification = false;
       };
   };
