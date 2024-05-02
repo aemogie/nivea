@@ -50,11 +50,7 @@
   # refactor
   home.packages = [
     pkgs.jetbrains.idea-community
-    pkgs.fractal
-    pkgs.gnome.nautilus
-    pkgs.spotube
     pkgs.fd
-    pkgs.vscode-fhs
   ];
 
   # this as well. maybe to ../tui?
