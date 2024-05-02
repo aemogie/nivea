@@ -1,8 +1,10 @@
 {
   pkgs,
+  config,
   osConfig,
   ...
-}: {
+}:
+{
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-devedition;
@@ -10,9 +12,10 @@
     profiles.default = {
       name = "dev-edition-default";
       id = 0;
-      settings = let
-        inherit (osConfig.paint.active.palette) base text;
-      in
+      settings =
+        let
+          inherit (osConfig.paint.active.palette) base text;
+        in
         (import ./privacy.nix)
         // {
           "devtools.chrome.enabled" = false; # the userChrome debugger (dont  need it rn)
@@ -43,10 +46,17 @@
           "browser.display.background_color.dark" = "#${base}";
         }
         // {
+          # default fonts
+          "font.name.monospace.x-western" = config.fonts.monospace;
+          "font.name.sans-serif.x-western" = config.fonts.sans;
+          "font.name.serif.x-western" = config.fonts.serif;
+          "font.default.x-western" = "sans-serif";
+        }
+        // {
           # overscroll. thanks, https://github.com/AbrarSL
           "apz.gtk.pangesture.delta_mode" = 2;
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
-          "apz.fling_friction" = 0.004;
+          "apz.fling_friction" = 4.0e-3;
           "apz.overscroll.enabled" = true;
         }
         // {
@@ -79,6 +89,7 @@
           "Bing".metaData.hidden = true;
           "DuckDuckGo".metaData.hidden = true;
           "Wikipedia (en)".metaData.hidden = true;
+          "eBay".metaData.hidden = true;
         };
       };
       extensions = [
@@ -89,17 +100,17 @@
               dark = osConfig.paint.dark.palette;
             };
           in
-            pkgs.stdenv.mkDerivation {
-              pname = "paintnix-theme";
-              version = manifest.version;
-              nativeBuildInputs = [pkgs.zip];
-              src = pkgs.writeTextDir "manifest.json" (builtins.toJSON manifest);
-              buildCommand = ''
-                dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                mkdir -p $dst
-                zip -jr "$dst/${manifest.browser_specific_settings.gecko.id}.xpi" $src/*
-              '';
-            }
+          pkgs.stdenv.mkDerivation {
+            pname = "paintnix-theme";
+            version = manifest.version;
+            nativeBuildInputs = [ pkgs.zip ];
+            src = pkgs.writeTextDir "manifest.json" (builtins.toJSON manifest);
+            buildCommand = ''
+              dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+              mkdir -p $dst
+              zip -jr "$dst/${manifest.browser_specific_settings.gecko.id}.xpi" $src/*
+            '';
+          }
         )
       ];
     };

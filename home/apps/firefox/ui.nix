@@ -28,12 +28,12 @@
       "urlbar-container"
       # "customizableui-special-spring2"
       # "save-to-pocket-button"
-      # "downloads-button"
+      "downloads-button"
       # "developer-button"
       # "fxa-toolbar-menu-button"
       "unified-extensions-button"
     ];
-    toolbar-menubar = ["menubar-items"];
+    toolbar-menubar = [ "menubar-items" ];
     unified-extensions-area = [
       "enhancerforyoutube_maximerf_addons_mozilla_org-browser-action"
       "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action" # Bitwarden
@@ -43,7 +43,7 @@
       "ublock0_raymondhill_net-browser-action"
       "dearrow_ajay_app-browser-action"
     ];
-    widget-overflow-fixed-list = [];
+    widget-overflow-fixed-list = [ ];
   };
   # seen = [
   #   "save-to-pocket-button"
