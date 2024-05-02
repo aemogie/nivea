@@ -81,7 +81,7 @@
       helvetica-neue-lt-std
       carlito
     ];
-    monospace = "Iosevka";
+    monospace = "Iosevka Term";
     serif = "Iosevka Etoile";
     sans = "Iosevka Aile";
     fontconfig.enable = true;
