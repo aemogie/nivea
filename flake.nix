@@ -12,17 +12,21 @@
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
+      hostName = "seren";
     in
     {
-      nixosConfigurations.nixos = lib.nixosSystem rec {
+      nixosConfigurations.${hostName} = lib.nixosSystem rec {
         specialArgs = {
           inherit inputs;
         };
         modules = [
+          home-manager.nixosModules.home-manager
+          {
+            networking.hostName = hostName;
+            home-manager.extraSpecialArgs = specialArgs;
+          }
           ./host
           ./home
-          home-manager.nixosModules.home-manager
-          { home-manager.extraSpecialArgs = specialArgs; }
         ];
       };
       formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;

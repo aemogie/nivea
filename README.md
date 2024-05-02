@@ -1,38 +1,19 @@
-# oldfk (old flake, a story)
+# nivea
 
-update: no longer old, im gonna try refactoring this instead
+means snowy in latin
 
----
+## machines
+- `seren` is an HP laptop. idk any other specs, but ive definitely seen an HP logo on it.
 
-my old flake.
-
-this is my old flake.
-
-this is the old flake because i have a new flake.
-
-my new flake has a name.
-
-it's called nivea.
-
-its latin for snowy.
-
-also its new and niv sounds like new.
-
-you can find it [here](https://github.com/aemogie/nivea)
-
-but this is the old flake.
-
-eventhough i still use it.
-
-that's because the new flake is empty.
-
-im rewriting everything from scratch for the new flake.
-
-but while i do
-
-i use this one
-
-dont expect good code here.
-
-i always write good code, except when i dont.
-
+## thanks to
+- [nekowinston](https://github.com/nekowinston)
+- [isabelroses](https://github.com/isabelroses)
+- [fufexan](https://github.com/fufexan)
+- [IogaMaster](https://github.com/IogaMaster)
+- [vimjoyer](https://github.com/vimjoyer)
+- [ircurry](https://github.com/ircurry)
+- [jakehamilton](https://github.com/jakehamilton)
+- [nullishamy](https://github.com/nullishamy)
+- [tejing1](https://github.com/tejing1)
+- [BananaD3V](https://github.com/BananaD3V)
+- and everyone else i forgot to mention
