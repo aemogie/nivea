@@ -7,7 +7,7 @@
   wallpaper =
     if osConfig.paint.active.isDark
     then ../../assets/catppuccin-wip.png
-    else ../../assets/catppuccino-pink.png;
+    else ../../assets/catppuccin-wip-pink.png; # TODO: use latte colors instead of mocha
   command = let
     name = "swww-init-or-update";
     run = pkgs.writeShellApplication {
