@@ -72,7 +72,9 @@
 
   fonts = {
     packages = with pkgs; [
-      iosevka
+      iosevka-bin
+      (iosevka-bin.override { variant = "Aile"; })
+      (iosevka-bin.override { variant = "Etoile"; })
       twitter-color-emoji
       (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       corefonts

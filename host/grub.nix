@@ -23,7 +23,6 @@
         {
           enable = true;
           inherit theme;
-          font = "${pkgs.iosevka-bin}/share/fonts/truetype/iosevka-regular.ttc";
           splashImage = "${theme}/background.png";
           device = "nodev";
           efiSupport = true;

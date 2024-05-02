@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Iosevka Aile", "Symbols Nerd Font", "IosevkaTerm NF", FontAwesome, sans-serif;
+    font-family: "Iosevka Aile", "Symbols Nerd Font", sans-serif;
     font-size: 15px;
 }
 

@@ -176,10 +176,10 @@ let
     };
     network = {
       # interface= "wlp2*"; # (Optional) To force the use of this interface
-      format-wifi = "";
+      format-wifi = "󰖩";
       format-ethernet = "󰈀";
       tooltip-format = "󰈀 {bandwidthTotalBytes}";
-      tooltip-format-wifi = " {essid} ({bandwidthTotalBytes})";
+      tooltip-format-wifi = "󰖩 {essid} ({bandwidthTotalBytes})";
       format-linked = "(No IP) 󰈀";
       format-disconnected = "⚠";
       format-alt = "{ifname}: {ipaddr}/{cidr}";
