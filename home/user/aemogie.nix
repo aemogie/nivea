@@ -50,7 +50,6 @@
   # refactor
   home.packages = [
     pkgs.jetbrains.idea-community
-    (import inputs.netbeans-nixpkgs {inherit (pkgs) system;}).netbeans
     pkgs.fractal
     pkgs.gnome.nautilus
     pkgs.spotube
