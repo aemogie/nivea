@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   services.logind = {
     lidSwitch = "lock";
     powerKey = "lock";

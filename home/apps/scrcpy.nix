@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = [
     (pkgs.symlinkJoin {
       name = "scrcpy-wrapped";
-      paths = [pkgs.scrcpy];
-      buildInputs = [pkgs.makeWrapper];
+      paths = [ pkgs.scrcpy ];
+      buildInputs = [ pkgs.makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/scrcpy \
           --set SDL_VIDEODRIVER wayland \

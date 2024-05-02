@@ -3,22 +3,24 @@
   config,
   osConfig,
   ...
-}: {
-  imports = [../../../modules/discord];
+}:
+{
+  imports = [ ../../../modules/discord ];
   programs.discord = {
     enable = true;
     client = "webcord";
-    style = let
-      inherit (osConfig.paint.active.ctpCompat) flavor accent;
-      inherit (osConfig.paint.active.palette) base mantle crust;
-      ctp = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "discord";
-        # NOTE: on the gh-pages branch
-        rev = "9b7e9008c727cd056c20c82eae11471d22efe1e3";
-        sha256 = "sha256-nZyNY4wOpMs2hPfn6ieUSfOqdPUf45VQm8+9mdUIGRg=";
-      };
-    in
+    style =
+      let
+        inherit (osConfig.paint.active.ctpCompat) flavor accent;
+        inherit (osConfig.paint.active.palette) base mantle crust;
+        ctp = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "discord";
+          # NOTE: on the gh-pages branch
+          rev = "9b7e9008c727cd056c20c82eae11471d22efe1e3";
+          sha256 = "sha256-nZyNY4wOpMs2hPfn6ieUSfOqdPUf45VQm8+9mdUIGRg=";
+        };
+      in
       #css
       ''
         ${builtins.readFile "${ctp}/dist/catppuccin-${flavor}-${accent}.theme.css"}
@@ -94,32 +96,30 @@
         };
       };
       extensions = [
-        (
-          pkgs.runCommand "webcord_disable_menu_bar" {} ''
-            mkdir $out
-            cat <<EOF > $out/manifest.json
-            ${builtins.toJSON {
-              content_scripts = [
-                {
-                  js = ["disable_menu_bar.js"];
-                  matches = ["<all_urls>"];
-                }
-              ];
-              manifest_version = 3;
-              name = "Disable Menu Bar";
-              version = "0.1.0";
-            }}
-            EOF
+        (pkgs.runCommand "webcord_disable_menu_bar" { } ''
+          mkdir $out
+          cat <<EOF > $out/manifest.json
+          ${builtins.toJSON {
+            content_scripts = [
+              {
+                js = [ "disable_menu_bar.js" ];
+                matches = [ "<all_urls>" ];
+              }
+            ];
+            manifest_version = 3;
+            name = "Disable Menu Bar";
+            version = "0.1.0";
+          }}
+          EOF
 
-            cat <<EOF > $out/disable_menu_bar.js
-            ${ #js
-              ''
-                document.addEventListener('keyup', e => { if (e.key == "Alt" || e.key == "Meta") e.preventDefault(); });
-              ''
-            }
-            EOF
-          ''
-        )
+          cat <<EOF > $out/disable_menu_bar.js
+          ${
+            #js
+            ''
+              document.addEventListener('keyup', e => { if (e.key == "Alt" || e.key == "Meta") e.preventDefault(); });
+            ''}
+          EOF
+        '')
       ];
     };
   };

@@ -1,10 +1,8 @@
-{
-  pkgs,
-  osConfig,
-  ...
-}: let
+{ pkgs, osConfig, ... }:
+let
   inherit (osConfig.paint.active.ctpCompat) flavor;
-in {
+in
+{
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
@@ -18,11 +16,15 @@ in {
         #   symbol = "─";
         # };
       }
-      // fromTOML (builtins.readFile "${pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "starship";
-        rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
-        sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
-      }}/palettes/${flavor}.toml");
+      // fromTOML (
+        builtins.readFile "${
+          pkgs.fetchFromGitHub {
+            owner = "catppuccin";
+            repo = "starship";
+            rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
+            sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
+          }
+        }/palettes/${flavor}.toml"
+      );
   };
 }

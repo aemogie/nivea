@@ -1,9 +1,14 @@
-{...}: {
+{ ... }:
+{
   manager = {
     # syntect_theme = bat;
-    border_style = {fg = "#7f849c";};
+    border_style = {
+      fg = "#7f849c";
+    };
     border_symbol = "│";
-    cwd = {fg = "#94e2d5";};
+    cwd = {
+      fg = "#94e2d5";
+    };
     find_keyword = {
       fg = "#f9e2af";
       italic = true;
@@ -29,7 +34,9 @@
       bg = "#a6e3a1";
       fg = "#a6e3a1";
     };
-    preview_hovered = {underline = true;};
+    preview_hovered = {
+      underline = true;
+    };
     tab_active = {
       bg = "#89b4fa";
       fg = "#1e1e2e";
@@ -93,8 +100,12 @@
     ];
   };
   help = {
-    desc = {fg = "#9399b2";};
-    exec = {fg = "#94e2d5";};
+    desc = {
+      fg = "#9399b2";
+    };
+    exec = {
+      fg = "#94e2d5";
+    };
     footer = {
       bg = "#cdd6f4";
       fg = "#45475a";
@@ -103,18 +114,28 @@
       bg = "#585b70";
       bold = true;
     };
-    on = {fg = "#f5c2e7";};
+    on = {
+      fg = "#f5c2e7";
+    };
   };
   input = {
-    border = {fg = "#89b4fa";};
-    selected = {reversed = true;};
-    title = {};
-    value = {};
+    border = {
+      fg = "#89b4fa";
+    };
+    selected = {
+      reversed = true;
+    };
+    title = { };
+    value = { };
   };
   select = {
-    active = {fg = "#f5c2e7";};
-    border = {fg = "#89b4fa";};
-    inactive = {};
+    active = {
+      fg = "#f5c2e7";
+    };
+    border = {
+      fg = "#89b4fa";
+    };
+    inactive = { };
   };
   status = {
     mode_normal = {
@@ -132,11 +153,21 @@
       bold = true;
       fg = "#1e1e2e";
     };
-    permissions_r = {fg = "#f9e2af";};
-    permissions_s = {fg = "#7f849c";};
-    permissions_t = {fg = "#89b4fa";};
-    permissions_w = {fg = "#f38ba8";};
-    permissions_x = {fg = "#a6e3a1";};
+    permissions_r = {
+      fg = "#f9e2af";
+    };
+    permissions_s = {
+      fg = "#7f849c";
+    };
+    permissions_t = {
+      fg = "#89b4fa";
+    };
+    permissions_w = {
+      fg = "#f38ba8";
+    };
+    permissions_x = {
+      fg = "#a6e3a1";
+    };
     progress_error = {
       bg = "#45475a";
       fg = "#f38ba8";
@@ -157,16 +188,30 @@
     };
   };
   tasks = {
-    border = {fg = "#89b4fa";};
-    hovered = {underline = true;};
-    title = {};
+    border = {
+      fg = "#89b4fa";
+    };
+    hovered = {
+      underline = true;
+    };
+    title = { };
   };
   which = {
-    cand = {fg = "#94e2d5";};
-    desc = {fg = "#f5c2e7";};
-    mask = {bg = "#313244";};
-    rest = {fg = "#9399b2";};
+    cand = {
+      fg = "#94e2d5";
+    };
+    desc = {
+      fg = "#f5c2e7";
+    };
+    mask = {
+      bg = "#313244";
+    };
+    rest = {
+      fg = "#9399b2";
+    };
     separator = "  ";
-    separator_style = {fg = "#585b70";};
+    separator_style = {
+      fg = "#585b70";
+    };
   };
 }

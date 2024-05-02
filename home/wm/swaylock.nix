@@ -3,9 +3,20 @@
   config,
   osConfig,
   ...
-}: let
-  inherit (osConfig.paint.active.palette) base rosewater green text lavender peach blue maroon;
-in {
+}:
+let
+  inherit (osConfig.paint.active.palette)
+    base
+    rosewater
+    green
+    text
+    lavender
+    peach
+    blue
+    maroon
+    ;
+in
+{
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;

@@ -7,7 +7,8 @@
   pkgs,
   modulesPath,
   ...
-}: let
+}:
+let
   fileSystems = {
     "/" = lib.mkForce {
       device = "/dev/disk/by-label/NIXOS";
@@ -27,27 +28,33 @@
     "/mnt/windows" = {
       device = "/dev/disk/by-label/WINDOWS";
       fsType = "ntfs-3g";
-      options = ["rw"];
+      options = [ "rw" ];
     };
 
     "/mnt/data" = {
       device = "/dev/disk/by-label/WINDATA";
       fsType = "ntfs-3g";
-      options = ["rw"];
+      options = [ "rw" ];
     };
   };
-in {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+in
+{
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
     initrd = {
-      availableKernelModules = ["vmd" "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod"];
-      kernelModules = [];
+      availableKernelModules = [
+        "vmd"
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [ ];
       verbose = false;
     };
-    kernelModules = ["kvm-intel"];
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 
     extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
@@ -62,9 +69,7 @@ in {
     };
   };
 
-  swapDevices = [
-    {device = "/dev/disk/by-label/SWAP";}
-  ];
+  swapDevices = [ { device = "/dev/disk/by-label/SWAP"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

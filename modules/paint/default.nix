@@ -1,27 +1,29 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (import ./types.nix lib) colorScheme;
   inherit (lib) mkOption types;
   inherit (builtins) attrNames;
 
   cfg = config.paint;
-  mkSchemeOption = {...} @ attrs: let
-    byName = types.enum (attrNames cfg.schemes);
-  in
+  mkSchemeOption =
+    { ... }@attrs:
+    let
+      byName = types.enum (attrNames cfg.schemes);
+    in
     mkOption {
       type = types.either byName colorScheme;
-      apply = v:
-        if byName.check v
-        then cfg.schemes.${v}
-        else if colorScheme.check v
-        then v
-        else throw "Unreachable";
+      apply =
+        v:
+        if byName.check v then
+          cfg.schemes.${v}
+        else if colorScheme.check v then
+          v
+        else
+          throw "Unreachable";
     }
     // attrs;
-in {
+in
+{
   options.paint = {
     active = mkSchemeOption {
       description = "Color scheme to be used by default";
@@ -45,7 +47,9 @@ in {
     };
   };
 
-  config.specialisation.dark.configuration = {config, ...}: {
-    paint.active = config.paint.dark;
-  };
+  config.specialisation.dark.configuration =
+    { config, ... }:
+    {
+      paint.active = config.paint.dark;
+    };
 }

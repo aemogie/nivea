@@ -1,10 +1,13 @@
+{ osConfig, config, ... }:
+let
+  inherit (osConfig.paint.active.palette)
+    base
+    text
+    primary
+    alternate
+    ;
+in
 {
-  osConfig,
-  config,
-  ...
-}: let
-  inherit (osConfig.paint.active.palette) base text primary alternate;
-in {
   services.mako = {
     enable = true;
     backgroundColor = "#${base}80";

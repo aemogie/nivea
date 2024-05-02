@@ -3,7 +3,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   programs.helix.languages = {
     language-server = {
       nil = {
@@ -20,7 +21,14 @@
     language = [
       {
         name = "nix";
-        formatter = {command = lib.getExe pkgs.alejandra;};
+        formatter = {
+          command = "nix";
+          args = [
+            "fmt"
+            "--"
+            "-"
+          ];
+        };
         auto-format = true;
       }
     ];

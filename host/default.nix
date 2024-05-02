@@ -1,10 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
+{ inputs, pkgs, ... }:
 {
-  inputs,
-  pkgs,
-  ...
-}: {
   imports = [
     ./hardware-configuration.nix
     ../modules/paint
@@ -23,7 +20,10 @@
   nix = {
     settings = {
       experimental-features = "nix-command flakes repl-flake";
-      trusted-users = ["root" "@wheel"];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       # hard link duplicates automatically
       auto-optimise-store = true;
       keep-going = true;
@@ -105,13 +105,11 @@
   # Allow unfree packages
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    (_: _: {inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;})
-  ];
+  nixpkgs.overlays = [ (_: _: { inherit (inputs.hyprland.packages.${pkgs.system}) hyprland; }) ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = [pkgs.cage];
+  environment.systemPackages = [ pkgs.cage ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -122,7 +120,7 @@
   # };
 
   programs.hyprland.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   programs.adb.enable = true;
   virtualisation.waydroid.enable = true;
@@ -141,8 +139,6 @@
   programs.seahorse.enable = true;
 
   services.gvfs.enable = true;
-
-  hm.programs.tealdeer.enable = true;
 
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 1048576;
 

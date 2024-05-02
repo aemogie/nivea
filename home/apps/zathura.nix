@@ -1,5 +1,15 @@
-{osConfig, ...}: let
-  inherit (osConfig.paint.active.palette) text base surface0 surface2 error warning primary alternate;
+{ osConfig, ... }:
+let
+  inherit (osConfig.paint.active.palette)
+    text
+    base
+    surface0
+    surface2
+    error
+    warning
+    primary
+    alternate
+    ;
   theme = {
     default-fg = "#${text}";
     default-bg = "#${base}";
@@ -39,17 +49,16 @@
     highlight-fg = "#${text}";
     highlight-active-color = "#${text}";
   };
-in {
+in
+{
   programs.zathura = {
     enable = true;
-    options =
-      theme
-      // {
-        guioptions = "none";
-        recolor = true;
-        adjust-open = "width";
-        selection-clipboard = "clipboard";
-        selection-notification = false;
-      };
+    options = theme // {
+      guioptions = "none";
+      recolor = true;
+      adjust-open = "width";
+      selection-clipboard = "clipboard";
+      selection-notification = false;
+    };
   };
 }

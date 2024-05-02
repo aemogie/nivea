@@ -1,26 +1,3 @@
-# Convert structured data to a Nix expression.
-def "to nix" []: any -> string {
-  to json
-  | nix eval --expr $"builtins.fromJSON \'\'($in)\'\'"
-  | @nixfmt@
-};
-# Open a file. Show structured data, if possible. Else fallback to `bat`
-def o [filename: path] {
-  try { open $filename } catch { open --raw $filename }
-  | if ($in | describe) == "string" {
-    highlight ($filename | path parse).extension -t ansi | @pager@ -F
-  } else { $in }
-}
-# If multiple shells are open, exit current one. If this is the last one, exit completely.
-def --env q [] {
-  if (shells | length) == 1 { exit } else { dexit }
-}
-
-def --env md [name: directory] {
-  mkdir $name
-  cd $name
-}
-
 def --wrapped r [
   program: string,
   ...args: string,

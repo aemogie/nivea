@@ -3,13 +3,15 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (builtins) toJSON;
   inherit (lib) mkDefault mkOption mkIf;
   inherit (lib.types) attrs;
   cfg = config.programs.discord;
-  pkg = pkgs.discord.override {withOpenASAR = true;};
-in {
+  pkg = pkgs.discord.override { withOpenASAR = true; };
+in
+{
   options.programs.discord.openasar.config = mkOption {
     type = attrs;
     description = "Configuration for OpenASAR (if it is selected).";
@@ -27,6 +29,6 @@ in {
   config = mkIf (cfg.enable && cfg.client == "openasar") {
     xdg.configFile."discord/settings.json".text = toJSON cfg.openasar.config;
     programs.discord.launch_command = mkDefault "${pkg}/bin/Discord";
-    home.packages = [pkg];
+    home.packages = [ pkg ];
   };
 }

@@ -1,34 +1,74 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
-with lib; let
-  title-rewrites = let
-    site_list = [
-      ["github.com" "󰊤" ""]
-      ["stackoverflow.com" "" " - Stack Overflow"]
-      ["youtube.com" "󰗃 " ""]
-      ["youtube.com" "󰗃 " " - YouTube"]
-      ["google.com" "󰊭" " - Google Search"]
-      ["mail.google.com" "󰊫" " - .*"]
-      ["whatsapp.com" "󰖣" ""]
-      ["nixos.org" "" ""]
-      ["discourse.nixos.org" "" " - NixOS Discourse"]
-      ["monkeytype.com" "󰌌" ""]
-    ];
-    site_list_converted =
-      map (
-        parts: let
+{ pkgs, lib, ... }:
+with lib;
+let
+  title-rewrites =
+    let
+      site_list = [
+        [
+          "github.com"
+          "󰊤"
+          ""
+        ]
+        [
+          "stackoverflow.com"
+          ""
+          " - Stack Overflow"
+        ]
+        [
+          "youtube.com"
+          "󰗃 "
+          ""
+        ]
+        [
+          "youtube.com"
+          "󰗃 "
+          " - YouTube"
+        ]
+        [
+          "google.com"
+          "󰊭"
+          " - Google Search"
+        ]
+        [
+          "mail.google.com"
+          "󰊫"
+          " - .*"
+        ]
+        [
+          "whatsapp.com"
+          "󰖣"
+          ""
+        ]
+        [
+          "nixos.org"
+          ""
+          ""
+        ]
+        [
+          "discourse.nixos.org"
+          ""
+          " - NixOS Discourse"
+        ]
+        [
+          "monkeytype.com"
+          "󰌌"
+          ""
+        ]
+      ];
+      site_list_converted = map (
+        parts:
+        let
           domain = elemAt parts 0;
           icon = elemAt parts 1;
           extra = elemAt parts 2;
-        in ''
-          "^(.*)${extra} \\[(?:.*)\\b${replaceStrings ["."] ["\\\\."] domain}\\] — Mozilla Firefox$" : "${icon} $1"
+        in
         ''
-      )
-      site_list;
-  in
+          "^(.*)${extra} \\[(?:.*)\\b${
+            replaceStrings [ "." ] [ "\\\\." ] domain
+          }\\] — Mozilla Firefox$" : "${icon} $1"
+        ''
+      ) site_list;
+    in
     #json
     ''
       {
@@ -56,8 +96,18 @@ with lib; let
     # spacing = 4; # Gaps between modules (4px)
     # Choose the order of the modules
     margin = "20 20 0 20";
-    modules-left = ["hyprland/workspaces" "hyprland/window"];
-    modules-right = ["custom/media" "pulseaudio" "network" "battery" "clock" "tray"];
+    modules-left = [
+      "hyprland/workspaces"
+      "hyprland/window"
+    ];
+    modules-right = [
+      "custom/media"
+      "pulseaudio"
+      "network"
+      "battery"
+      "clock"
+      "tray"
+    ];
     # Modules configuration
     "hyprland/workspaces" = {
       # persistent_workspaces."*" = 4;
@@ -110,7 +160,19 @@ with lib; let
       tooltip-format = "{time} {capacity}%";
       # format-good= ""; # An empty format will hide the module
       # format-full= "";
-      format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+      format-icons = [
+        "󰂎"
+        "󰁺"
+        "󰁻"
+        "󰁼"
+        "󰁽"
+        "󰁾"
+        "󰁿"
+        "󰂀"
+        "󰂁"
+        "󰂂"
+        "󰁹"
+      ];
     };
     network = {
       # interface= "wlp2*"; # (Optional) To force the use of this interface
@@ -129,13 +191,21 @@ with lib; let
       tooltip-format = "{volume}% {format_source}";
       # format-source= "{volume}% ";
       # format-source-muted = "";
-      format-icons = ["󰕿" "󰖀" "󰕾"];
+      format-icons = [
+        "󰕿"
+        "󰖀"
+        "󰕾"
+      ];
     };
     wireplumber = {
       format = "{icon}";
       format-muted = "󰝟";
       tooltip-format = "{volume}% {node_name}";
-      format-icons = ["󰕿" "󰖀" "󰕾"];
+      format-icons = [
+        "󰕿"
+        "󰖀"
+        "󰕾"
+      ];
     };
     "custom/media" = {
       format = "{icon} {}";
@@ -145,10 +215,13 @@ with lib; let
         spotify = "";
       };
       escape = true;
-      exec = "${pkgs.waybar.override {withMediaPlayer = true;}}/bin/waybar-mediaplayer.py 2> /dev/null";
+      exec = "${pkgs.waybar.override { withMediaPlayer = true; }}/bin/waybar-mediaplayer.py 2> /dev/null";
       on-click = "${pkgs.hyprland}/bin/hyprctl dispatch focuswindow title:Spotify";
     };
   };
-in {
-  xdg.configFile."waybar/config".text = replaceStrings ["\"@title-rewrites@\""] [title-rewrites] (builtins.toJSON config);
+in
+{
+  xdg.configFile."waybar/config".text = replaceStrings [ ''"@title-rewrites@"'' ] [ title-rewrites ] (
+    builtins.toJSON config
+  );
 }

@@ -1,4 +1,3 @@
-$env.LS_COLORS = (@vivid@ generate catppuccin-@ctpFlavor@)
 $env.config = ($env.config | merge {color_config: {
     separator: "#@overlay0@"
     leading_trailing_space_bg: { attr: "n" }

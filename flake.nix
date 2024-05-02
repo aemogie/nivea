@@ -1,25 +1,32 @@
 {
   description = "aemogie's config: i like pretty things";
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    hyprland,
-    self,
-    ...
-  } @ inputs: let
-    lib = nixpkgs.lib;
-  in {
-    nixosConfigurations.nixos = lib.nixosSystem rec {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./host
-        ./home
-        home-manager.nixosModules.home-manager
-        {home-manager.extraSpecialArgs = specialArgs;}
-      ];
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      hyprland,
+      self,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      lib = nixpkgs.lib;
+    in
+    {
+      nixosConfigurations.nixos = lib.nixosSystem rec {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./host
+          ./home
+          home-manager.nixosModules.home-manager
+          { home-manager.extraSpecialArgs = specialArgs; }
+        ];
+      };
+      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
     };
-  };
 
   nixConfig = {
     # sandbox = false;
@@ -40,8 +47,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    ue4-nixpkgs.url = "github:yvt/nixpkgs/update-ue4";
+    nixpkgs.url = "github:auxolotl/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

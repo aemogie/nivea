@@ -4,16 +4,15 @@
   osConfig,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) toUpper substring stringLength;
   caps = s: "${toUpper (substring 0 1 s)}${substring 1 (stringLength s) s}";
   inherit (osConfig.paint.active) isDark;
   inherit (osConfig.paint.active.ctpCompat) flavor accent;
-  dark_str =
-    if isDark
-    then "dark"
-    else "light";
-in {
+  dark_str = if isDark then "dark" else "light";
+in
+{
   home = {
     sessionVariables = {
       GTK_THEME = config.gtk.theme.name;
@@ -38,19 +37,13 @@ in {
     theme = {
       name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${caps dark_str}";
       package = pkgs.catppuccin-gtk.override {
-        accents = [accent];
+        accents = [ accent ];
         variant = flavor;
       };
     };
 
     iconTheme = {
-      name =
-        "Papirus"
-        + (
-          if isDark
-          then ""
-          else "-Dark"
-        );
+      name = "Papirus" + (if isDark then "" else "-Dark");
       package = pkgs.catppuccin-papirus-folders.override {
         accent = accent;
         flavor = flavor;

@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
   hardware.opengl = {
     enable = true;
@@ -11,5 +12,5 @@
       libvdpau-va-gl
     ];
   };
-  boot.kernelParams = ["i915.enable_guc=2"];
+  boot.kernelParams = [ "i915.enable_guc=2" ];
 }

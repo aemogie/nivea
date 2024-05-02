@@ -1,20 +1,30 @@
+# TODO: replace. anyrun is SLOW
 {
   pkgs,
   inputs,
   osConfig,
   config,
   ...
-}: let
+}:
+let
   bgalpha = 0.6; # make into module option
-  inherit (osConfig.paint.active.palette) base crust text primary;
-  cssRgba = {
-    r,
-    g,
-    b,
-    ...
-  }: alpha: "rgba(${toString r},${toString g},${toString b},${toString alpha})";
-in {
-  imports = [inputs.anyrun.homeManagerModules.default];
+  inherit (osConfig.paint.active.palette)
+    base
+    crust
+    text
+    primary
+    ;
+  cssRgba =
+    {
+      r,
+      g,
+      b,
+      ...
+    }:
+    alpha: "rgba(${toString r},${toString g},${toString b},${toString alpha})";
+in
+{
+  imports = [ inputs.anyrun.homeManagerModules.default ];
 
   programs.anyrun = {
     enable = true;

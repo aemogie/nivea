@@ -1,5 +1,4 @@
-{pkgs, ...}: {
-  home.packages = [
-    (pkgs.callPackage ./old.nix {})
-  ];
+{ pkgs, ... }:
+{
+  home.packages = [ (pkgs.callPackage ./old.nix { }) ];
 }

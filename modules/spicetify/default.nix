@@ -3,14 +3,28 @@
   lib,
   config,
   ...
-}: let
-  inherit (lib) mkOption mkEnableOption optionalString recursiveUpdate;
-  inherit (lib.types) either attrs str lines pathInStore listOf;
+}:
+let
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    optionalString
+    recursiveUpdate
+    ;
+  inherit (lib.types)
+    either
+    attrs
+    str
+    lines
+    pathInStore
+    listOf
+    ;
   inherit (builtins) match isAttrs;
   inherit (pkgs) callPackage;
   cfg = config.programs.spicetify;
   jsFile = lib.types.addCheck pathInStore (p: (match ".*\\.js" (baseNameOf p)) != null);
-in {
+in
+{
   options.programs.spicetify = {
     enable = mkEnableOption "spicetify-cli to patch spotify";
     theme = {
@@ -31,18 +45,18 @@ in {
       patches = mkOption {
         type = attrs;
         description = "INI entries to add in the [Patch] section of config.";
-        default = {};
+        default = { };
       };
     };
     extensions = mkOption {
       type = listOf jsFile;
       description = "List of paths to spicetify extension `.js` files.";
-      default = [];
+      default = [ ];
     };
     custom_apps = mkOption {
       type = listOf jsFile;
       description = "List of paths to spicetify custom app `.js` files.";
-      default = [];
+      default = [ ];
     };
     config = mkOption rec {
       type = attrs;
@@ -54,9 +68,7 @@ in {
           prefs_path = "@PREFS_PATH@";
           current_theme = optionalString cfg.theme.enable (baseNameOf cfg.theme.path);
           color_scheme = optionalString cfg.theme.enable (
-            if isAttrs cfg.theme.colorScheme
-            then cfg.theme.customColorSchemeName
-            else cfg.theme.colorScheme
+            if isAttrs cfg.theme.colorScheme then cfg.theme.customColorSchemeName else cfg.theme.colorScheme
           );
           inject_theme_js = true;
           inject_css = true;
@@ -89,6 +101,6 @@ in {
   };
   config = {
     # maybe add support for `environment.systemPackages`
-    home.packages = [(callPackage (import ./builder.nix cfg) {})];
+    home.packages = [ (callPackage (import ./builder.nix cfg) { }) ];
   };
 }

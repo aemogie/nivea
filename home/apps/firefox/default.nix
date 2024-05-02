@@ -16,7 +16,7 @@
         let
           inherit (osConfig.paint.active.palette) base text;
         in
-        (import ./privacy.nix)
+        (if true then import ./privacy.nix else { })
         // {
           "devtools.chrome.enabled" = false; # the userChrome debugger (dont  need it rn)
           "browser.tabs.inTitlebar" = 0; # removes the close button, assumed to go from CSD to regular, but i dont hv titlebars

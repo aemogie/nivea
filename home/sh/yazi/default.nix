@@ -1,4 +1,5 @@
-{...} @ args: {
+{ ... }@args:
+{
   programs.yazi = {
     enable = true;
     theme = import ./theme.nix args;

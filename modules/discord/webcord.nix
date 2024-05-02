@@ -3,14 +3,29 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (builtins) toFile toJSON;
-  inherit (lib) mkOption mkPackageOption mkIf mkDefault hm concatMapStrings;
-  inherit (lib.types) attrs listOf either package path;
+  inherit (lib)
+    mkOption
+    mkPackageOption
+    mkIf
+    mkDefault
+    hm
+    concatMapStrings
+    ;
+  inherit (lib.types)
+    attrs
+    listOf
+    either
+    package
+    path
+    ;
   cfg = config.programs.discord;
-in {
+in
+{
   options.programs.discord.webcord = {
-    package = mkPackageOption pkgs ["webcord"] {};
+    package = mkPackageOption pkgs [ "webcord" ] { };
     config = mkOption {
       type = attrs;
       description = "Configuration for WebCord (if it is selected).";
@@ -76,7 +91,7 @@ in {
     };
     extensions = mkOption {
       type = listOf (either package path);
-      default = [];
+      default = [ ];
       description = ''
         List of Chrome extensions to load to WebCord.
       '';
@@ -85,34 +100,37 @@ in {
   config = mkIf (cfg.enable && cfg.client == "webcord") {
     programs.discord.launch_command = mkDefault "${cfg.webcord.package}/bin/webcord";
     xdg.configFile."WebCord/Themes/custom".text = cfg.style;
-    home.activation.webcordConfig = let
-      inherit (config.xdg) configHome;
-      configSetup =
-        ""
-        + #bash
-        ''
-          [ -d "$(dirname "${configHome}/WebCord")" ] && \
-          cp -f ${toFile "webcord-config.json" (toJSON cfg.webcord.config)} ${configHome}/WebCord/ && \
-        ''
-        + #bash webcord needs write perms or it wont start
-        ''
-          chmod +w ${configHome}/WebCord/config.json
-        '';
-      extensionsSetup =
-        ""
-        + #bash
-        ''
-          [ -d "$(dirname "${configHome}/WebCord")" ] && \
-          mkdir -p ${configHome}/WebCord/Extensions/Chrome/ && \
-        ''
-        # copy all extensions
-        + concatMapStrings (ext: "cp -frT ${ext} ${configHome}/WebCord/Extensions/Chrome/${ext.name} && \\\n") cfg.webcord.extensions
-        + #bash webcord wont load it without write perms
-        ''
-          chmod -R +w ${configHome}/WebCord/Extensions
-        '';
-    in
-      hm.dag.entryAfter ["writeBoundary"] (configSetup + "\n" + extensionsSetup);
-    home.packages = [cfg.webcord.package];
+    home.activation.webcordConfig =
+      let
+        inherit (config.xdg) configHome;
+        configSetup =
+          ""
+          # bash
+          + ''
+            [ -d "$(dirname "${configHome}/WebCord")" ] && \
+            cp -f ${toFile "webcord-config.json" (toJSON cfg.webcord.config)} ${configHome}/WebCord/ && \
+          ''
+          # bash webcord needs write perms or it wont start
+          + ''
+            chmod +w ${configHome}/WebCord/config.json
+          '';
+        extensionsSetup =
+          ""
+          # bash
+          + ''
+            [ -d "$(dirname "${configHome}/WebCord")" ] && \
+            mkdir -p ${configHome}/WebCord/Extensions/Chrome/ && \
+          ''
+          # copy all extensions
+          + concatMapStrings (ext: ''
+            cp -frT ${ext} ${configHome}/WebCord/Extensions/Chrome/${ext.name} && \
+          '') cfg.webcord.extensions
+          # bash webcord wont load it without write perms
+          + ''
+            chmod -R +w ${configHome}/WebCord/Extensions
+          '';
+      in
+      hm.dag.entryAfter [ "writeBoundary" ] (configSetup + "\n" + extensionsSetup);
+    home.packages = [ cfg.webcord.package ];
   };
 }
