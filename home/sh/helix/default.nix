@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   config,
   osConfig,
   ...
@@ -11,6 +12,7 @@
     ./nil.nix
     # ./nushell.nix
   ];
+  systemd.user.sessionVariables.EDITOR = lib.getExe config.programs.helix.package;
   programs.helix =
     let
       inherit (osConfig.paint.active.ctpCompat) flavor;
