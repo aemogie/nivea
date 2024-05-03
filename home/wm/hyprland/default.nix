@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   osConfig,
@@ -14,8 +13,8 @@
   home = {
     shellAliases.r = "${pkgs.hyprland}/bin/hyprctl dispatch exec";
     packages = [ pkgs.hyprpicker ];
-    sessionVariables.NIXOS_OZONE_WL = "1";
   };
+  systemd.user.sessionVariables.NIXOS_OZONE_WL = "1";
   wayland.windowManager.hyprland =
     let
       opacity = "0.9";
@@ -86,22 +85,6 @@
           # inherit active_opacity inactive_opacity;
           # fullscreen_opacity = active_opacity;
         };
-
-        windowrulev2 = [ "opacity ${opacity} override,class:jetbrains-idea-ce" ]
-        # ++ (let
-        #   x = mon.w * (1 - 0.3);
-        #   y =
-        #     (20 + 36) # TODO: load from waybar mdoule
-        #     + gaps_out
-        #     + border_size;
-        #   w = mon.w - x - gaps_out - border_size;
-        #   h = mon.h - y - gaps_out - border_size;
-        # in [
-        #   (rule {class = "WebCord";} "float")
-        #   (rule {class = "WebCord";} "size ${toString w} ${toString h}")
-        #   (rule {class = "WebCord";} "move ${toString x} ${toString y}")
-        # ])
-        ;
       };
     };
 }

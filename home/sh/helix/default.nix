@@ -18,7 +18,6 @@
     {
       enable = true;
       package = inputs.helix.packages.${pkgs.system}.helix;
-      defaultEditor = true;
       settings = {
         editor = {
           auto-save = false; # just got annoying

@@ -13,19 +13,17 @@ let
   dark_str = if isDark then "dark" else "light";
 in
 {
-  home = {
-    sessionVariables = {
-      GTK_THEME = config.gtk.theme.name;
-      GTK_USE_PORTAL = 1;
-    };
+  systemd.user.sessionVariables = {
+    GTK_THEME = config.gtk.theme.name;
+    GTK_USE_PORTAL = 1;
+  };
 
-    pointerCursor = {
-      package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
-      name = "Catppuccin-${caps flavor}-${caps dark_str}-Cursors";
-      size = 24;
-      gtk.enable = true;
-      x11.enable = true;
-    };
+  home.pointerCursor = {
+    package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
+    name = "Catppuccin-${caps flavor}-${caps dark_str}-Cursors";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   dconf = {

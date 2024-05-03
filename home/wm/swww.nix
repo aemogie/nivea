@@ -1,15 +1,10 @@
-{
-  pkgs,
-  osConfig,
-  lib,
-  ...
-}:
+{ pkgs, osConfig, ... }:
 let
   wallpaper =
     if osConfig.paint.active.isDark then
       ../../assets/catppuccin-wip.png
     else
-      ../../assets/catppuccin-wip-pink.png; # TODO: use latte colors instead of mocha
+      ../../assets/catppuccin-wip-pink.png;
   command =
     let
       name = "swww-init-or-update";
