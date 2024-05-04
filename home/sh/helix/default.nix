@@ -12,7 +12,6 @@
     ./nil.nix
     # ./nushell.nix
   ];
-  systemd.user.sessionVariables.EDITOR = lib.getExe config.programs.helix.package;
   programs.helix =
     let
       inherit (osConfig.paint.active.ctpCompat) flavor;
@@ -20,6 +19,7 @@
     {
       enable = true;
       package = inputs.helix.packages.${pkgs.system}.helix;
+      defaultEditor = true;
       settings = {
         editor = {
           auto-save = false; # just got annoying
