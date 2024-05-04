@@ -35,7 +35,7 @@ widget > * {
 
 #workspaces button.active {
     color: #@base@;
-    background-color: #@primary@;
+    background-color: #@alternate@;
     font-weight: bold;
     padding: 0 25px;
 }
