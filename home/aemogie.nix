@@ -55,6 +55,7 @@
   # this as well. maybe to ../tui?
   home.shellAliases = {
     # `clear` on nushell doesn't clear scrollback
+    s = "switch";
     c = "printf '\\e[H\\e[2J\\e[3J'";
     cc = "printf '\\e[H\\e[2J\\e[3J'";
     l = "ls -la";

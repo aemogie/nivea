@@ -46,10 +46,4 @@ in
       };
     };
   };
-
-  config.specialisation.dark.configuration =
-    { config, ... }:
-    {
-      paint.active = config.paint.dark;
-    };
 }

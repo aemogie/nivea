@@ -5,12 +5,12 @@
   imports = [
     ./hardware-configuration.nix
     ../modules/paint
+    ./switch.nix
     ./tty.nix
     ./grub.nix
     ./regreet
     ./plymouth.nix
     ./registry.nix
-    ./sudo.nix
     ./vaapi.nix
     ./logind.nix
     ./keyd.nix
