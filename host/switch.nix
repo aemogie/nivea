@@ -12,11 +12,17 @@ let
     runtimeInputs = [
       pkgs.coreutils
       pkgs.nixos-rebuild
+      # nix needs this in path it seems? why isn't it using the one from nix store?
+      pkgs.git
     ];
     text =
       if cfg.autoDark.enable then # sh
         ''
-          if [ "$(date +%H)" -lt "${toString cfg.autoDark.time}" ]; then
+          date="$(date +%H)"
+          if
+            [ "$date" -gt ${toString cfg.autoDark.time.morning} ] && \
+            [ "$date" -le "${toString cfg.autoDark.time.evening}" ]
+          then
             nixos-rebuild switch "$@"
           else
             nixos-rebuild test --specialisation dark "$@" && \
@@ -53,10 +59,17 @@ in
     noSudo = mkOptOut "allow all users in @wheel group to switch without using `sudo`";
     autoDark = {
       enable = mkOptOut "make switch script sensitive to current time";
-      time = mkOption {
-        type = types.int;
-        default = 17;
-        description = "which hour to switch to dark mode";
+      time = {
+        morning = mkOption {
+          type = types.int;
+          default = 7;
+          description = "which hour to switch to light mode";
+        };
+        evening = mkOption {
+          type = types.int;
+          default = 17;
+          description = "which hour to switch to dark mode";
+        };
       };
       systemd-timer = mkOptOut "switch to dark mode in the background";
     };
@@ -78,7 +91,7 @@ in
       timers."sys-switch" = {
         wantedBy = [ "timers.target" ];
         timerConfig = {
-          OnCalendar = "${toString cfg.autoDark.time}:00";
+          OnCalendar = "${toString cfg.autoDark.time.morning},${toString cfg.autoDark.time.evening}:00";
           Unit = "sys-switch.service";
         };
       };
