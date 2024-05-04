@@ -13,13 +13,8 @@ let
     mkDefault
     hm
     concatMapStrings
-    ;
-  inherit (lib.types)
-    attrs
-    listOf
-    either
-    package
-    path
+    isStorePath
+    types
     ;
   cfg = config.programs.discord;
 in
@@ -27,7 +22,7 @@ in
   options.programs.discord.webcord = {
     package = mkPackageOption pkgs [ "webcord" ] { };
     config = mkOption {
-      type = attrs;
+      type = types.attrs;
       description = "Configuration for WebCord (if it is selected).";
       default = {
         screenShareStore.audio = false;
@@ -90,7 +85,7 @@ in
       };
     };
     extensions = mkOption {
-      type = listOf (either package path);
+      type = types.listOf (types.either types.package types.path);
       default = [ ];
       description = ''
         List of Chrome extensions to load to WebCord.
@@ -99,7 +94,8 @@ in
   };
   config = mkIf (cfg.enable && cfg.client == "webcord") {
     programs.discord.launch_command = mkDefault "${cfg.webcord.package}/bin/webcord";
-    xdg.configFile."WebCord/Themes/custom".text = cfg.style;
+    xdg.configFile."WebCord/Themes/custom" =
+      if isStorePath cfg.style then { source = cfg.style; } else { text = cfg.style; };
     home.activation.webcordConfig =
       let
         inherit (config.xdg) configHome;
