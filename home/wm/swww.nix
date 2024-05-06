@@ -2,9 +2,9 @@
 let
   wallpaper =
     if osConfig.paint.active.isDark then
-      ../../assets/catppuccin-wip.png
+      ../../assets/catppuccin-mocha-base.png
     else
-      ../../assets/catppuccin-wip-pink.png;
+      ../../assets/catppuccin-latte-flamingo.png;
   command =
     let
       name = "swww-init-or-update";
