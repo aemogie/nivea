@@ -52,6 +52,13 @@ let
       default = true;
       inherit description;
     };
+  mkOptIn =
+    description:
+    mkOption {
+      type = types.bool;
+      default = false;
+      inherit description;
+    };
 in
 {
   options.services.sys-switch = {
@@ -71,7 +78,8 @@ in
           description = "which hour to switch to dark mode";
         };
       };
-      systemd-timer = mkOptOut "switch to dark mode in the background";
+      # TODO: fix doesnt work
+      systemd-timer = mkOptIn "switch to dark mode in the background";
     };
   };
   config = mkIf cfg.enable {
