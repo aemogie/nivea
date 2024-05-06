@@ -329,16 +329,4 @@ in
     binde = volume.up_down;
     bindm = mouse;
   };
-  lib.hyprkeys = {
-    inherit
-      basic
-      launch_app
-      focus_move
-      workspaces
-      volume
-      brightness
-      player
-      mouse
-      ;
-  };
 }
