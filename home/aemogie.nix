@@ -36,7 +36,7 @@
       ./apps/aseprite.nix
       ./apps/spicetify
       ./apps/foot.nix
-      ./apps/emacs.nix
+      ./apps/emacs
       ./apps/scrcpy.nix
       # ./apps/warp
       # ./apps/wezterm
