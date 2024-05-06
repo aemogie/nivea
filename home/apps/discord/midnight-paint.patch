@@ -48,7 +48,7 @@ diff --git a/midnight.css b/midnight.css
 -	--text-2: hsl(220, 25%, 70%); /* headings and important text */
 +	--text-2: #@text@;
 -	--text-3: hsl(220, 15%, 60%); /* normal text */
-+	--text-3: #@subtext1@;
++	--text-3: #@text@;
 -	--text-4: hsl(220, 15%, 40%); /* icon buttons and channels */
 +	--text-4: #@overlay1@;
 -	--text-5: hsl(220, 15%, 25%); /* muted channels/chats and timestamps */
@@ -60,9 +60,9 @@ diff --git a/midnight.css b/midnight.css
 -	--bg-2: hsl(220, 15%, 16%); /* dark buttons */
 +	--bg-2: #@surface0@;
 -	--bg-3: hsl(220, 15%, 13%); /* spacing, secondary elements */
-+	--bg-3: #@mantle@@bgOp@;
++	--bg-3: #@mantle@;
 -	--bg-4: hsl(220, 15%, 10%); /* main background color */
-+	--bg-4: #@base@@bgOp@;
++	--bg-4: #@base@;
 -	--hover: hsla(230, 20%, 40%, 0.1); /* channels and buttons when hovered */
 +	--hover: #@surface0@;
 -	--active: hsla(220, 20%, 40%, 0.2); /* channels and buttons when clicked or selected */

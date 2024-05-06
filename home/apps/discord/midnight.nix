@@ -4,7 +4,6 @@
   palette,
   font,
   label ? "discord.nix",
-  translucent ? true,
   ...
 }:
 applyPatches (
@@ -32,7 +31,6 @@ applyPatches (
       runHook postInstall
     '';
     inherit font label;
-    bgOp = if translucent then "40" else "FF";
   }
   // (builtins.mapAttrs (_: toString) palette)
 )
