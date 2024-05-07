@@ -20,8 +20,8 @@ let
         ''
           date="$(date +%H)"
           if
-            [ "$date" -gt ${toString cfg.autoDark.time.morning} ] && \
-            [ "$date" -le "${toString cfg.autoDark.time.evening}" ]
+            [ "$date" -ge ${toString cfg.autoDark.time.morning} ] && \
+            [ "$date" -lt "${toString cfg.autoDark.time.evening}" ]
           then
             nixos-rebuild switch "$@"
           else
