@@ -14,13 +14,13 @@ let
     );
 in
 {
-  imports = [ ./config.nix ];
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.override {
       swaySupport = false;
       hyprland = config.wayland.windowManager.hyprland.finalPackage;
     };
+    settings = [ (import ./config.nix) ];
     style = replaceVars osConfig.paint.active.palette (readFile ./style.css);
   };
 
