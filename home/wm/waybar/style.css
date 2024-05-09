@@ -22,7 +22,7 @@ widget > * {
 }
 
 #workspaces {
-    background-color: #@base@;
+    background-color: @base;
     border-radius: 100px;
     margin: 7px 3px 0px 7px;
 }
@@ -30,25 +30,25 @@ widget > * {
 #workspaces button {
     background-color: transparent;
     border-radius: 100px;
-    color: #@text@;
+    color: @text;
 }
 
 #workspaces button.active {
-    color: #@base@;
-    background-color: #@primary@;
+    color: @base;
+    background-color: @primary;
     font-weight: bold;
     padding: 0 25px;
 }
 
 #workspaces button:not(.active):hover {
-    background-color: #@surface0@;
+    background-color: @surface0;
     padding: 0 25px;
 }
 
 
 .modules-right {
-    color: #@text@;
-    background-color: #@base@;
+    color: @text;
+    background-color: @base;
     border-radius: 100px;
 }
 
@@ -62,8 +62,8 @@ widget > * {
 }
 
 window#waybar:not(.empty) #window {
-    background-color: #@base@;
-    color: #@text@;
+    background-color: @base;
+    color: @text;
     padding: 0 20px;
     border-radius: 100px;
 }
@@ -83,26 +83,26 @@ widget > * {
 }
 
 #clock {
-    color: #@text@;
+    color: @text;
 }
 
 #battery {
-    color: #@success@;
+    color: @success;
 }
 
 #battery.charging, #battery.plugged {
-    color: #@base@;
-    background-color: #@success@;
+    color: @base;
+    background-color: @success;
 }
 
 @keyframes battery_blink {
     from {
-        background-color: #@error@;
-        color: #@base@;
+        background-color: @error;
+        color: @base;
     }
     to {
-        background-color: #@base@;
-        color: #@error@;
+        background-color: @base;
+        color: @error;
     }
 }
 
@@ -119,37 +119,37 @@ label:focus {
 }
 
 #backlight {
-    color: #@text@;
+    color: @text;
 }
 
 #network {
-    color: #@rosewater@;
+    color: @rosewater;
 }
 
 #network.disconnected {
-    color: #@error@;
+    color: @error;
 }
 
 #pulseaudio,
 #wireplumber {
-    color: #@blue@;
+    color: @blue;
 }
 
 #pulseaudio.muted,
 #wireplumber.muted {
-    color: #@warning@;
+    color: @warning;
 }
 
 #custom-media {
-    color: #@pink@;
+    color: @pink;
 }
 
 #custom-media.custom-spotify {
-    color: #@green@;
+    color: @green;
 }
 
 /*#tray {
-    color: #@blue@;
+    color: @blue;
 }
 
 #tray > .passive {
@@ -158,6 +158,6 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #@red@;
+    background-color: @red;
 }
 */

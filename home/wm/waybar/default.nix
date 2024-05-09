@@ -8,8 +8,8 @@ let
   inherit (builtins) readFile;
   replaceVars =
     vars:
-    lib.replaceStrings (map (k: "@${k}@") (builtins.attrNames vars)) (
-      map toString (builtins.attrValues vars)
+    lib.replaceStrings (map (k: "@${k}") (builtins.attrNames vars)) (
+      map (s: "#${s}") (builtins.attrValues vars)
     );
 in
 {
