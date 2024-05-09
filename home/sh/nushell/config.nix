@@ -21,7 +21,7 @@ in
       ${replaceVars {
         z_editor_tab = config.programs.zellij.layouts.editor.command.new-tab;
         z_editor_new = config.programs.zellij.layouts.editor.command.new-session;
-        hyprctl = lib.getExe config.wayland.windowManager.hyprland.finalPackage;
+        hyprctl = "^`${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl`";
       } (lib.fileContents ./config.nu)}
     '';
 }
