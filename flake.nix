@@ -80,8 +80,11 @@
 
     # dont follow nixpkgs for these, they hv binary caches
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     helix.url = "github:helix-editor/helix";
     # helix-icons.url = "github:lazytanuki/helix/icons"; # tried it, dont rlly like it.
