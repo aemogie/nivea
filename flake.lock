@@ -40,18 +40,6 @@
         "type": "github"
       }
     },
-    "ctp": {
-      "locked": {
-        "lastModified": 1704996840,
-        "narHash": "sha256-PW1E75OdoUNUmtr8OlODvjxCLgRiEKeWMrsMqPV23Wg=",
-        "path": "/home/aemogie/dev/ctp/nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/aemogie/dev/ctp/nix",
-        "type": "path"
-      }
-    },
     "emacs": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -605,7 +593,6 @@
     "root": {
       "inputs": {
         "anyrun": "anyrun",
-        "ctp": "ctp",
         "emacs": "emacs",
         "helix": "helix",
         "home-manager": "home-manager",
