@@ -67,9 +67,5 @@
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     helix.url = "github:helix-editor/helix";
-    spicetify = {
-      url = "github:the-argus/spicetify-nix/48-fix-schema";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

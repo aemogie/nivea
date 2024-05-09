@@ -15,7 +15,12 @@
   ...
 }:
 let
-  inherit (builtins) isAttrs isList concatStringsSep;
+  inherit (builtins)
+    isAttrs
+    isBool
+    isList
+    concatStringsSep
+    ;
   inherit (lib.strings) optionalString;
 
   toINI = lib.generators.toINI {
@@ -24,25 +29,21 @@ let
       # specifies the generated string for a subset of nix values
       mkValueString =
         v:
-        if v == true then
-          "1"
-        else if v == false then
-          "0"
+        if isBool v then
+          if v then "1" else "0"
         else if isList v then
-          builtins.concatStringsSep "|" v
-        # else if isString v then ''"${v}"''
+          concatStringsSep "|" v
         # and delegates all other values to the default generator
         else
           lib.generators.mkValueStringDefault { } v;
     } "=";
   };
   cpListIntoDir =
-    dir: list: concatStringsSep "\n" (map (path: "cp -rn ${path} ${dir}/${baseNameOf path}") list);
+    dir: list: concatStringsSep "\n" (map (path: "ln -s ${path} ${dir}/${baseNameOf path}") list);
 in
-(builtins.trace "spotify version: ${spotify.version}" spotify).overrideAttrs (old: {
+spotify.overrideAttrs (old: {
   pname = "spicetify";
   buildInputs = (old.buildInputs or [ ]) ++ [
-    (builtins.trace "spicetify version: ${spicetify-cli.version}" spicetify-cli)
     coreutils-full
     makeWrapper
   ];
@@ -50,15 +51,18 @@ in
     (old.postInstall or "")
     + ''
       set -e
-      export SPICETIFY_CONFIG=$out/share/spicetify
-      mkdir -p $SPICETIFY_CONFIG
 
-      # grab the css map
-      cp -rn ${spicetify-cli.src}/css-map.json $SPICETIFY_CONFIG/css-map.json
+      # spicetify-cli looks for css-map.json in the executable directory
+      # and since we dont want to recompile spicetify-cli, 
+      # just copy it locally then add the css-map 
+      cp --no-preserve=mode -r ${spicetify-cli} spicetify-cli
+      chmod +x spicetify-cli/bin/spicetify-cli
+      cp ${spicetify-cli.src}/css-map.json spicetify-cli/bin
+      export PATH="$PWD/spicetify-cli/bin:$PATH"
 
-      pushd $SPICETIFY_CONFIG
+      # set the config directory to current directory. no need 
+      export SPICETIFY_CONFIG=$PWD
 
-      # create config and prefs
       cat <<EOF > config-xpui.ini
       ${toINI config}
       EOF
@@ -94,7 +98,6 @@ in
 
       ${extraCommands}
 
-      popd > /dev/null
       spicetify-cli --no-restart backup apply
     '';
 })
