@@ -60,7 +60,9 @@ let
 
   launch_app =
     let
-      inherit (pkgs) grimblast;
+      grimblast = pkgs.grimblast.override {
+        hyprland = config.wayland.windowManager.hyprland.finalPackage;
+      };
       anyrun = config.programs.anyrun.package;
       firefox = lib.getExe config.programs.firefox.finalPackage;
       foot = lib.getExe config.programs.foot.package;

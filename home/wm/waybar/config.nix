@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, config, ... }:
 with lib;
 let
   title-rewrites =
@@ -88,7 +88,7 @@ let
         "^(?:(.*) - )?Aseprite v[\\d\\.]*$": "󰃣 $1"
       }
     '';
-  config = {
+  cfg = {
     layer = "top"; # Waybar at top layer
     position = "top"; # Waybar position (top|bottom|left|right)
     height = 36; # Waybar height (to be removed for auto height)
@@ -215,13 +215,15 @@ let
         spotify = "";
       };
       escape = true;
-      exec = "${pkgs.waybar.override { withMediaPlayer = true; }}/bin/waybar-mediaplayer.py 2> /dev/null";
-      on-click = "${pkgs.hyprland}/bin/hyprctl dispatch focuswindow title:Spotify";
+      exec = "${
+        config.programs.waybar.package.override { withMediaPlayer = true; }
+      }/bin/waybar-mediaplayer.py 2> /dev/null";
+      on-click = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl dispatch focuswindow title:Spotify";
     };
   };
 in
 {
   xdg.configFile."waybar/config".text = replaceStrings [ ''"@title-rewrites@"'' ] [ title-rewrites ] (
-    builtins.toJSON config
+    builtins.toJSON cfg
   );
 }

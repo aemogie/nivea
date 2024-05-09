@@ -7,14 +7,14 @@ def --wrapped r [
   if (not ($p | is-empty)) and ("external" in $p.type) {
     let program = ($p | where type == external | first).path;
     if ($no_expand) {
-      hyprctl dispatch exec $"($program) ($args | str join ' ')" | ignore
+      @hyprctl@ dispatch exec $"($program) ($args | str join ' ')" | ignore
     } else {
       let args = ($args | each {
         if ($in | path exists) {
           $in | path expand
         } else { $in }
       })
-      hyprctl dispatch exec $"($program) ($args | str join ' ')" | ignore
+      @hyprctl@ dispatch exec $"($program) ($args | str join ' ')" | ignore
     }
   } else {
     error make {

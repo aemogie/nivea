@@ -11,7 +11,7 @@
     ./keybinds.nix
   ];
   home = {
-    shellAliases.r = "${pkgs.hyprland}/bin/hyprctl dispatch exec";
+    shellAliases.r = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl dispatch exec";
     packages = [ pkgs.hyprpicker ];
   };
   systemd.user.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -26,7 +26,7 @@
         monitor = ",preferred,auto,1";
 
         exec-once = [
-          "${pkgs.hyprland}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
+          "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
         ];
 
         input = {

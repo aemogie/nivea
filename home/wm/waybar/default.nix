@@ -2,6 +2,7 @@
   config,
   osConfig,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -16,6 +17,10 @@ in
   imports = [ ./config.nix ];
   programs.waybar = {
     enable = true;
+    package = pkgs.waybar.override {
+      swaySupport = false;
+      hyprland = config.wayland.windowManager.hyprland.finalPackage;
+    };
     style = replaceVars osConfig.paint.active.palette (readFile ./style.css);
   };
 
