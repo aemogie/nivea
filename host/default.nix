@@ -8,13 +8,13 @@
     ./switch.nix
     ./tty.nix
     ./grub.nix
-    ./regreet
+    ./regreet.nix
     ./plymouth.nix
     ./registry.nix
     ./vaapi.nix
     ./logind.nix
     ./keyd.nix
-    ./battery.nix
+    ./battery
     ./hyprland.nix
   ];
 

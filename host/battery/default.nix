@@ -1,6 +1,6 @@
 # github:IogaMaster/snowfall-starter
 {
-  imports = [ ./battery_monitor.nix ];
+  imports = [ ./monitor.nix ];
   # Better scheduling for CPU cycles - thanks System76!!!
   services.system76-scheduler.settings.cfsProfiles.enable = true;
 

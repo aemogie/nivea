@@ -32,7 +32,7 @@ in
     ];
     settings = {
       background = {
-        path = if isDark then ../../assets/catppuccino-many.png else ../../assets/catppuccino-green.png;
+        path = if isDark then ../assets/catppuccino-many.png else ../assets/catppuccino-green.png;
         fit = "Cover";
       };
       GTK = {
