@@ -1,6 +1,6 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -15,6 +15,7 @@
     ./logind.nix
     ./keyd.nix
     ./battery.nix
+    ./hyprland.nix
   ];
 
   nix = {
@@ -104,7 +105,6 @@
   # Allow unfree packages
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ (_: _: { inherit (inputs.hyprland.packages.${pkgs.system}) hyprland; }) ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -117,9 +117,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  programs.hyprland.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   programs.adb.enable = true;
   virtualisation.waydroid.enable = true;
