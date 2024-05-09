@@ -64,10 +64,15 @@ let
         hyprland = config.wayland.windowManager.hyprland.finalPackage;
       };
       firefox = lib.getExe config.programs.firefox.finalPackage;
-      # TODO: use footclient
-      foot = lib.getExe config.programs.foot.package;
+      foot = "${config.programs.foot.package}/bin/footclient";
     in
     [
+      (bind {
+        mods = main_mod;
+        key = "Space";
+        action = "exec";
+        args = foot;
+      })
       (bind {
         mods = main_mod;
         key = "KP_Enter";

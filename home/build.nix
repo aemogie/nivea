@@ -43,8 +43,14 @@ name: path:
           username = name;
           homeDirectory = "/home/${name}";
         };
-
-        systemd.user.startServices = "sd-switch";
+        systemd.user = {
+          startServices = "sd-switch";
+          sessionVariables.PATH = lib.concatStringsSep ":" [
+            "/run/wrappers/bin"
+            "/etc/profiles/per-user/${name}/bin"
+            "/run/current-system/sw/bin"
+          ];
+        };
 
         home = {
           inherit (config.system) stateVersion;
