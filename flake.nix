@@ -65,32 +65,11 @@
       inputs.lix.follows = "lix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    typst-lsp = {
-      url = "github:nvarner/typst-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # dont follow nixpkgs for these, they hv binary caches
-
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     helix.url = "github:helix-editor/helix";
-    # helix-icons.url = "github:lazytanuki/helix/icons"; # tried it, dont rlly like it.
-
     spicetify = {
       url = "github:the-argus/spicetify-nix/48-fix-schema";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    emacs.url = "github:nix-community/emacs-overlay";
   };
 }
