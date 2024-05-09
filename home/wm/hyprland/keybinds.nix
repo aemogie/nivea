@@ -63,17 +63,11 @@ let
       grimblast = pkgs.grimblast.override {
         hyprland = config.wayland.windowManager.hyprland.finalPackage;
       };
-      anyrun = config.programs.anyrun.package;
       firefox = lib.getExe config.programs.firefox.finalPackage;
+      # TODO: use footclient
       foot = lib.getExe config.programs.foot.package;
     in
     [
-      (bind {
-        mods = main_mod;
-        key = "Space";
-        action = "exec";
-        args = "pkill anyrun || ${anyrun}/bin/anyrun";
-      })
       (bind {
         mods = main_mod;
         key = "KP_Enter";

@@ -14,7 +14,6 @@
       ./wm/hyprland
       ./wm/swww.nix
       ./wm/waybar
-      ./wm/anyrun
       ./wm/mako.nix
       ./wm/swaylock.nix
     ]

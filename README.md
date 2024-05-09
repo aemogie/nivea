@@ -16,7 +16,6 @@ means snowy in latin
 - add a terminal colours module to paint
 - emit OSC4,10,11 on activation hook
 - drop dependency on spiceitfy-nix
-- stop using anyrun
 - move everything to modules and use snowfall
 - then use custom framework that supports templates
 
