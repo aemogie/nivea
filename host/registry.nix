@@ -2,11 +2,10 @@
   inputs,
   pkgs,
   lib,
-  config,
   ...
 }:
 let
-  inherit (builtins) concatMap attrValues mapAttrs;
+  inherit (builtins) concatMap attrValues;
   inherit (lib) concatLines mapAttrsToList;
 
   # thanks github:tejing1/nixos-config
@@ -30,14 +29,11 @@ let
     '';
 in
 {
+  # add all inputs to closure, to avoid garbage collection
   system.extraDependencies = [ (inputDrv (removeAttrs inputs [ "self" ])) ];
-  nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
-    registry = mapAttrs (_: value: { flake = value; }) inputs;
 
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+  nix.registry = {
+    n.flake = inputs.nixpkgs;
+    home-manager.flake = inputs.home-manager;
   };
 }
