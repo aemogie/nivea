@@ -36,4 +36,5 @@ means snowy in latin
 [AbrarSL](https://github.com/AbrarSL),
 [Stonks3141](https://github.com/Stonks3141),
 [getchoo](https://github.com/getchoo),
+[c2vi](https://github.com/c2vi),
 and everyone else i forgot to mentio
