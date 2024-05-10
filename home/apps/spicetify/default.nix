@@ -56,6 +56,7 @@
         + /utilities.js
       )
     ];
+    custom_apps = [ "${pkgs.spicetify-cli}/bin/CustomApps/lyrics-plus" ];
   };
   wayland.windowManager.hyprland.settings.windowrulev2 = [ "workspace special,title:Spotify" ];
 }

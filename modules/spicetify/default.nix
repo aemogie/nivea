@@ -54,8 +54,8 @@ in
       default = [ ];
     };
     custom_apps = mkOption {
-      type = listOf jsFile;
-      description = "List of paths to spicetify custom app `.js` files.";
+      type = listOf pathInStore;
+      description = "List of paths to spicetify custom app directories.";
       default = [ ];
     };
     config = mkOption rec {
