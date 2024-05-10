@@ -17,7 +17,7 @@
             in
             pkgs.runCommand "catppuccin-grub-theme" { } ''
               mkdir -p "$out"
-              cp -r ${src}/src/catppuccin-${config.paint.active.ctpCompat.flavor}-grub-theme/* "$out"/
+              cp -r ${src}/src/catppuccin-${config.paint.dark.ctpCompat.flavor}-grub-theme/* "$out"/
             '';
         in
         {
