@@ -18,6 +18,7 @@ let
     lines
     pathInStore
     listOf
+    package
     ;
   inherit (builtins) match isAttrs;
   inherit (pkgs) callPackage;
@@ -98,9 +99,15 @@ in
       description = "Extra commands to run after the build.";
       default = "";
     };
+    finalPackage = mkOption {
+      type = package;
+      description = "The patched spicetify build";
+      default = callPackage (import ./builder.nix cfg) { };
+      readOnly = true;
+    };
   };
   config = {
     # maybe add support for `environment.systemPackages`
-    home.packages = [ (callPackage (import ./builder.nix cfg) { }) ];
+    home.packages = [ cfg.finalPackage ];
   };
 }

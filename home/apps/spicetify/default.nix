@@ -11,9 +11,9 @@
         overwrite_assets = true;
       };
       AdditionalOptions = {
-        sidebar_config = false;
+        sidebar_config = true;
         home_config = false;
-        experimental_features = true;
+        experimental_features = false;
       };
     };
     theme = {
@@ -55,6 +55,7 @@
         }
         + /utilities.js
       )
+      "${pkgs.spicetify-cli}/bin/Extensions/keyboardShortcut.js"
     ];
     custom_apps = [ "${pkgs.spicetify-cli}/bin/CustomApps/lyrics-plus" ];
   };
