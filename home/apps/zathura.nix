@@ -64,6 +64,7 @@ in
       adjust-open = "width";
       selection-clipboard = "clipboard";
       selection-notification = false;
+      database = "sqlite";
     };
   };
 }
