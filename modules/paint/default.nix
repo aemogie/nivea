@@ -5,18 +5,20 @@ let
   inherit (builtins) attrNames;
 
   cfg = config.paint;
+  colorScheme' = colorScheme cfg._custom;
+
   mkSchemeOption =
     { ... }@attrs:
     let
       byName = types.enum (attrNames cfg.schemes);
     in
     mkOption {
-      type = types.either byName colorScheme;
+      type = types.either byName colorScheme';
       apply =
         v:
         if byName.check v then
           cfg.schemes.${v}
-        else if colorScheme.check v then
+        else if colorScheme'.check v then
           v
         else
           throw "Unreachable";
@@ -38,12 +40,17 @@ in
       default = "catppuccin_mocha";
     };
     schemes = mkOption {
-      type = types.attrsOf colorScheme;
+      type = types.attrsOf colorScheme';
       description = "An attribute set of color schemes";
       default = {
         catppuccin_latte = ./catppuccin_latte.nix;
         catppuccin_mocha = ./catppuccin_mocha.nix;
       };
+    };
+    _custom = mkOption {
+      type = types.attrsOf (types.functionTo (types.attrsOf types.anything));
+      description = "custom options to be added to all palettes";
+      default = { };
     };
   };
 }
