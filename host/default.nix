@@ -139,7 +139,6 @@
   boot.kernel.sysctl."fs.inotify.max_user_watches" = 1048576;
 
   # documentation.nixos.includeAllModules = true;
-  documentation.enable = false; # lix fix
 
   system.stateVersion = "23.05";
 }
