@@ -26,6 +26,8 @@ let
     // attrs;
 in
 {
+  # TODO: auto-import
+  imports = [ ./custom/terminal.nix ];
   options.paint = {
     active = mkSchemeOption {
       description = "Color scheme to be used by default";

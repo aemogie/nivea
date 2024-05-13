@@ -1,4 +1,18 @@
-{ config, osConfig, ... }:
+{
+  config,
+  osConfig,
+  lib,
+  ...
+}:
+let
+  recursiveToString = lib.mapAttrsRecursiveCond (set: !(set ? __toString)) (_: toString);
+  inherit (recursiveToString osConfig.paint.active.custom.term)
+    regular
+    bright
+    background
+    foreground
+    ;
+in
 {
   wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(foot)$";
   programs.foot = {
@@ -25,63 +39,28 @@
       # echo -ne "\e]4;$idx;rgb:$r/$g/$b\e\\"
       # echo -ne "\e]10;rgb:$r/$g/$b\e\\"
       # echo -ne "\e]11;rgb:$r/$g/$b\e\\"
-      colors =
-        let
-          # TODO: replace with a new terminal colors module
-          inherit (osConfig.paint.active.palette)
-            base
-            text
-            surface2
-            subtext0
-            surface1
-            subtext1
-            red
-            green
-            yellow
-            blue
-            pink
-            teal
-            ;
-          col = {
-            alpha = "0.7";
-            background = "${base}";
-            foreground = "${text}";
-            bright0 = "${surface2}"; # gray
-            bright1 = "${red}"; # red
-            bright2 = "${green}"; # green
-            bright3 = "${yellow}"; # yellow
-            bright4 = "${blue}"; # blue
-            bright5 = "${pink}"; # magenta
-            bright6 = "${teal}"; # cyan
-            bright7 = "${subtext0}"; # white
-            regular0 = "${surface1}";
-            regular1 = "${red}";
-            regular2 = "${green}";
-            regular3 = "${yellow}";
-            regular4 = "${blue}";
-            regular5 = "${pink}";
-            regular6 = "${teal}";
-            regular7 = "${subtext1}";
-          };
-        in
-        if (!osConfig.paint.active.isDark) then
-          col
-          // {
-            bright0 = col.bright7;
-            bright7 = col.bright0;
-            regular0 = col.regular7;
-            regular7 = col.regular0;
-          }
-        else
-          col;
-      /*
-        this doesnt work.
-        // listToAttrs (genList (i: {
-            name = "dim${toString i}";
-            value = "${overlay0}";
-          })
-          8);
-      */
+      colors = {
+        alpha = "0.7";
+        background = background;
+        foreground = foreground;
+        bright0 = bright.gray;
+        bright1 = bright.red;
+        bright2 = bright.green;
+        bright3 = bright.yellow;
+        bright4 = bright.blue;
+        bright5 = bright.magenta;
+        bright6 = bright.cyan;
+        bright7 = bright.white;
+        regular0 = regular.gray;
+        regular1 = regular.red;
+        regular2 = regular.green;
+        regular3 = regular.yellow;
+        regular4 = regular.blue;
+        regular5 = regular.magenta;
+        regular6 = regular.cyan;
+        regular7 = regular.white;
+        # TODO: figure out dim
+      };
     };
   };
 }
