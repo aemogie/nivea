@@ -14,7 +14,7 @@ applyPatches (
         "https://refact0r.github.io/midnight-discord/midnight.css"
         "https://raw.githubusercontent.com/refact0r/midnight-discord/master/midnight.css"
       ];
-      sha256 = "sha256-pN4ojz8UDwlHGh5j4IVWv2Qvtz8N9myrmNEedfils+Q=";
+      sha256 = "sha256-F/coSItQPOPhYGV0kDFDT2bG5KmkT98OA70YIF3xuj0=";
     };
     unpackPhase = ''
       runHook preUnpack
