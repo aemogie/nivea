@@ -26,12 +26,8 @@
       shell_integration = false;
       use_kitty_protocol = false;
     };
-    shellAliases = builtins.removeAttrs config.home.shellAliases [
-      # are nu functions instead
-      "r"
-      "e"
-    ];
-
+    # TODO: make into portable scripts
+    shellAliases = builtins.removeAttrs config.home.shellAliases [ "e" ];
     envFile.text =
       #nu
       ''

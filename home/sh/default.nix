@@ -21,6 +21,10 @@
   home.packages = [
     pkgs.wl-clipboard # wl-copy/wl-paste
     pkgs.fd
+    (pkgs.runCommandCC "runbg" { } ''
+      mkdir -p $out/bin
+      $CC -Os ${./run_bg.c} -o $out/bin/runbg
+    '')
   ];
 
   home.shellAliases = {
@@ -33,6 +37,7 @@
     fk = "cd ${config.home.homeDirectory}/dev/flake";
     q = "exit";
     qq = "exit";
+    r = "runbg";
   };
 
   programs = {

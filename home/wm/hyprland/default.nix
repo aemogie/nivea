@@ -10,10 +10,9 @@
     # inputs.hyprland.homeManagerModules.default
     ./keybinds.nix
   ];
-  home = {
-    shellAliases.r = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl dispatch exec";
-    packages = [ pkgs.hyprpicker ];
-  };
+
+  home.packages = [ pkgs.hyprpicker ];
+
   systemd.user.sessionVariables.NIXOS_OZONE_WL = "1";
   wayland.windowManager.hyprland =
     let
