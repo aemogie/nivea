@@ -13,10 +13,10 @@ means snowy in latin
 - everything emacs
 - add opacity option to my paint module
 - load `home.sessionVaraibles` into `systemd.user.sessionVariables` (by writing to `xdg.configFile."environment.d/10-home-manager.conf"`)
-- add a terminal colours module to paint
 - emit OSC4,10,11 on activation hook
 - move everything to modules and use snowfall
 - then use custom framework that supports templates
+- package bf2
 
 ## thanks to
 [nekowinston](https://github.com/nekowinston),
