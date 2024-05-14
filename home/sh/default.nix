@@ -14,6 +14,7 @@
     ./yazi
     ./starship.nix
     ./direnv.nix
+    ./runbg.nix
     # TODO: use snowfall
     ../../modules/typst.nix
   ];
