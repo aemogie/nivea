@@ -64,12 +64,13 @@ let
         hyprland = config.wayland.windowManager.hyprland.finalPackage;
       };
       firefox = lib.getExe config.programs.firefox.finalPackage;
-      foot = "${config.programs.foot.package}/bin/footclient";
+      foot = lib.getExe config.programs.foot.package;
     in
     [
       (bind {
         mods = main_mod;
         key = "Space";
+        # figure out pyprland scratchpads and use that
         action = "exec";
         args = foot;
       })

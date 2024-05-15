@@ -57,7 +57,6 @@ in
         env = "${pkgs.coreutils}/bin/env";
         bash = lib.getExe pkgs.bash;
       in
-      # TODO: make this into an IFD, and load it into systemd.user.sessionVariables instead
       optionalString cfg.loadSessionVariables
         #nu
         ''

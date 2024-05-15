@@ -13,7 +13,7 @@ let
   dark_str = if isDark then "dark" else "light";
 in
 {
-  systemd.user.sessionVariables = {
+  home.sessionVariables = {
     GTK_THEME = config.gtk.theme.name;
     GTK_USE_PORTAL = 1;
   };

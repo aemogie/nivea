@@ -17,10 +17,6 @@ in
   wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(foot)$";
   programs.foot = {
     enable = true;
-    # breaks with login script, idk why
-    # - found out why. systemd sessionvariables are seperate from login ones. ofcourse they are
-    # moved enough variables to systemd sessionVariables to make this work
-    server.enable = true;
     settings = {
       main =
         let

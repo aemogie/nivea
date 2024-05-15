@@ -1,11 +1,6 @@
+{ pkgs, config, ... }:
 {
-  inputs,
-  pkgs,
-  config,
-  ...
-}:
-{
-  systemd.user.sessionVariables = {
+  home.sessionVariables = {
     TYPST_FONT_PATHS = pkgs.symlinkJoin {
       name = "typst-ready-fonts";
       paths = config.fonts.packages;
