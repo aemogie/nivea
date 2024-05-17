@@ -41,4 +41,6 @@
     ripgrep.enable = true;
     typst.enable = true;
   };
+
+  services.ssh-agent.enable = true;
 }
