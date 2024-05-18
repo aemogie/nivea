@@ -88,7 +88,7 @@ let
         ${notif} "Brightness +${briStep}"
       ''}"
       ", XF86MonBrightnessDown, exec, ${pkgs.writeShellScript "bridown" ''
-        ${brictl} set -${briStep}
+        ${brictl} set ${briStep}-
         ${notif} "Brightness -${briStep}"
       ''}"
     ]
