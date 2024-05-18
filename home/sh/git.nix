@@ -37,6 +37,7 @@ in
       lib.concatMapAttrs (alias: _: { "g${alias}" = "${git} ${alias}"; }) aliases
     )
     // lib.optionalAttrs cfg.showStatusOnNoop { "git" = "${git-with-status}"; };
+
   config.programs = {
     git = {
       enable = true;
@@ -45,7 +46,17 @@ in
       extraConfig = {
         init.defaultBranch = "dev";
         commit.gpgsign = true;
-        gpg.format = "ssh";
+        gpg = {
+          format = "ssh";
+          ssh.program = toString (
+            # thanks to
+            # https://www.reddit.com/r/git/comments/1coropv/comment/l3jeblh/
+            pkgs.writeShellScript "ssh-auto-add" ''
+              ${pkgs.openssh}/bin/ssh-add -T ~/.ssh/id_ed25519 2>&- || ssh-add ~/.ssh/id_ed25519
+              exec ${pkgs.openssh}/bin/ssh-keygen "$@"
+            ''
+          );
+        };
         user.signingkey = "~/.ssh/id_ed25519.pub";
       };
       difftastic.enable = true;
