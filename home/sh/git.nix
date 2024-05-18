@@ -50,14 +50,17 @@ in
           format = "ssh";
           ssh.program = toString (
             # thanks to
-            # https://www.reddit.com/r/git/comments/1coropv/comment/l3jeblh/
+            # https://www.reddit.com/r/git/comments/1coropv/comment/l3mwfso/
             pkgs.writeShellScript "ssh-auto-add" ''
-              ${pkgs.openssh}/bin/ssh-add -T ~/.ssh/id_ed25519 2>&- || ssh-add ~/.ssh/id_ed25519
+              while getopts Y:n:f: opt; do case $opt in 
+                  f) ${pkgs.openssh}/bin/ssh-add -T "$OPTARG" 2>&- || ssh-add "$OPTARG" ;;
+              esac; done
+
               exec ${pkgs.openssh}/bin/ssh-keygen "$@"
             ''
           );
         };
-        user.signingkey = "~/.ssh/id_ed25519.pub";
+        user.signingkey = "~/.ssh/id_ed25519";
       };
       difftastic.enable = true;
       aliases = lib.mkIf cfg.commonAliases aliases;
