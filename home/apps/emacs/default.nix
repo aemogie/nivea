@@ -15,6 +15,7 @@
           epkgs.vertico
           epkgs.marginalia
           epkgs.nix-mode
+          epkgs.magit
         ];
         config = epkgs.trivialBuild {
           pname = "default";
