@@ -37,7 +37,7 @@ let
         else
           "${config.programs.emacs.finalPackage}/bin/emacs";
       # testing
-      term = if true then "${emacs} --eval '(eat)'" else foot;
+      term = if true then "${emacs} --eval '(eshell)'" else foot;
     in
     [
       # figure out pyprland scratchpads and use that

@@ -11,6 +11,7 @@
 ; (global-disable-mouse-mode)
 
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+(add-hook 'eshell-load-hook #'eat-eshell-mode)
 
 ; minibuf
 (vertico-mode)
