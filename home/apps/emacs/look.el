@@ -10,4 +10,6 @@
 (setq catppuccin-flavor 'mocha)
 (enable-theme 'catppuccin)
 
+(setq line-spacing (floor (* .75 13)))
+
 (provide 'look)
