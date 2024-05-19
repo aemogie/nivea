@@ -94,8 +94,13 @@ let
     ]
     ++ [
       ", XF86AudioPlay, exec, ${pkgs.writeShellScript "playtoggle" ''
-        ${playctl} play-pause
-        ${notif} "$(${playctl} status)"
+        if ${playctl} -a status | grep -q "Playing"; then
+          ${playctl} -a pause
+          ${notif} "Paused All"
+        else
+          ${playctl} play # play first
+          ${notif} "Resuming: $(${playctl} -l | head -n 1)"
+        fi
       ''}"
       ", XF86AudioPrev, exec, ${pkgs.writeShellScript "playprev" ''
         ${playctl} previous
