@@ -26,13 +26,25 @@ let
       };
       discord = config.programs.discord.launch_command;
       firefox = lib.getExe config.programs.firefox.finalPackage;
-      foot = lib.getExe config.programs.foot.package;
+      foot =
+        if config.programs.foot.server.enable then
+          "${config.programs.foot.package}/bin/footclient"
+        else
+          "${config.programs.foot.package}/bin/foot";
+      emacs =
+        if config.services.emacs.enable then
+          "${config.services.emacs.package}/bin/emacsclient --no-wait --reuse-frame"
+        else
+          "${config.programs.emacs.finalPackage}/bin/emacs";
+      # testing
+      term = if true then "${emacs} --eval '(eat)'" else foot;
     in
     [
       # figure out pyprland scratchpads and use that
       "${mod}, Space,    exec, ${foot}"
-      "${mod}, KP_Enter, exec, ${foot}"
-      "${mod}, Return,   exec, ${foot}"
+      "${mod}, KP_Enter, exec, ${term}"
+      "${mod}, Return,   exec, ${term}"
+      "${mod}, E,        exec, ${emacs}"
       "${mod}, D,        exec, ${discord}"
       "${mod}, F,        exec, ${firefox}"
       "${mod}, S,        exec, ${grimblast}/bin/grimblast --freeze copy area"
