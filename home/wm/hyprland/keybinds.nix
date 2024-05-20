@@ -33,7 +33,12 @@ let
           "${config.programs.foot.package}/bin/foot";
       emacs =
         if config.services.emacs.enable then
-          "${config.services.emacs.package}/bin/emacsclient --no-wait --reuse-frame"
+          pkgs.writeShellScript "emacsclient" ''
+            if ! ${pkgs.systemd}/bin/systemctl --user status emacs.service >/dev/null 2>&1; then
+               ${pkgs.systemd}/bin/systemctl --user start emacs.service
+            fi
+            ${config.services.emacs.package}/bin/emacsclient --no-wait --reuse-frame "$@"
+          ''
         else
           "${config.programs.emacs.finalPackage}/bin/emacs";
       # testing
