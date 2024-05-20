@@ -12,6 +12,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 (add-hook 'eshell-load-hook #'eat-eshell-mode)
+(add-to-list 'magit-process-password-prompt-regexps
+	     "^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?.*\\)?: ?$")
 
 ; minibuf
 (vertico-mode)

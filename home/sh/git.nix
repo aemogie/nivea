@@ -48,17 +48,15 @@ in
         commit.gpgsign = true;
         gpg = {
           format = "ssh";
-          ssh.program = toString (
-            # thanks to
-            # https://www.reddit.com/r/git/comments/1coropv/comment/l3mwfso/
-            pkgs.writeShellScript "ssh-auto-add" ''
-              while getopts Y:n:f: opt; do case $opt in 
-                  f) ${pkgs.openssh}/bin/ssh-add -T "$OPTARG" 2>&- || ssh-add "$OPTARG" ;;
-              esac; done
+          # thanks to
+          # https://www.reddit.com/r/git/comments/1coropv/comment/l3mwfso/
+          ssh.program = "${pkgs.writeShellScript "ssh-auto-add" ''
+            while getopts Y:n:f: opt; do case $opt in
+                f) ${pkgs.openssh}/bin/ssh-add -T "$OPTARG" 2>&- || ssh-add "$OPTARG" ;;
+            esac; done
 
-              exec ${pkgs.openssh}/bin/ssh-keygen "$@"
-            ''
-          );
+            exec ${pkgs.openssh}/bin/ssh-keygen "$@"
+          ''}";
         };
         user.signingkey = "~/.ssh/id_ed25519";
       };
