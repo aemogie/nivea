@@ -7,6 +7,41 @@
   ...
 }:
 {
+  webextension-commands = stdenv.mkDerivation {
+    pname = "webextension-commands";
+    version = "0.1.0";
+    nativeBuildInputs = [
+      jq
+      zip
+    ];
+    postUnpack = ''
+      mkdir source/packages
+      cp $toolssvg source/packages/tools.svg
+      cp $toolspng source/packages/tools.png
+    '';
+    buildPhase = ''
+      scripts/build-target firefox
+    '';
+    installPhase = ''
+      dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+      mkdir -p $dst
+      cp target/firefox/package.zip "$dst/commands@alexherbo2.github.com.xpi"
+    '';
+    src = fetchFromGitHub {
+      owner = "alexherbo2";
+      repo = "webextension-commands";
+      rev = "9df0ce519ca68c97a4c4733a020ce760e58a5b85";
+      sha256 = "sha256-KXB8/fEjvHAZdfGrCUw/aT08LKQeyB8PEpbcvlXKbX4=";
+    };
+    toolssvg = fetchurl {
+      url = "https://github.com/FortAwesome/Font-Awesome/raw/master/svgs/solid/tools.svg";
+      sha256 = "sha256-5f3JrnLHFz7k99SWkYue49ZGl1fsGJV85kxc7R7kU2s=";
+    };
+    toolspng = fetchurl {
+      url = "https://i.imgur.com/pFikMI2.png";
+      sha256 = "sha256-e/RiwxN4XZdBwJX6W8NYErBQlUmOplxECKE7i4a6aSA=";
+    };
+  };
   krabby = stdenv.mkDerivation {
     pname = "krabby";
     version = "0.1.0";

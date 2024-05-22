@@ -115,7 +115,7 @@ in
             '';
           }
         )
-
+        krabby-pkgs.webextension-commands
         krabby-pkgs.krabby
       ];
     };
