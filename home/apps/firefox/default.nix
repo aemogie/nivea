@@ -4,6 +4,9 @@
   osConfig,
   ...
 }:
+let
+  krabby-pkgs = pkgs.callPackage ./krabby.nix { };
+in
 {
   programs.firefox = {
     enable = true;
@@ -112,6 +115,8 @@
             '';
           }
         )
+
+        krabby-pkgs.krabby
       ];
     };
   };
