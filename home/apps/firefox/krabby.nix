@@ -2,7 +2,6 @@
   stdenv,
   jq,
   zip,
-  curl,
   fetchurl,
   fetchFromGitHub,
   ...
@@ -10,11 +9,10 @@
 {
   krabby = stdenv.mkDerivation {
     pname = "krabby";
-    version = "abandoned";
+    version = "0.1.0";
     nativeBuildInputs = [
       jq
       zip
-      curl
     ];
     postUnpack = ''
       # scripts/fetch
@@ -41,7 +39,6 @@
     buildPhase = ''
       pushd share/krabby
       ../../scripts/build-target firefox
-      find .
       popd
     '';
     installPhase = ''
