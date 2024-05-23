@@ -14,9 +14,11 @@
   (setq auto-dark-detection-method 'dbus)
   (setq auto-dark-dark-theme 'catppuccin)
   (setq auto-dark-light-theme 'catppuccin)
-  (auto-dark-mode t)
-  :hook ((auto-dark-dark-mode . (lambda () (catppuccin-load-flavor 'mocha)))
-	 (auto-dark-light-mode . (lambda () (catppuccin-load-flavor 'latte)))))
+  (add-hook 'auto-dark-dark-mode-hook
+	    (lambda () (catppuccin-load-flavor 'mocha)))
+  (add-hook 'auto-dark-light-mode-hook
+	    (lambda () (catppuccin-load-flavor 'latte)))
+  (auto-dark-mode t))
 
 (setq-default line-spacing (floor (* .75 13)))
 
