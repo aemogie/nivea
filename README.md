@@ -16,6 +16,7 @@ means snowy in latin
 - move everything to modules and use snowfall
 - then use custom framework that supports templates
 - package bf2
+- make ytmusic declarative
 
 ## thanks to
 [nekowinston](https://github.com/nekowinston),
