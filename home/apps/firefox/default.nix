@@ -5,7 +5,23 @@
   ...
 }:
 let
-  krabby-pkgs = pkgs.callPackage ./krabby.nix { };
+  inherit (osConfig.paint.active.palette) base text overlay0 crust;
+  krabby-pkgs = pkgs.callPackage ./krabby.nix {
+    krabby-config = pkgs.writeText "config.js" ''
+      const { settings } = krabby
+
+      settings['hint-style'] = {
+        textColor: '#${crust}',
+        activeCharacterTextColor: '#${overlay0}',
+        backgroundColorStart: '#${text}',
+        backgroundColorEnd: '#${text}',
+        borderColor: '${crust}',
+        fontSize: 17,
+        fontFamilies: ['${config.fonts.monospace}'],
+        fontWeight: 'normal',
+      }
+    '';
+  };
 in
 {
   programs.firefox = {
@@ -16,9 +32,6 @@ in
       name = "dev-edition-default";
       id = 0;
       settings =
-        let
-          inherit (osConfig.paint.active.palette) base text;
-        in
         (if true then import ./privacy.nix else { })
         // {
           "devtools.chrome.enabled" = false; # the userChrome debugger (dont  need it rn)

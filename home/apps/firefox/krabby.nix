@@ -4,6 +4,7 @@
   zip,
   fetchurl,
   fetchFromGitHub,
+  krabby-config,
   ...
 }:
 {
@@ -70,6 +71,7 @@
 
       cp -r $self/src/krabby             krabby
       popd
+      cp -f ${krabby-config} source/share/krabby/config.js
     '';
     buildPhase = ''
       pushd share/krabby
