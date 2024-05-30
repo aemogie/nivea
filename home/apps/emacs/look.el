@@ -7,7 +7,11 @@
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (pixel-scroll-precision-mode)
 
-(use-package catppuccin-theme)
+(use-package catppuccin-theme
+  :config
+  (enable-theme 'catppuccin)
+  (catppuccin-load-flavor 'mocha))
+;; FIXME: extremely buggy
 (use-package auto-dark
   :after catppuccin-theme
   :config

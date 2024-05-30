@@ -1,17 +1,19 @@
-(require 'vertico)
-(require 'marginalia)
-(require 'disable-mouse)
-(require 'nix-mode)
 (require 'meow-setup)
-(require 'magit)
-(require 'eat)
-
 (require 'look)
 
-(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
-(add-hook 'eshell-load-hook #'eat-eshell-mode)
-(add-to-list 'magit-process-password-prompt-regexps
-	     "^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?.*\\)?: ?$")
+(use-package nix-mode :mode "\\.nix\\'")
 
-(vertico-mode)
-(marginalia-mode)
+(use-package eat
+  :hook
+  (eshell-load . eat-eshell-mode))
+
+(use-package magit
+  :config
+  (add-to-list 'magit-process-password-prompt-regexps
+	       "^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?.*\\)?: ?$"))
+
+(use-package vertico :config (vertico-mode))
+(use-package marginalia :config (marginalia-mode))
+
+;; i thought `nil` would work, but it doesnt. wonder why
+(use-package disable-mouse :config (global-disable-mouse-mode 0))
