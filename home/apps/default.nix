@@ -10,6 +10,7 @@
     ./foot.nix
     ./emacs
     ./scrcpy.nix
+    ./ytmusic.nix
     # ./warp
     # ./wezterm
     # ./ue4.nix
