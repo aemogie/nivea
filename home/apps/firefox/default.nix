@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (osConfig.paint.active.palette) base text overlay0 crust;
+  inherit (osConfig.paint.active.palette)
+    base
+    text
+    overlay0
+    crust
+    ;
   krabby-pkgs = pkgs.callPackage ./krabby.nix {
     krabby-config = pkgs.writeText "config.js" ''
       const { settings } = krabby
