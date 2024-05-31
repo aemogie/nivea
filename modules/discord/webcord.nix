@@ -103,7 +103,7 @@ in
           ""
           # bash
           + ''
-            [ -d "$(dirname "${configHome}/WebCord")" ] && \
+            [ -d "${configHome}/WebCord" ] && \
             cp -f ${toFile "webcord-config.json" (toJSON cfg.webcord.config)} ${configHome}/WebCord/ && \
           ''
           # bash webcord needs write perms or it wont start
@@ -114,7 +114,7 @@ in
           ""
           # bash
           + ''
-            [ -d "$(dirname "${configHome}/WebCord")" ] && \
+            [ -d "${configHome}/WebCord" ] && \
             mkdir -p ${configHome}/WebCord/Extensions/Chrome/ && \
           ''
           # copy all extensions
