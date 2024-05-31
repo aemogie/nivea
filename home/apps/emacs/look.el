@@ -22,7 +22,9 @@
 	    (lambda () (catppuccin-load-flavor 'mocha)))
   (add-hook 'auto-dark-light-mode-hook
 	    (lambda () (catppuccin-load-flavor 'latte)))
-  (auto-dark-mode t))
+  (auto-dark-mode t)
+  :diminish auto-dark-mode) ;; doesnt work?? why?
+
 
 (setq-default line-spacing (floor (* .75 13)))
 
