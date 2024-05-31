@@ -20,7 +20,10 @@
     enable = true;
     settings = {
       # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
-      monitor = ",preferred,auto,1";
+      monitor = [
+        ",preferred,auto,1"
+        ",preferred,auto,1,mirror,eDP-1"
+      ];
 
       exec-once = [
         "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
