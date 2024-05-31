@@ -9,6 +9,7 @@
         packages = [
           epkgs.catppuccin-theme
           epkgs.meow
+          epkgs.kakoune
           epkgs.treesit-grammars.with-all-grammars
           epkgs.disable-mouse
           epkgs.eat

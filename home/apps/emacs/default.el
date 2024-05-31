@@ -1,4 +1,4 @@
-(require 'meow-setup)
+(require 'binds)
 (require 'look)
 
 (use-package nix-mode :mode "\\.nix\\'")
