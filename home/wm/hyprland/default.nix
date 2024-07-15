@@ -34,6 +34,7 @@
         touchpad = {
           natural_scroll = true;
           disable_while_typing = true;
+          "tap-to-click" = false; # disable while typing doesnt work
         };
       };
       gestures.workspace_swipe = true;
