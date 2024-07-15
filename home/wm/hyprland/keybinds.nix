@@ -26,6 +26,7 @@ let
       };
       discord = config.programs.discord.launch_command;
       firefox = lib.getExe config.programs.firefox.finalPackage;
+      music = lib.getExe pkgs.youtube-music;
       foot =
         if config.programs.foot.server.enable then
           "${config.programs.foot.package}/bin/footclient"
@@ -51,6 +52,7 @@ let
       "${mod}, Return,   exec, ${term}"
       "${mod}, E,        exec, ${emacs}"
       "${mod}, D,        exec, ${discord}"
+      "${mod}, M,        exec, ${music}"
       "${mod}, F,        exec, ${firefox}"
       "${mod}, S,        exec, ${grimblast}/bin/grimblast --freeze copy area"
       ",            PRINT,    exec, ${grimblast}/bin/grimblast --freeze copy screen"
