@@ -50,11 +50,11 @@
       jq
       zip
     ];
-    postUnpack = ''
+    postPatch = ''
       # scripts/fetch
-      self="$PWD/source"
-      mkdir source/share/krabby/packages
-      pushd source/share/krabby/packages
+      self="$PWD"
+      mkdir share/krabby/packages
+      pushd share/krabby/packages
       cp    $modal/src/modal.js          modal.js
       cp    $mouseselection              mouse-selection.js
       cp    $prompt/src/prompt.js        prompt.js
@@ -71,7 +71,7 @@
 
       cp -r $self/src/krabby             krabby
       popd
-      cp -f ${krabby-config} source/share/krabby/config.js
+      cp -f ${krabby-config} share/krabby/config.js
     '';
     buildPhase = ''
       pushd share/krabby
@@ -89,6 +89,7 @@
       rev = "d2aaf88193a4c92606c31aa39bbd574c83777606";
       sha256 = "sha256-Sh918Sp7eTtzpyuKXb/Btrvo09UXkWdwZLXFu3NTlDY=";
     };
+    patches = [ ./krabby.patch ];
     modal = fetchFromGitHub {
       owner = "alexherbo2";
       repo = "modal.js";
