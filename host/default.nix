@@ -17,6 +17,7 @@
     ./battery
     ./hyprland.nix
     ./docs.nix
+    ./syncthing.nix
   ];
 
   nix = {
