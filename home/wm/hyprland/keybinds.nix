@@ -112,7 +112,8 @@ let
       ''}"
     ]
     ++ [
-      ", XF86AudioPlay, exec, ${pkgs.writeShellScript "playtoggle" ''
+      # TODO: fix laptop keyboard
+      "${mod}, P, exec, ${pkgs.writeShellScript "playtoggle" ''
         if ${playctl} -a status | grep -q "Playing"; then
           ${playctl} -a pause
           ${notif} "Paused All"
