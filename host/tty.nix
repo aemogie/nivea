@@ -35,7 +35,7 @@ in
   services.gpm.enable = true;
 
   services.kmscon = {
-    enable = true;
+    enable = false;
     hwRender = true;
     # renders weirdly, maybe it doesnt find the font?
     fonts = [
