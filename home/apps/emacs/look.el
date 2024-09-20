@@ -4,7 +4,7 @@
 (tool-bar-mode -1)
 
 (add-to-list 'default-frame-alist '(font . "Iosevka 13"))
-(add-to-list 'default-frame-alist '(alpha-background . 80))
+(add-to-list 'default-frame-alist '(alpha-background . 70))
 (pixel-scroll-precision-mode)
 
 (use-package catppuccin-theme
