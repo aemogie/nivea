@@ -17,7 +17,6 @@
           epkgs.marginalia
           epkgs.nix-mode
           epkgs.magit
-          epkgs.auto-dark
         ];
         config = epkgs.trivialBuild {
           pname = "default";

@@ -10,21 +10,28 @@
 (use-package catppuccin-theme
   :config
   (enable-theme 'catppuccin)
-  (catppuccin-load-flavor 'mocha))
-;; FIXME: extremely buggy
-(use-package auto-dark
-  :after catppuccin-theme
-  :config
-  (setq auto-dark-detection-method 'dbus)
-  (setq auto-dark-dark-theme 'catppuccin)
-  (setq auto-dark-light-theme 'catppuccin)
-  (add-hook 'auto-dark-dark-mode-hook
-	    (lambda () (catppuccin-load-flavor 'mocha)))
-  (add-hook 'auto-dark-light-mode-hook
-	    (lambda () (catppuccin-load-flavor 'latte)))
-  (auto-dark-mode t)
-  :diminish auto-dark-mode) ;; doesnt work?? why?
-
+  (when (require 'dbus nil 'noerror)
+    (if (eq 2 (caar
+               (dbus-call-method
+                :session
+                "org.freedesktop.portal.Desktop"
+                "/org/freedesktop/portal/desktop"
+                "org.freedesktop.portal.Settings" "Read"
+                "org.freedesktop.appearance" "color-scheme")))
+	(catppuccin-load-flavor 'latte)
+      (catppuccin-load-flavor 'mocha))
+    (dbus-register-signal
+     :session
+     "org.freedesktop.portal.Desktop"
+     "/org/freedesktop/portal/desktop"
+     "org.freedesktop.portal.Settings"
+     "SettingChanged"
+     (lambda (namespace key value)
+       (when (and (string= namespace "org.freedesktop.appearance")
+		  (string= key "color-scheme"))
+	 (if (eq (car value) 2)
+	     (catppuccin-load-flavor 'latte)
+	   (catppuccin-load-flavor 'mocha)))))))
 
 (setq-default line-spacing (floor (* .75 13)))
 
