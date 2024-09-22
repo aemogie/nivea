@@ -122,6 +122,14 @@ let
           ${notif} "Resuming: $(${playctl} -l | head -n 1)"
         fi
       ''}"
+      ", XF86AudioPlay, exec, ${pkgs.writeShellScript "playplay" ''
+          ${playctl} play # play first
+          ${notif} "Resuming: $(${playctl} -l | head -n 1)"
+      ''}"
+      ", XF86AudioPause, exec, ${pkgs.writeShellScript "playpause" ''
+          ${playctl} -a pause
+          ${notif} "Paused All"
+      ''}"
       ", XF86AudioPrev, exec, ${pkgs.writeShellScript "playprev" ''
         ${playctl} previous
         ${notif} "Playing previous"
