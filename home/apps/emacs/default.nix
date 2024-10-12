@@ -26,6 +26,8 @@
       ${builtins.readFile ./default.el}
       ${builtins.readFile ./binds.el}
       ${builtins.readFile ./look.el}
+      ${builtins.readFile ./commands.el}
+      ${builtins.readFile ./term.el}
     '';
   };
   services.emacs.enable = false;
