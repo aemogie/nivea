@@ -33,21 +33,21 @@ let
         else
           "${config.programs.foot.package}/bin/foot";
       emacs =
-        if config.services.emacs.enable then
-          pkgs.writeShellScript "emacsclient" ''
-            if ! ${pkgs.systemd}/bin/systemctl --user status emacs.service >/dev/null 2>&1; then
-               ${pkgs.systemd}/bin/systemctl --user start emacs.service
-            fi
-            ${config.services.emacs.package}/bin/emacsclient --no-wait --reuse-frame "$@"
-          ''
-        else
-          "${config.programs.emacs.finalPackage}/bin/emacs";
+        let
+          pkg = config.programs.emacs.finalPackage;
+        in
+        pkgs.writeShellScript "emacsclient" ''
+          if ! ${pkg}/bin/emacsclient --no-wait --reuse-frame "$@" >/dev/null 2>&1; then
+            ${pkg}/bin/emacs --bg-daemon
+            ${pkg}/bin/emacsclient --no-wait --reuse-frame "$@"
+          fi
+        '';
       # testing
-      term = if true then "${emacs} --eval '(eshell)'" else foot;
+      term = "${emacs} --eval '(eshell)'";
     in
     [
       # figure out pyprland scratchpads and use that
-      "${mod}, Space,    exec, ${foot}"
+      "${mod}, Space,    exec, ${foot}" # for emergencies
       "${mod}, KP_Enter, exec, ${term}"
       "${mod}, Return,   exec, ${term}"
       "${mod}, E,        exec, ${emacs}"

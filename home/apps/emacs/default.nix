@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.emacs = {
     enable = true;
@@ -27,5 +27,9 @@
       in
       [ config ];
   };
-  services.emacs.enable = true;
+  services.emacs.enable = false;
+  # more saner env variables
+  wayland.windowManager.hyprland.settings = {
+     exec-once = [ "${config.programs.emacs.finalPackage}/bin/emacs --fg-daemon" ];
+  };
 }
