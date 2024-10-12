@@ -7,8 +7,8 @@
 
 (use-package magit
   :config
-  (add-to-list 'magit-process-password-prompt-regexps
-	       "^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?.*\\)?: ?$"))
+  (add-to-list 'magit-process-password-prompt-regexps "Enter passphrase for .*:")
+  (add-to-list 'magit-process-password-prompt-regexps "Bad passphrase, try again for .*:"))
 
 (use-package vertico :config (vertico-mode))
 (use-package marginalia :config (marginalia-mode))
