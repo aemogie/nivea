@@ -1,10 +1,3 @@
-(require 'binds)
-(require 'look)
-
-(use-package eat
-  :hook
-  (eshell-load . eat-eshell-mode))
-
 (use-package magit
   :config
   (add-to-list 'magit-process-password-prompt-regexps "Enter passphrase for .*:")
