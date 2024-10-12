@@ -14,6 +14,12 @@
 
 (use-package vertico :config (vertico-mode))
 (use-package marginalia :config (marginalia-mode))
+(use-package corfu :config (global-corfu-mode))
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  (orderless-matching-styles '(orderless-flex orderless-regexp)))
 
 ;; i thought `nil` would work, but it doesnt. wonder why
 (use-package disable-mouse :config (global-disable-mouse-mode 0))

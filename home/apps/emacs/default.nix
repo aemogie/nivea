@@ -18,6 +18,8 @@
           epkgs.nix-mode
           epkgs.magit
           epkgs.envrc
+          epkgs.corfu
+          epkgs.orderless
           epkgs.org-modern
           epkgs.kotlin-mode
         ];
