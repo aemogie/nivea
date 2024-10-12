@@ -60,13 +60,6 @@ in
           "full-screen-api.transition.timeout" = 0;
         }
         // {
-          # default theme colours
-          "browser.display.foreground_color" = "#${text}";
-          "browser.display.foreground_color.dark" = "#${text}";
-          "browser.display.background_color" = "#${base}";
-          "browser.display.background_color.dark" = "#${base}";
-        }
-        // {
           # default fonts
           "font.name.monospace.x-western" = config.fonts.monospace;
           "font.name.sans-serif.x-western" = config.fonts.sans;
