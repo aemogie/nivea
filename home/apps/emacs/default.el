@@ -1,8 +1,6 @@
 (require 'binds)
 (require 'look)
 
-(use-package nix-mode :mode "\\.nix\\'")
-
 (use-package eat
   :hook
   (eshell-load . eat-eshell-mode))
@@ -17,3 +15,9 @@
 
 ;; i thought `nil` would work, but it doesnt. wonder why
 (use-package disable-mouse :config (global-disable-mouse-mode 0))
+
+(use-package org
+  :defer t
+  :custom (org-log-into-drawer 1))
+(use-package nix-mode :mode "\\.nix\\'")
+(use-package kotlin-mode :mode "\\.kts?\\'")

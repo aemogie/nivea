@@ -17,6 +17,8 @@
           epkgs.marginalia
           epkgs.nix-mode
           epkgs.magit
+          epkgs.org-modern
+          epkgs.kotlin-mode
         ];
         config = epkgs.trivialBuild {
           pname = "default";
