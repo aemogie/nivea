@@ -17,6 +17,7 @@
           epkgs.marginalia
           epkgs.nix-mode
           epkgs.magit
+          epkgs.envrc
           epkgs.org-modern
           epkgs.kotlin-mode
         ];
