@@ -12,7 +12,9 @@
      '("w" . save-buffer)
      '("f" . find-file)
      '("b" . switch-to-buffer)
-     '("k" . kill-buffer))
+     '("k" . kill-buffer)
+     '("o" . other-window)
+     '("K" . delete-window))
 
     (meow-normal-define-key
      '("0" . meow-expand-0)
