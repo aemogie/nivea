@@ -36,6 +36,7 @@
     # gc.automatic = true;
     # TODO: set a maximum generation limit
   };
+  services.guix.enable = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
