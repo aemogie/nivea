@@ -30,9 +30,9 @@
       ${builtins.readFile ./term.el}
     '';
   };
-  services.emacs.enable = false;
-  # more saner env variables
-  wayland.windowManager.hyprland.settings = {
-     exec-once = [ "${config.programs.emacs.finalPackage}/bin/emacs --fg-daemon" ];
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    startWithUserSession = "graphical";
   };
 }

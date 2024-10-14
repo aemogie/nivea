@@ -37,10 +37,7 @@ let
           pkg = config.programs.emacs.finalPackage;
         in
         pkgs.writeShellScript "emacsclient" ''
-          if ! ${pkg}/bin/emacsclient --no-wait --reuse-frame "$@" >/dev/null 2>&1; then
-            ${pkg}/bin/emacs --bg-daemon
-            ${pkg}/bin/emacsclient --no-wait --reuse-frame "$@"
-          fi
+            ${pkg}/bin/emacsclient --create-frame "$@"
         '';
       # testing
       term = "${emacs} --eval '(eshell)'";

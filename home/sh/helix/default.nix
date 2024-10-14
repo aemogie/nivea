@@ -1,7 +1,4 @@
 {
-  inputs,
-  pkgs,
-  lib,
   config,
   osConfig,
   ...
@@ -18,7 +15,6 @@
     in
     {
       enable = true;
-      defaultEditor = true;
       settings = {
         editor = {
           auto-save = false; # just got annoying
