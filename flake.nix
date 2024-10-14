@@ -20,7 +20,7 @@
         };
         modules = [
           home-manager.nixosModules.home-manager
-          lix-module.nixosModules.default
+          lix-module.nixosModules.lixFromNixpkgs
           {
             networking.hostName = hostName;
             home-manager.extraSpecialArgs = specialArgs;
@@ -56,16 +56,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lix = {
-      url = "git+https://git@git.lix.systems/lix-project/lix";
-      flake = false;
-    };
     lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
-      inputs.lix.follows = "lix";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    helix.url = "github:helix-editor/helix";
   };
 }

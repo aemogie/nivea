@@ -13,35 +13,41 @@ let
   dark_str = if isDark then "Dark" else "Light";
 in
 {
-  environment.systemPackages = [
-    (pkgs.catppuccin-papirus-folders.override {
-      accent = accent;
-      flavor = flavor;
-    })
-    (pkgs.catppuccin-gtk.override {
-      accents = [ accent ];
-      variant = flavor;
-    })
-    pkgs.catppuccin-cursors."${flavor}${dark_str}"
-  ];
   programs.regreet = {
     enable = true;
     cageArgs = [
       "-s"
       "-d"
     ];
+    theme = {
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ accent ];
+        variant = flavor;
+      };
+      name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${dark_str}";
+    };
+    iconTheme = {
+      package = pkgs.catppuccin-papirus-folders.override {
+        accent = accent;
+        flavor = flavor;
+      };
+      name = "Papirus" + (if isDark then "" else "-Dark");
+    };
+    font = {
+      package = pkgs.iosevka-bin.override { variant = "Aile"; };
+      name = "Iosevka Aile";
+      size = 11;
+    };
+    cursorTheme = {
+      package = pkgs.catppuccin-cursors."${flavor}${dark_str}";
+      name = "Catppuccin-${caps flavor}-${dark_str}-Cursors";
+    };
     settings = {
       background = {
         path = if isDark then ../assets/catppuccino-many.png else ../assets/catppuccino-green.png;
         fit = "Cover";
       };
-      GTK = {
-        application_prefer_dark_theme = isDark;
-        font_name = "Iosevka Aile 11";
-        cursor_theme_name = "Catppuccin-${caps flavor}-${dark_str}-Cursors";
-        theme_name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${dark_str}";
-        icon_theme_name = "Papirus" + (if isDark then "" else "-Dark");
-      };
+      GTK.application_prefer_dark_theme = isDark;
     };
   };
 }

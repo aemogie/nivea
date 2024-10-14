@@ -11,6 +11,6 @@
   };
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   home-manager.sharedModules = [
-    { wayland.windowManager.hyprland.package = config.programs.hyprland.finalPackage; }
+    { wayland.windowManager.hyprland.package = config.programs.hyprland.package; }
   ];
 }
