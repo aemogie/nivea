@@ -10,7 +10,7 @@ let
   inherit (config.paint.active) isDark;
 
   caps = s: "${toUpper (substring 0 1 s)}${substring 1 (stringLength s) s}";
-  dark_str = if isDark then "Dark" else "Light";
+  dark_str = if isDark then "dark" else "light";
 in
 {
   programs.regreet = {
@@ -20,18 +20,18 @@ in
       "-d"
     ];
     theme = {
+      name = "catppuccin-${flavor}-${accent}-standard";
       package = pkgs.catppuccin-gtk.override {
         accents = [ accent ];
         variant = flavor;
       };
-      name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${dark_str}";
     };
     iconTheme = {
+      name = "Papirus-${caps dark_str}";
       package = pkgs.catppuccin-papirus-folders.override {
         accent = accent;
         flavor = flavor;
       };
-      name = "Papirus" + (if isDark then "" else "-Dark");
     };
     font = {
       package = pkgs.iosevka-bin.override { variant = "Aile"; };
@@ -39,8 +39,8 @@ in
       size = 11;
     };
     cursorTheme = {
-      package = pkgs.catppuccin-cursors."${flavor}${dark_str}";
-      name = "Catppuccin-${caps flavor}-${dark_str}-Cursors";
+      package = pkgs.catppuccin-cursors."${flavor}${caps accent}";
+      name = "catppuccin-${flavor}-${accent}-cursors";
     };
     settings = {
       background = {

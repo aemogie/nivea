@@ -4,6 +4,9 @@
   osConfig,
   ...
 }:
+let
+  inherit (config.home) pointerCursor;
+in
 {
   imports = [
     # inferior to upstream hm's nix native config `settings`
@@ -13,7 +16,11 @@
 
   home = {
     packages = [ pkgs.hyprpicker ];
-    sessionVariables.NIXOS_OZONE_WL = "1";
+    sessionVariables = {
+      HYPRCURSOR_THEME = pointerCursor.name;
+      HYPRCURSOR_SIZE = pointerCursor.size;
+      NIXOS_OZONE_WL = "1";
+    };
   };
 
   wayland.windowManager.hyprland = {
@@ -26,7 +33,7 @@
       ];
 
       exec-once = [
-        "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
+        "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${pointerCursor.name} ${toString pointerCursor.size}"
       ];
 
       input = {

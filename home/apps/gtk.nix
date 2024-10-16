@@ -19,8 +19,8 @@ in
   };
 
   home.pointerCursor = {
-    package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
-    name = "Catppuccin-${caps flavor}-${caps dark_str}-Cursors";
+    package = pkgs.catppuccin-cursors."${flavor}${caps accent}";
+    name = "catppuccin-${flavor}-${accent}-cursors";
     size = 24;
     gtk.enable = true;
     x11.enable = true;
@@ -33,7 +33,7 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-${caps flavor}-Standard-${caps accent}-${caps dark_str}";
+      name = "catppuccin-${flavor}-${accent}-standard";
       package = pkgs.catppuccin-gtk.override {
         accents = [ accent ];
         variant = flavor;
@@ -41,7 +41,7 @@ in
     };
 
     iconTheme = {
-      name = "Papirus" + (if isDark then "" else "-Dark");
+      name = "Papirus-${caps dark_str}";
       package = pkgs.catppuccin-papirus-folders.override {
         accent = accent;
         flavor = flavor;
