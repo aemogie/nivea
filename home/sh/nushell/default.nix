@@ -7,14 +7,6 @@
 
   # the benefit of doing it as a nixos module instead of standalone.
   # might move to standalone tho, for portability
-  home.loginShell = {
-    package = config.programs.nushell.package;
-    args = [
-      "--login"
-      "--stdin"
-      "--commands"
-    ];
-  };
   programs.carapace.enable = true;
   programs.nushell = {
     enable = true;
@@ -23,7 +15,7 @@
       rm.always_trash = true;
       table.index_mode = "auto";
       history.file_format = "sqlite";
-      shell_integration = false;
+      shell_integration = {};
       use_kitty_protocol = false;
     };
     # TODO: make into portable scripts

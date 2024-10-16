@@ -32,7 +32,6 @@
             display-inlay-hints = true;
             display-messages = true;
           };
-          shell = config.home.loginShell.cmd;
           soft-wrap = {
             enable = false;
             wrap-at-text-width = true;
