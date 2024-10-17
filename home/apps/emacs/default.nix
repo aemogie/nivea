@@ -28,6 +28,7 @@
       ${builtins.readFile ./look.el}
       ${builtins.readFile ./commands.el}
       ${builtins.readFile ./term.el}
+      ${builtins.readFile ./eshell-frame.el}
     '';
   };
   services.emacs = {
