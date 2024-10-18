@@ -85,6 +85,3 @@
   (setq meow-expand-hint-counts '((word . 0) (line . 0) (block . 0) (find . 0) (till . 0)))
   (meow-setup)
   (meow-global-mode 1))
-
-(provide 'binds)
-
