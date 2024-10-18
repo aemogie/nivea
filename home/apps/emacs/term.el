@@ -6,7 +6,18 @@
 (use-package tramp
   :custom
   (password-cache t "Enable password cache")
-  (password-cache-expiry (* 5 60) "Set expiry to 5 mins (same as sudo)"))
+  (password-cache-expiry (* 5 60) "Set expiry to 5 mins (same as sudo)")
+  :config
+  ;; for guix
+  (add-to-list 'tramp-remote-path "/run/current-system/profile/bin/")
+  (add-to-list 'tramp-methods
+	       '("nsenter"
+		 (tramp-login-program "nsenter")
+		 (tramp-login-args (("-a" "-t" "%h")
+				    ("/run/current-system/profile/bin/bash")
+				    ("-c" "\"/run/current-system/profile/bin/su - %u\"")))
+		 (tramp-remote-shell "/run/current-system/profile/bin/bash")
+		 (tramp-remote-shell-args ("-c")))))
 
 (use-package eshell
   :requires tramp
