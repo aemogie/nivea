@@ -19,6 +19,7 @@
       epkgs.orderless
       epkgs.org-modern
       epkgs.kotlin-mode
+      epkgs.tramp
     ];
 
     extraConfig = ''
