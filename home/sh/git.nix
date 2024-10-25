@@ -42,7 +42,7 @@ in
     git = {
       enable = true;
       userName = "aemogie";
-      userEmail = "54412618+aemogie@users.noreply.github.com";
+      userEmail = "theaemogie" + "@" + "gmail.com";
       extraConfig = {
         init.defaultBranch = "dev";
         commit.gpgsign = true;
