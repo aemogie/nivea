@@ -5,12 +5,13 @@
     {
       nixpkgs,
       home-manager,
-      ...
+      self
     }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
       hostName = "seren";
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations.${hostName} = lib.nixosSystem rec {
@@ -27,7 +28,10 @@
           ./home
         ];
       };
-      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt-rfc-style;
+      devShells.${system}.default = pkgs.mkShell {
+        packages = [ pkgs.nixd self.formatter.${system} ];
+      };
     };
 
   nixConfig = {
