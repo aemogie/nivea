@@ -20,8 +20,8 @@ let
           ctp = pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "youtubemusic";
-            rev = "546293136a326394f7e528a125b012479dfaf642";
-            sha256 = "sha256-eQCOE2SIlHhAkY/RK4EVs9Uoi7/OyjekAsHTFhPJC7U=";
+            rev = "7ed6a5033639540e68068e17c4e3613026f3bf82";
+            sha256 = "sha256-BQu0pUHUj94F4SY6om0yW+PIftTvwJO6BO3osQ02RXg=";
           };
         in
         # TODO: use prefers-color-scheme
@@ -29,11 +29,14 @@ let
     };
     plugins = {
       adblocker.enabled = true;
-      # not sure if this does much but
-      lyrics-genius.enabled = true;
       shortcuts.enabled = true;
       sponsorblock.enabled = true;
-      video-toggle.enabled = true;
+      video-toggle = {
+        enabled = true;
+        hideVideo = true;
+      };
+      synced-lyrics.enabled = true;
+      downloader.enabled = true;
     };
     __internal__.migrations = {
       inherit (pkgs.youtube-music) version;
@@ -44,7 +47,7 @@ in
   home.packages = [ pkgs.youtube-music ];
   # crashes on read-only
   home.activation.ytmusicConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p "${config.xdg.configHome}/YouTube Music"
+    mkdir -p "${config.xdg.configHome}/YouTube Music/"
     cat << EOF > "${config.xdg.configHome}/YouTube Music/config.json"
     ${builtins.toJSON text}
     EOF
