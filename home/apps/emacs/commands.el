@@ -16,7 +16,7 @@
        :name "bluetoothctl-connect"
        :buffer "*bluetoothctl-output*"
        :command (list "bluetoothctl" "connect" mac)
-       :sentinel (lambda (process event)
+       :sentinel (lambda (_ event)
                    (if (string= event "finished\n")
                        (message "Successfully connected to %s (%s)" selected mac)
 		     (message "Error connecting to %s (%s)" selected mac)))))))
