@@ -5,6 +5,7 @@
     {
       nixpkgs,
       home-manager,
+      stylix,
       self
     }@inputs:
     let
@@ -19,6 +20,7 @@
           inherit inputs;
         };
         modules = [
+          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             networking.hostName = hostName;
@@ -45,6 +47,11 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 }
