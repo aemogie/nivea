@@ -22,6 +22,7 @@
   home.packages = [
     pkgs.wl-clipboard # wl-copy/wl-paste
     pkgs.fd
+    pkgs.gnumake # why is this not builtin?
   ];
 
   home.shellAliases = {
