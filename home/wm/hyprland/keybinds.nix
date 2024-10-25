@@ -98,7 +98,7 @@ let
       ''}"
       ", XF86AudioMute, exec, ${pkgs.writeShellScript "volmut" ''
         ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle
-        ${notif} "Volume Muted"
+        ${notif} "Speaker $([[ $(wpctl get-volume @DEFAULT_SINK@ | grep ' \[MUTED\]$') ]] && echo Muted || echo Unmuted)"
       ''}"
     ]
     ++ [
