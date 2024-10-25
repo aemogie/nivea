@@ -5,7 +5,6 @@
     {
       nixpkgs,
       home-manager,
-      lix-module,
       ...
     }@inputs:
     let
@@ -20,7 +19,6 @@
         };
         modules = [
           home-manager.nixosModules.home-manager
-          lix-module.nixosModules.lixFromNixpkgs
           {
             networking.hostName = hostName;
             home-manager.extraSpecialArgs = specialArgs;
@@ -36,18 +34,6 @@
     # sandbox = false;
     builders-use-substitutes = true;
     keep-going = true;
-    extra-substituters = [
-      "https://helix.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://cache.lix.systems"
-    ];
-    extra-trusted-public-keys = [
-      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
-    ];
   };
 
   inputs = {
@@ -56,10 +42,5 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 }
