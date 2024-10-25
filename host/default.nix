@@ -36,7 +36,13 @@
     # gc.automatic = true;
     # TODO: set a maximum generation limit
   };
-  services.guix.enable = true;
+  
+  services.guix = {
+    enable = true;
+    extraArgs = [
+      "--substitute-urls=https://ci.guix.gnu.org https://bordeaux.guix.gnu.org https://substitutes.nonguix.org"
+    ];
+  };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
