@@ -8,16 +8,17 @@
   (password-cache t "Enable password cache")
   (password-cache-expiry (* 5 60) "Set expiry to 5 mins (same as sudo)")
   :config
-  ;; for guix
-  (add-to-list 'tramp-remote-path "/run/current-system/profile/bin/")
+  ;; fixme: something broke again with eshell, used to work fine
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'tramp-methods
 	       '("nsenter"
 		 (tramp-login-program "nsenter")
-		 (tramp-login-args (("-a" "-t" "%h")
-				    ("/run/current-system/profile/bin/bash")
-				    ("-c" "\"/run/current-system/profile/bin/su - %u\"")))
-		 (tramp-remote-shell "/run/current-system/profile/bin/bash")
-		 (tramp-remote-shell-args ("-c")))))
+		 (tramp-login-args (("-a" "-e" "-t" "%h")
+				    ("/bin/sh" "-l")
+				    ("-c" "'su - %u'")))
+		 (tramp-remote-shell "/bin/sh")
+		 (tramp-remote-shell-login ("-l"))
+		 (tramp-remote-shell-args ("-i" "-c")))))
 
 (use-package eshell
   :requires tramp
