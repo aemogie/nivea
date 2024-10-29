@@ -6,7 +6,7 @@
     ./discord
     ./zathura.nix
     ./aseprite.nix
-    ./spicetify
+    # ./spicetify
     ./foot.nix
     ./emacs
     ./scrcpy.nix
