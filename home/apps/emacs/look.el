@@ -4,8 +4,19 @@
 (tool-bar-mode -1)
 
 (add-to-list 'default-frame-alist '(font . "Iosevka 13"))
-(add-to-list 'default-frame-alist '(alpha-background . 70))
-(pixel-scroll-precision-mode)
+(setq-default line-spacing .5)
+
+;; looks ugly with spacious-padding
+;; (add-to-list 'default-frame-alist '(alpha-background . 70))
+
+(use-package pixel-scroll
+  :bind
+  ([remap scroll-up-command]   . pixel-scroll-interpolate-down)
+  ([remap scroll-down-command] . pixel-scroll-interpolate-up)
+  :custom
+  (pixel-scroll-precision-interpolate-page t)
+  :init
+  (pixel-scroll-precision-mode 1))
 
 (use-package catppuccin-theme
   :config
@@ -33,7 +44,8 @@
 	     (catppuccin-load-flavor 'latte)
 	   (catppuccin-load-flavor 'mocha)))))))
 
-(setq-default line-spacing (floor (* .75 13)))
-
 (use-package org-modern
   :hook (org-mode (org-agenda-finalize . org-modern-agenda)))
+
+(use-package spacious-padding
+  :config (spacious-padding-mode))

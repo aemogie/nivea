@@ -6,12 +6,12 @@
       nixpkgs,
       home-manager,
       stylix,
-      self
+      self,
     }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
-      hostName = "seren";
+      hostName = "serena";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
     {
@@ -32,7 +32,10 @@
       };
       formatter.${system} = pkgs.nixfmt-rfc-style;
       devShells.${system}.default = pkgs.mkShell {
-        packages = [ pkgs.nixd self.formatter.${system} ];
+        packages = [
+          pkgs.nixd
+          self.formatter.${system}
+        ];
       };
     };
 

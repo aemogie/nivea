@@ -11,31 +11,36 @@
 let
   fileSystems = {
     "/" = lib.mkForce {
-      device = "/dev/disk/by-label/NIXOS";
+      label = "NIXOS";
       fsType = "ext4";
     };
 
     "/boot" = {
-      device = "/dev/disk/by-label/BOOT";
+      label = "${config.networking.hostName}-boot";
       fsType = "vfat";
     };
 
     "/home" = {
-      device = "/dev/disk/by-label/NIXHOME";
+      label = "NIXHOME";
       fsType = "ext4";
     };
 
-    "/mnt/windows" = {
-      device = "/dev/disk/by-label/WINDOWS";
-      fsType = "ntfs-3g";
-      options = [ "rw" ];
-    };
+    # "/swap" = {
+    #   label = config.networking.hostName;
+    #   fsType = "btrfs";
+    #   options = ["subvol=@swap" "noatime" "nodiratime" "discard=async"];
+    # };
 
-    "/mnt/data" = {
-      device = "/dev/disk/by-label/WINDATA";
-      fsType = "ntfs-3g";
-      options = [ "rw" ];
-    };
+    # "/mnt/ruina" = {
+    #   label = "ruina";
+    #   fsType = "ntfs-3g";
+    #   options = [ "rw" ];
+    # };
+
+    # "/mnt/ruina/boot" = {
+    #   label = "ruinaboot";
+    #   fsType = "vfat";
+    # };
   };
 in
 {
@@ -53,12 +58,20 @@ in
       kernelModules = [ ];
       verbose = false;
     };
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 
-    extraModprobeConfig = ''
-      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-    '';
+    # QEMU Hardware Acceleration
+    kernelModules = [ "kvm-intel" ];
+
+    # # OBS Loopback Camera
+    # extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+    # extraModprobeConfig = ''
+    #   options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+    # '';
+
+    # BTRFS Swap
+    # resumeDevice = "/dev/disk/by-label/serena";
+    # sudo btrfs inspect-internal map-swapfile /swap/swapfile -r
+    # kernelParams = [ "resume_offset=533760" ];
   };
 
   inherit fileSystems;
@@ -69,7 +82,7 @@ in
     };
   };
 
-  swapDevices = [ { device = "/dev/disk/by-label/SWAP"; } ];
+  # swapDevices = [ { device = "/swap/swapfile"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

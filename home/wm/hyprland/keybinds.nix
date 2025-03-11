@@ -43,7 +43,7 @@ let
             ${pkg}/bin/emacsclient "''${@:---create-frame}"
         '';
       # testing
-      term = "${emacs} --eval '(eshell-frame)'";
+      term = "${emacs} --create-frame --eval '(eshell-frame t)'";
     in
     [
       # figure out pyprland scratchpads and use that
@@ -85,6 +85,15 @@ let
       wpctl = "${pkgs.wireplumber}/bin/wpctl";
       brictl = lib.getExe pkgs.brightnessctl;
       playctl = lib.getExe pkgs.playerctl;
+      play-toggle = pkgs.writeShellScript "playtoggle" ''
+        if ${playctl} -a status | grep -q "Playing"; then
+          ${playctl} -a pause
+          ${notif} "Paused All"
+        else
+          ${playctl} play # play first
+          ${notif} "Resuming: $(${playctl} -l | head -n 1)"
+        fi
+      '';
     in
     # TODO: better notifs
     [
@@ -113,23 +122,9 @@ let
     ]
     ++ [
       # TODO: fix laptop keyboard
-      "${mod}, P, exec, ${pkgs.writeShellScript "playtoggle" ''
-        if ${playctl} -a status | grep -q "Playing"; then
-          ${playctl} -a pause
-          ${notif} "Paused All"
-        else
-          ${playctl} play # play first
-          ${notif} "Resuming: $(${playctl} -l | head -n 1)"
-        fi
-      ''}"
-      ", XF86AudioPlay, exec, ${pkgs.writeShellScript "playplay" ''
-          ${playctl} play # play first
-          ${notif} "Resuming: $(${playctl} -l | head -n 1)"
-      ''}"
-      ", XF86AudioPause, exec, ${pkgs.writeShellScript "playpause" ''
-          ${playctl} -a pause
-          ${notif} "Paused All"
-      ''}"
+      "${mod}, P, exec, ${play-toggle}"
+      ", XF86AudioPlay, exec, ${play-toggle}"
+      ", XF86AudioPause, exec, ${play-toggle}"
       ", XF86AudioPrev, exec, ${pkgs.writeShellScript "playprev" ''
         ${playctl} previous
         ${notif} "Playing previous"

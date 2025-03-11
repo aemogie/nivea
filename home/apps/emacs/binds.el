@@ -10,14 +10,28 @@
 
       (meow-leader-define-key
        '("w" . save-buffer)
+
        '("e" . project-eshell)
+       '("E" . eshell)
+
        '("f" . project-find-file)
        '("F" . find-file)
-       '("b" . project-switch-to-buffer)
+
+       '("d" . project-dired)
+       '("D" . dired)
+
+       '("b" . (lambda ()
+		 (interactive)
+		 (if (eq major-mode 'erc-mode)
+		     (call-interactively #'erc-switch-to-buffer)
+		   (call-interactively #'project-switch-to-buffer))))
        '("B" . switch-to-buffer)
-       '("p" . project-switch-project)
+
        '("k" . kill-buffer)
        '("K" . project-kill-buffers)
+
+       '("p" . project-switch-project)
+
        '("o" . other-window)
        '("O" . delete-window))
 
@@ -56,7 +70,7 @@
      ;; '("q" . meow-quit)
      '("Q" . meow-goto-line)
      '("r" . meow-replace)
-     '("R" . meow-swap-grab)
+     '("R" . eglot-rename)
      '("s" . meow-kill)
      '("t" . meow-till)
      '("u" . meow-undo)
@@ -78,3 +92,10 @@
   (setq meow-expand-hint-counts '((word . 0) (line . 0) (block . 0) (find . 0) (till . 0)))
   (meow-setup)
   (meow-global-mode 1))
+
+(use-package multiple-cursors
+  :custom (mc/always-run-for-all t))
+
+(use-package expreg
+  :bind (:map meow-normal-state-keymap
+	      ("M-o" . expreg-expand)))

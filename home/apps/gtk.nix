@@ -19,8 +19,8 @@ in
   };
 
   home.pointerCursor = {
-    package = pkgs.catppuccin-cursors."${flavor}${caps accent}";
-    name = "catppuccin-${flavor}-${accent}-cursors";
+    package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
+    name = "catppuccin-${flavor}-${dark_str}-cursors";
     size = 24;
     gtk.enable = true;
     x11.enable = true;

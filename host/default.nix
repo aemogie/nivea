@@ -1,6 +1,6 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -40,7 +40,11 @@
   services.guix = {
     enable = true;
     extraArgs = [
-      "--substitute-urls=https://ci.guix.gnu.org https://bordeaux.guix.gnu.org https://substitutes.nonguix.org"
+      "--substitute-urls=${lib.concatStringsSep " " [
+        "https://ci.guix.gnu.org"
+        "https://bordeaux.guix.gnu.org"
+        "https://substitutes.nonguix.org"
+      ]}"
     ];
   };
 

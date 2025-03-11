@@ -37,9 +37,15 @@ when creating a new buffer, doesn't enable `eshell-mode'."
     buf))
 
 ;; entrypoint
-(defun eshell-frame ()
+(defun eshell-frame (&optional take-current-frame)
   (interactive)
   (let* ((buf (eshell-frame--new-eshell-buffer))
-	 (frame (with-current-buffer buf
-		 (make-frame '((eshell-frame . t))))))
-    frame))
+	 (frame (if take-current-frame
+		    (progn
+		      (set-frame-parameter nil 'eshell-frame t)
+		      (set-frame-parameter nil 'buffer-list `(,buf))
+		      (switch-to-buffer buf))
+		  (with-current-buffer buf
+		    (make-frame '((eshell-frame . t)))))))
+	 frame))
+

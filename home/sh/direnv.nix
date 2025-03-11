@@ -24,7 +24,7 @@
             elif [[ -f channels.scm ]]; then
                 log_status "lockfile not found, but channels.scm found. creating lockfile"
                 tmplock="$(mktemp)"
-                guix time-machine -C "$CHANNEL_FILE" -- describe -f channels >"$tmplock" && \
+                $guix time-machine -C "$CHANNEL_FILE" -- describe -f channels >"$tmplock" && \
                     # only overrwrite if succeeded
                     cat "$tmplock" > "$LOCK_FILE" && \
                     guix="$guix time-machine -C channels.lock.scm -- "
@@ -38,7 +38,7 @@
             else
                 log_status "no cached profile found. calling out to guix."
                 mkdir -p "$(direnv_layout_dir)"
-                eval "$(guix shell --search-paths --root="$cache_dir" "$@")"
+                eval "$($guix shell --search-paths --root="$cache_dir" "$@")"
             fi
         }
       '';

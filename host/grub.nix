@@ -27,6 +27,19 @@
           device = "nodev";
           efiSupport = true;
           useOSProber = true;
+          extraEntries = ''
+            menuentry 'aetheria.' --class guix {
+              search --set --label BOOTTMP
+              configfile /grub/grub.cfg
+            }
+
+            menuentry 'ruina.' --class windows {
+              insmod part_gpt
+              insmod fat
+              search --set=root --hint=hd0,gpt3 --label ruinaboot
+              chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+            }
+          '';
         };
     };
     # suppress all messeges

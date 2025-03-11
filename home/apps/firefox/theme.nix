@@ -1,4 +1,4 @@
-{ light, dark, ... }:
+{ osConfig, pkgs, ... }:
 let
   theme =
     {
@@ -48,17 +48,28 @@ let
       toolbar_field_highlight = "#${primary}";
       toolbar_vertical_separator = "#${primary}";
     };
+  manifest = {
+    manifest_version = 2;
+
+    browser_specific_settings.gecko.id = "custom@paint.nix";
+
+    name = "paint.nix auto-generated theme";
+    description = "Theme generated using home-manager paint.nix module.";
+    author = "aemogie.";
+    version = "0";
+
+    theme.colors = theme osConfig.paint.light.palette;
+    dark_theme.colors = theme osConfig.paint.dark.palette;
+  };
 in
-{
-  manifest_version = 2;
-
-  browser_specific_settings.gecko.id = "custom@paint.nix";
-
-  name = "paint.nix auto-generated theme";
-  description = "Theme generated using home-manager paint.nix module.";
-  author = "aemogie.";
-  version = "0.2";
-
-  theme.colors = theme light;
-  dark_theme.colors = theme dark;
+pkgs.stdenv.mkDerivation {
+  pname = "paintnix-theme";
+  version = manifest.version;
+  nativeBuildInputs = [ pkgs.zip ];
+  src = pkgs.writeTextDir "manifest.json" (builtins.toJSON manifest);
+  buildCommand = ''
+    dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+    mkdir -p $dst
+    zip -jr "$dst/${manifest.browser_specific_settings.gecko.id}.xpi" $src/*
+  '';
 }

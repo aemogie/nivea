@@ -60,7 +60,6 @@ in
         };
         user.signingkey = "~/.ssh/id_ed25519";
       };
-      difftastic.enable = true;
       aliases = lib.mkIf cfg.commonAliases aliases;
     };
     gh = {

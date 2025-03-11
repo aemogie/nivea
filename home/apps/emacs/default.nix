@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   programs.emacs = {
     enable = true;
@@ -7,7 +7,9 @@
       epkgs.catppuccin-theme
       epkgs.meow
       epkgs.kakoune
+      epkgs.multiple-cursors
       epkgs.treesit-grammars.with-all-grammars
+      epkgs.expreg
       epkgs.disable-mouse
       epkgs.eat
       epkgs.vertico
@@ -20,7 +22,12 @@
       epkgs.org-modern
       epkgs.kotlin-mode
       epkgs.tramp
-      epkgs.disk-usage
+      epkgs.geiser
+      epkgs.geiser-guile
+      epkgs.paredit
+      epkgs.rainbow-delimiters
+      epkgs.guix
+      epkgs.spacious-padding
     ];
 
     extraConfig = ''

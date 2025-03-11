@@ -39,8 +39,8 @@ in
       size = 11;
     };
     cursorTheme = {
-      package = pkgs.catppuccin-cursors."${flavor}${caps accent}";
-      name = "catppuccin-${flavor}-${accent}-cursors";
+      package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
+      name = "catppuccin-${flavor}-${dark_str}-cursors";
     };
     settings = {
       background = {
