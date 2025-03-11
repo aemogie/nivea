@@ -2,8 +2,12 @@
 
 means snowy in latin
 
+> [!IMPORTANT]
+> i don't use nixos too frequently anymore, i'm mainly working on my
+> guix configuration, which lives in a seperate repository.
+
 ## machines
-- `seren` is an HP laptop. idk any other specs, but ive definitely seen an HP logo on it.
+- `serena` is an HP laptop. idk any other specs, but ive definitely seen an HP logo on it.
 
 ## todos
 - re-enable automatic gc
