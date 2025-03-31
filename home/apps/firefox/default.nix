@@ -1,8 +1,8 @@
-{ pkgs, ... }@args:
+{ pkgs, inputs, ... }@args:
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition;
+    package = inputs.nixpkgs2.legacyPackages.${pkgs.system}.firefox-devedition;
     profiles.old.id = 1;
     profiles.default = {
       name = "dev-edition-default";
