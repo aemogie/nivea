@@ -8,32 +8,43 @@
      '("k" . meow-prev)
      '("<escape>" . keyboard-quit))
 
-      (meow-leader-define-key
-       '("w" . save-buffer)
+    (meow-leader-define-key
+     '("w" . save-buffer)
 
-       '("e" . project-eshell)
-       '("E" . eshell)
+     '("e" . (lambda () (interactive)
+	       (if (project-current nil)
+		   (call-interactively #'project-eshell)
+		 (call-interactively #'eshell))))
+     '("E" . eshell)
 
-       '("f" . project-find-file)
-       '("F" . find-file)
+     '("f" . (lambda () (interactive)
+	       (if (project-current nil)
+		   (call-interactively #'project-find-file)
+		 (call-interactively #'find-file))))
+     '("F" . find-file)
 
-       '("d" . project-dired)
-       '("D" . dired)
+     '("d" . (lambda () (interactive)
+	       (if (project-current nil)
+		   (call-interactively #'project-dired)
+		 (call-interactively #'dired))))
+     '("D" . dired)
 
-       '("b" . (lambda ()
-		 (interactive)
-		 (if (eq major-mode 'erc-mode)
-		     (call-interactively #'erc-switch-to-buffer)
-		   (call-interactively #'project-switch-to-buffer))))
-       '("B" . switch-to-buffer)
+     '("b" . (lambda ()
+	       (interactive)
+	       (if (eq major-mode 'erc-mode)
+		   (call-interactively #'erc-switch-to-buffer)
+		 (if (project-current nil)
+		     (call-interactively #'project-switch-to-buffer)
+		   (call-interactively #'switch-to-buffer)))))
+     '("B" . switch-to-buffer)
 
-       '("k" . kill-buffer)
-       '("K" . project-kill-buffers)
+     '("k" . kill-buffer)
+     '("K" . project-kill-buffers)
 
-       '("p" . project-switch-project)
+     '("p" . project-switch-project)
 
-       '("o" . other-window)
-       '("O" . delete-window))
+     '("o" . other-window)
+     '("O" . delete-window))
 
     (meow-normal-define-key
      '(";" . meow-reverse)
@@ -70,7 +81,6 @@
      ;; '("q" . meow-quit)
      '("Q" . meow-goto-line)
      '("r" . meow-replace)
-     '("R" . eglot-rename)
      '("s" . meow-kill)
      '("t" . meow-till)
      '("u" . meow-undo)
@@ -99,3 +109,9 @@
 (use-package expreg
   :bind (:map meow-normal-state-keymap
 	      ("M-o" . expreg-expand)))
+
+(use-package eglot
+  :bind (:map eglot-mode-map
+	      ("R" . eglot-rename)
+	      ("M-q" . eglot-format)
+	      ("M-RET" . eglot-code-actions)))

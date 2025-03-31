@@ -29,7 +29,7 @@
      eshell-basic
      eshell-cmpl
      eshell-dirs
-     ;; eshell-extpipe
+     eshell-extpipe
      eshell-glob
      eshell-hist ;; TODO: replace with eshell-atuin
      eshell-ls
@@ -48,3 +48,6 @@
   (defun eshell/ff (&rest files)
     "Alias to find-file that supports wildcards"
     (-map #'find-file-noselect (-flatten files))))
+
+(use-package comint
+  :custom (comint-terminfo-terminal "eterm-color"))

@@ -33,6 +33,8 @@
   (compilation-filter . ansi-color-compilation-filter)
   (compilation-filter . ansi-osc-compilation-filter))
 
+(use-package elisp-mode
+  :custom (safe-local-variable-values '((lexical-scoping . t))))
 (use-package org
   :defer t
   :custom (org-log-into-drawer 1))
@@ -46,6 +48,11 @@
   :after geiser-guile
   :hook (scheme-mode . guix-devel-mode)
   :config (guix-prettify-global-mode))
+(use-package eglot
+  :preface
+  (defun format-when-eglot ()
+    (when (eglot-managed-p) (eglot-format-buffer)))
+  :hook (before-save . format-when-eglot))
 
 ;; ts-mode
 
