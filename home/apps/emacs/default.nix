@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.emacs = {
     enable = true;
@@ -28,6 +28,8 @@
       epkgs.rainbow-delimiters
       epkgs.guix
       epkgs.spacious-padding
+      inputs.nixpkgs2.legacyPackages.${pkgs.system}.emacsPackages.typst-ts-mode
+      inputs.nixpkgs2.legacyPackages.${pkgs.system}.emacsPackages.ox-typst
     ];
 
     extraConfig = ''

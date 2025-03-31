@@ -4,6 +4,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs2,
       home-manager,
       stylix,
       self,
@@ -47,6 +48,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs2.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

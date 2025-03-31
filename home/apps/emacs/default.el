@@ -63,6 +63,7 @@
   :init (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
 (use-package toml-ts-mode :mode "\\.toml\\'")
 (use-package yaml-ts-mode :mode "\\.ya?ml\\'")
+(use-package typst-ts-mode :mode "\\.typ\\'")
 
 (use-package erc
   :custom

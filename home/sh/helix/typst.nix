@@ -1,11 +1,11 @@
 { pkgs, config, ... }:
 {
-  home.sessionVariables = {
-    TYPST_FONT_PATHS = pkgs.symlinkJoin {
-      name = "typst-ready-fonts";
-      paths = config.fonts.packages;
-    };
-  };
+  # home.sessionVariables = {
+  #   TYPST_FONT_PATHS = pkgs.symlinkJoin {
+  #     name = "typst-ready-fonts";
+  #     paths = config.fonts.packages;
+  #   };
+  # };
   programs.helix.languages = {
     language = [
       {

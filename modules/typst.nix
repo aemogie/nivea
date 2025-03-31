@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   lib,
   config,
   ...
@@ -37,6 +38,9 @@
     in
     # lib.optionalAttrs cfg.enable
     {
-      home.packages = [ wrapped ];
+      home.packages = [
+        wrapped
+        inputs.nixpkgs2.legacyPackages.${pkgs.system}.tinymist
+      ];
     };
 }
