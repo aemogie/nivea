@@ -36,7 +36,7 @@
             menuentry 'ruina.' --class windows {
               insmod part_gpt
               insmod fat
-              search --set=root --hint=hd0,gpt3 --label ruinaboot
+              search --set=root --label ruinaboot
               chainloader /EFI/Microsoft/Boot/bootmgfw.efi
             }
           '';
