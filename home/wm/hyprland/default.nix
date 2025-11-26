@@ -29,7 +29,8 @@ in
       # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
       monitor = [
         ",preferred,auto,1"
-        ",preferred,auto,1,mirror,eDP-1"
+        ",preferred,auto,1,mirror,HDMI-A-1"
+        "HDMI-A-1,preferred,auto,0.833333"
       ];
 
       exec-once = [
