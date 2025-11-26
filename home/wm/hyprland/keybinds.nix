@@ -9,8 +9,9 @@ let
 
   basic = [
     "${mod}, Q, killactive"
-    "${mod}, V, togglefloating"
+    "${mod} SHIFT, V, togglefloating"
     "${mod}, O, fullscreen, 1" # maximise, not fullscreen
+    "${mod} SHIFT, O, fullscreen, 0" # fullscreen
     "${mod}, T, layoutmsg,  togglesplit"
 
     "${mod}, H, movefocus,  l"
