@@ -13,7 +13,7 @@
     ./registry.nix
     ./vaapi.nix
     ./logind.nix
-    ./keyd.nix
+    # ./keyd.nix
     ./battery
     ./hyprland.nix
     ./docs.nix
