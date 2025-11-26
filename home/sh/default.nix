@@ -23,6 +23,7 @@
     pkgs.wl-clipboard # wl-copy/wl-paste
     pkgs.fd
     pkgs.gnumake # why is this not builtin?
+    pkgs.pass
   ];
 
   home.shellAliases = {
@@ -52,6 +53,7 @@
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
+      pinentryPackage = pkgs.pinentry;
     };
   };
 }
