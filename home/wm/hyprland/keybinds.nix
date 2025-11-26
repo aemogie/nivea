@@ -37,10 +37,10 @@ let
           pkg = config.programs.emacs.finalPackage;
         in
         pkgs.writeShellScript "emacsclient" ''
-            if ! ${pkgs.systemd}/bin/systemctl --user status emacs.service >/dev/null 2>&1; then
-               ${pkgs.systemd}/bin/systemctl --user start emacs.service
-            fi
-            ${pkg}/bin/emacsclient "''${@:---create-frame}"
+          if ! ${pkgs.systemd}/bin/systemctl --user status emacs.service >/dev/null 2>&1; then
+             ${pkgs.systemd}/bin/systemctl --user start emacs.service
+          fi
+          ${pkg}/bin/emacsclient "''${@:---create-frame}"
         '';
       # testing
       term = "${emacs} --create-frame --eval '(eshell-frame t)'";

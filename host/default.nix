@@ -37,15 +37,17 @@
     # gc.automatic = true;
     # TODO: set a maximum generation limit
   };
-  
+
   services.guix = {
     enable = true;
     extraArgs = [
-      "--substitute-urls=${lib.concatStringsSep " " [
-        "https://ci.guix.gnu.org"
-        "https://bordeaux.guix.gnu.org"
-        "https://substitutes.nonguix.org"
-      ]}"
+      "--substitute-urls=${
+        lib.concatStringsSep " " [
+          "https://ci.guix.gnu.org"
+          "https://bordeaux.guix.gnu.org"
+          "https://substitutes.nonguix.org"
+        ]
+      }"
     ];
   };
 
