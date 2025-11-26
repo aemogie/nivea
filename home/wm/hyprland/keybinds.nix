@@ -82,7 +82,7 @@ let
       notif = lib.getExe pkgs.libnotify;
       volStep = "5%";
       briStep = "5%";
-      wpctl = "${pkgs.wireplumber}/bin/wpctl";
+      pactl = "${pkgs.pulseaudio}/bin/pactl";
       brictl = lib.getExe pkgs.brightnessctl;
       playctl = lib.getExe pkgs.playerctl;
       play-toggle = pkgs.writeShellScript "playtoggle" ''
@@ -98,15 +98,15 @@ let
     # TODO: better notifs
     [
       ", XF86AudioRaiseVolume, exec, ${pkgs.writeShellScript "volup" ''
-        ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ ${volStep}+
+        ${pactl} set-sink-volume @DEFAULT_SINK@ +${volStep}
         ${notif} "Volume +${volStep}"
       ''}"
       ", XF86AudioLowerVolume, exec, ${pkgs.writeShellScript "voldown" ''
-        ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ ${volStep}-
+        ${pactl} set-sink-volume @DEFAULT_SINK@ -${volStep}
         ${notif} "Volume -${volStep}"
       ''}"
       ", XF86AudioMute, exec, ${pkgs.writeShellScript "volmut" ''
-        ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle
+        ${pactl} set-sink-mute @DEFAULT_SINK@ toggle
         ${notif} "Speaker $([[ $(wpctl get-volume @DEFAULT_SINK@ | grep ' \[MUTED\]$') ]] && echo Muted || echo Unmuted)"
       ''}"
     ]
