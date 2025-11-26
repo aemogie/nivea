@@ -18,6 +18,7 @@
     ./hyprland.nix
     ./docs.nix
     ./syncthing.nix
+    ./steam.nix
   ];
 
   nix = {

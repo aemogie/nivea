@@ -15,5 +15,10 @@
     # ./wezterm
     # ./ue4.nix
   ];
-  home.packages = [ pkgs.jetbrains.idea-community ];
+  home.packages = [
+    pkgs.jetbrains.idea-community
+    pkgs.lutris
+    pkgs.winetricks
+    pkgs.wineWowPackages.waylandFull
+  ];
 }
