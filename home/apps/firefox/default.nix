@@ -1,3 +1,4 @@
+
 { pkgs, inputs, ... }@args:
 let
   profile = {
@@ -15,7 +16,7 @@ let
       engines = {
         "magic" = {
           urls = [
-            { template = "https://lite.duckduckgo.com/lite/?q={searchTerms}"; }
+            { template = "https://html.duckduckgo.com/html/?q={searchTerms}"; }
             {
               template = "https://duckduckgo.com/ac/?q={searchTerms}&type=list";
               type = "application/x-suggestions+json";
@@ -29,6 +30,7 @@ let
         "Wikipedia (en)".metaData.hidden = true;
         "eBay".metaData.hidden = true;
         "Amazon.com".metaData.hidden = true;
+        "Perplexity".metaData.hidden = true;
       };
     };
     extensions = [
