@@ -15,7 +15,7 @@
       (iosevka-bin.override { variant = "Aile"; })
       (iosevka-bin.override { variant = "Etoile"; })
       twitter-color-emoji
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       corefonts
       helvetica-neue-lt-std
       carlito

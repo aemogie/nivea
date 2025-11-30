@@ -21,8 +21,6 @@ name: path:
     home-manager.users.${name} = {
       imports = [ path ];
       config = {
-        nixpkgs.config.allowUnfree = true;
-
         home = {
           username = name;
           homeDirectory = "/home/${name}";

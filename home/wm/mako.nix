@@ -8,19 +8,19 @@ let
     ;
 in
 {
-  services.mako = {
-    enable = true;
-    backgroundColor = "#${base}80";
-    textColor = "#${text}FF";
-    progressColor = "source #${alternate}80";
+  services.mako.enable = true;
+  services.mako.settings = {
+    background-color = "#${base}80";
+    text-color = "#${text}FF";
+    progress-color = "source #${alternate}80";
     font = "${config.fonts.sans} 12";
-    borderRadius = 5;
-    borderColor = "#${primary}FF";
-    borderSize = 2;
-    padding = "10";
-    margin = "10";
-    extraConfig = "outer-margin=20"; # from hyprland config. move to global option
-    defaultTimeout = 5000;
+    border-radius = 5;
+    border-color = "#${primary}FF";
+    border-size = 2;
+    padding = 10;
+    margin = 10;
+    outer-margin = 20; # from hyprland config. move to global option
+    default-timeout = 5000;
   };
   wayland.windowManager.hyprland.settings.layerrule = [
     "blur,^notifications$"

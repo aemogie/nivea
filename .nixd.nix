@@ -7,10 +7,10 @@ let
       file = builtins.readFile "/etc/hostname";
       stripped = builtins.substring 0 ((builtins.stringLength file) - 1) file;
     in
-      stringOr (builtins.getEnv "HOSTNAME") stripped;
+    stringOr (builtins.getEnv "HOSTNAME") stripped;
 in
 rec {
   nixpkgs = flake.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
   nixos = flake.nixosConfigurations.${hostname}.options;
-  home-manager = nixos.home-manager.users.type.nestedTypes.elemType.getSubOptions [];
+  home-manager = nixos.home-manager.users.type.nestedTypes.elemType.getSubOptions [ ];
 }

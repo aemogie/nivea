@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   # my own privacy-ish tweaks
   "browser.search.region" = "US";
   "doh-rollout.home-region" = "US";

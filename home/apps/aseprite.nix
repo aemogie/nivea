@@ -9,9 +9,8 @@ let
   inherit (builtins) attrValues mapAttrs;
 in
 {
-  home.packages = [ pkgs.aseprite-unfree ];
+  home.packages = [ pkgs.aseprite ];
   wayland.windowManager.hyprland.settings.windowrulev2 = [ "tile,class:Aseprite" ];
-  nixpkgs.config.permittedInsecurePackages = [ "python-2.7.18.6" ];
   xdg.configFile =
     let
       gplHeader = name: ''

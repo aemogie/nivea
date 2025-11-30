@@ -4,16 +4,14 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs2,
       home-manager,
-      stylix,
       self,
     }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
       hostName = "serena";
-      pkgs = inputs.nixpkgs.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations.${hostName} = lib.nixosSystem rec {
@@ -21,7 +19,6 @@
           inherit inputs;
         };
         modules = [
-          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             networking.hostName = hostName;
@@ -31,12 +28,13 @@
           ./home
         ];
       };
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt-tree;
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           pkgs.nixd
           self.formatter.${system}
         ];
+        MANPATH = "${home-manager.packages.${system}.docs-manpages}/share/man:";
       };
     };
 
@@ -48,15 +46,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs2.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
   };
 }

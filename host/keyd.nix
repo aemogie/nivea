@@ -26,21 +26,20 @@
           };
         in
         {
-          main =
-            {
-              capslock = "overload(navigation, esc)";
-              enter = "overload(navigation, enter)";
+          main = {
+            capslock = "overload(navigation, esc)";
+            enter = "overload(navigation, enter)";
 
-              numlock = "noop";
-              esc = "noop";
-              leftcontrol = "noop";
-            }
-            // (builtins.listToAttrs (
-              map (k: {
-                name = k;
-                value = "noop";
-              }) (builtins.attrValues navigation)
-            ));
+            numlock = "noop";
+            esc = "noop";
+            leftcontrol = "noop";
+          }
+          // (builtins.listToAttrs (
+            map (k: {
+              name = k;
+              value = "noop";
+            }) (builtins.attrValues navigation)
+          ));
           "navigation:C" = navigation;
         };
     };

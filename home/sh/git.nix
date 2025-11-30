@@ -1,49 +1,11 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-let
-  git = lib.getExe pkgs.git;
-  git-with-status = pkgs.writeShellScript "git-with-status" ''
-    if [ $# -eq 0 ]; then
-      ${git} status
-    else
-      ${git} "$@"
-    fi
-  '';
-  aliases = {
-    "c" = "commit -m";
-    "a" = "add";
-    "ap" = "add --patch";
-    "s" = "switch";
-    "p" = "push";
-    "pf" = "push --force-with-lease";
-    "d" = "diff";
-    "sh" = "show --ext-diff";
-    "l" = "log --oneline";
-  };
-  cfg = config.apps.git;
-in
-{
-  options.apps.git = {
-    commonAliases = lib.mkEnableOption "some common git aliases";
-    # TODO: carapace stops autocompleting. enable this by default when fixed
-    showStatusOnNoop = lib.mkEnableOption "git status on noop";
-  };
-  config.home.shellAliases =
-    lib.optionalAttrs cfg.commonAliases (
-      lib.concatMapAttrs (alias: _: { "g${alias}" = "${git} ${alias}"; }) aliases
-    )
-    // lib.optionalAttrs cfg.showStatusOnNoop { "git" = "${git-with-status}"; };
-
   config.programs = {
     git = {
       enable = true;
-      userName = "aemogie";
-      userEmail = "theaemogie" + "@" + "gmail.com";
-      extraConfig = {
+      settings = {
+        user.name = "aemogie";
+        user.email = "theaemogie" + "@" + "gmail.com";
         init.defaultBranch = "dev";
         commit.gpgsign = true;
         gpg = {
@@ -60,7 +22,6 @@ in
         };
         user.signingkey = "~/.ssh/id_ed25519";
       };
-      aliases = lib.mkIf cfg.commonAliases aliases;
     };
     gh = {
       enable = true;

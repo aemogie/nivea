@@ -31,7 +31,7 @@ in
       cursor.style = "beam";
 
       # TODO: print OSC automatically, or make a shell script that does
-      # $r, $g, $b are two digit hex. 
+      # $r, $g, $b are two digit hex.
       # echo -ne "\e]4;$idx;rgb:$r/$g/$b\e\\"
       # echo -ne "\e]10;rgb:$r/$g/$b\e\\"
       # echo -ne "\e]11;rgb:$r/$g/$b\e\\"

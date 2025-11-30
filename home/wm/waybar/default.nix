@@ -16,9 +16,6 @@ in
 {
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar.override {
-      hyprland = config.wayland.windowManager.hyprland.finalPackage;
-    };
     settings = [ (import ./config.nix) ];
     style = replaceVars osConfig.paint.active.palette (readFile ./style.css);
   };

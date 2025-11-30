@@ -4,11 +4,6 @@
   ...
 }:
 {
-  imports = [
-    # ./typst.nix
-    ./nil.nix
-    # ./nushell.nix
-  ];
   programs.helix =
     let
       inherit (osConfig.paint.active.ctpCompat) flavor;
@@ -64,14 +59,6 @@
         inherits = "catppuccin_${flavor}";
         "ui.background" = { };
         "ui.cursorline.primary" = { };
-      };
-
-      languages = {
-        language-server = {
-          # rust-analyzer expects cargo to be in $PATH. idk how to cleanly handle it, maybe wrapper?
-          # rust-analyzer.command = lib.getExe pkgs.rust-analyzer;
-          # lua-language-server.command = "${pkgs.lua-language-server}/bin/lua-language-server";
-        };
       };
     };
 }

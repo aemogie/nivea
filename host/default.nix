@@ -23,7 +23,7 @@
 
   nix = {
     settings = {
-      experimental-features = "nix-command flakes repl-flake";
+      experimental-features = "nix-command flakes";
       trusted-users = [
         "root"
         "@wheel"
@@ -103,7 +103,7 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
   services.pipewire = {
     enable = false;
     alsa.enable = true;
@@ -141,7 +141,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   services.blueman.enable = true;

@@ -1,5 +1,4 @@
-
-{ pkgs, inputs, ... }@args:
+{ pkgs, ... }@args:
 let
   profile = {
     name = "dev-edition-default";
@@ -24,16 +23,16 @@ let
           ];
         };
         # disable "This time, search with" (part 2, see preferences.nix for rest)
-        "Google".metaData.hidden = true;
-        "Bing".metaData.hidden = true;
-        "DuckDuckGo".metaData.hidden = true;
-        "Wikipedia (en)".metaData.hidden = true;
-        "eBay".metaData.hidden = true;
-        "Amazon.com".metaData.hidden = true;
-        "Perplexity".metaData.hidden = true;
+        "google".metaData.hidden = true;
+        "bing".metaData.hidden = true;
+        "ddg".metaData.hidden = true;
+        "wikipedia".metaData.hidden = true;
+        "ebay".metaData.hidden = true;
+        "amazondotcom-us".metaData.hidden = true;
+        "perplexity".metaData.hidden = true;
       };
     };
-    extensions = [
+    extensions.packages = [
       (import ./theme.nix args)
     ];
   };
@@ -41,7 +40,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = inputs.nixpkgs2.legacyPackages.${pkgs.system}.firefox-devedition;
+    package = pkgs.firefox-devedition;
     profiles.default = profile;
     profiles.old.id = 1;
     profiles.work = profile // {

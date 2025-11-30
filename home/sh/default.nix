@@ -8,14 +8,8 @@
   imports = [
     ./git.nix
     ./helix
-    ./bat.nix
-    ./nushell
-    ./zellij.nix
-    ./yazi
     ./starship.nix
     ./direnv.nix
-    ./runbg.nix
-    # TODO: use snowfall
     ../../modules/typst.nix
   ];
 
@@ -44,7 +38,8 @@
     typst.enable = true;
     ssh = {
       enable = true;
-      addKeysToAgent = "yes";
+      enableDefaultConfig = false;
+      matchBlocks."*".addKeysToAgent = "yes";
     };
     gpg.enable = true;
   };
@@ -53,7 +48,7 @@
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryPackage = pkgs.pinentry;
+      pinentry.package = pkgs.pinentry-gnome3;
     };
   };
 }

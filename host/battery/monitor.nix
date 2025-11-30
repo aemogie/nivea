@@ -1,4 +1,4 @@
-# Thanks to: 
+# Thanks to:
 # https://github.com/c2vi/nixos/blob/070ba4bd0912801a862f376cc39d52d845086886/mods/battery_monitor.nix
 {
   config,

@@ -27,11 +27,7 @@ in
     enable = true;
     settings = {
       # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
-      monitor = [
-        ",preferred,auto,1"
-        ",preferred,auto,1,mirror,HDMI-A-1"
-        "HDMI-A-1,preferred,auto,0.833333"
-      ];
+      monitor = [ ",preferred,auto,auto" ];
 
       exec-once = [
         "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${pointerCursor.name} ${toString pointerCursor.size}"
@@ -45,7 +41,6 @@ in
           "tap-to-click" = false; # disable while typing doesnt work
         };
       };
-      gestures.workspace_swipe = true;
 
       general =
         let

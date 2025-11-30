@@ -25,7 +25,12 @@ let
       grimblast = pkgs.grimblast.override {
         hyprland = config.wayland.windowManager.hyprland.finalPackage;
       };
-      discord = config.programs.discord.launch_command;
+      discord =
+        let
+          cfg = config.programs.vesktop;
+          pkg = (cfg.package.override { withSystemVencord = cfg.vencord.useSystem; });
+        in
+        lib.getExe pkg;
       firefox = lib.getExe config.programs.firefox.finalPackage;
       music = lib.getExe pkgs.youtube-music;
       foot =
@@ -76,6 +81,10 @@ let
   mouse = [
     "${mod}, mouse:272, movewindow"
     "${mod}, mouse:273, resizewindow"
+  ];
+
+  gestures = [
+    "3, horizontal, workspace"
   ];
 
   fnKeys =
@@ -140,5 +149,6 @@ in
   wayland.windowManager.hyprland.settings = {
     bind = basic ++ launch_app ++ workspaces ++ fnKeys;
     bindm = mouse;
+    gesture = gestures;
   };
 }

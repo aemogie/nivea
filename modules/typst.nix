@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
@@ -40,7 +39,7 @@
     {
       home.packages = [
         wrapped
-        inputs.nixpkgs2.legacyPackages.${pkgs.system}.tinymist
+        pkgs.tinymist
       ];
     };
 }

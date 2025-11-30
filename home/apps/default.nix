@@ -3,23 +3,19 @@
   imports = [
     ./gtk.nix
     ./firefox
-    ./discord
+    ./discord.nix
     ./zathura.nix
     ./aseprite.nix
-    # ./spicetify
     ./foot.nix
     ./emacs
     ./scrcpy.nix
     ./ytmusic.nix
-    # ./warp
-    # ./wezterm
-    # ./ue4.nix
   ];
   home.packages = [
-    pkgs.jetbrains.idea-community
-    pkgs.lutris
-    pkgs.winetricks
-    pkgs.wineWowPackages.waylandFull
+    # pkgs.jetbrains.idea-community
+    # pkgs.lutris
+    # pkgs.winetricks
+    # pkgs.wineWowPackages.waylandFull
     pkgs.vial
   ];
 }
