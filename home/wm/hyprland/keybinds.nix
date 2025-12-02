@@ -14,10 +14,17 @@ let
     "${mod} SHIFT, O, fullscreen, 0" # fullscreen
     "${mod}, T, layoutmsg,  togglesplit"
 
+    # QWERTY
     "${mod}, H, movefocus,  l"
     "${mod}, J, movefocus,  d"
     "${mod}, K, movefocus,  u"
     "${mod}, L, movefocus,  r"
+
+    # Canary
+    "${mod}, N, movefocus,  l"
+    "${mod}, E, movefocus,  d"
+    "${mod}, I, movefocus,  u"
+    "${mod}, A, movefocus,  r"
   ];
 
   launch_app =
@@ -56,7 +63,7 @@ let
       "${mod}, Space,    exec, ${foot}" # for emergencies
       "${mod}, KP_Enter, exec, ${term}"
       "${mod}, Return,   exec, ${term}"
-      "${mod}, E,        exec, ${emacs}"
+      # "${mod}, E,        exec, ${emacs}"
       "${mod}, D,        exec, ${discord}"
       "${mod}, M,        exec, ${music}"
       "${mod}, F,        exec, ${firefox}"
