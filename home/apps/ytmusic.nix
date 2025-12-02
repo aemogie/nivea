@@ -15,13 +15,14 @@ let
       resumeOnStart = true;
       restartOnConfigChanges = true;
       tray = true;
+      likeButtons = "force";
       themes =
         let
           ctp = pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "youtubemusic";
-            rev = "7ed6a5033639540e68068e17c4e3613026f3bf82";
-            sha256 = "sha256-BQu0pUHUj94F4SY6om0yW+PIftTvwJO6BO3osQ02RXg=";
+            rev = "dc35fc46232e389ff761adec8242f956af405880";
+            sha256 = "sha256-K5iwNBA/6/JDmmt/u9Dnsk0lvWY12YpY+BIScrRaDGw=";
           };
         in
         # TODO: use prefers-color-scheme
@@ -35,8 +36,15 @@ let
         enabled = true;
         hideVideo = true;
       };
-      synced-lyrics.enabled = true;
+      synced-lyrics = {
+        enabled = true;
+        preferredProvider = "LRCLib";
+        romanization = true;
+      };
       downloader.enabled = true;
+      notifications.enabled = true;
+      unobtrusive-player.enabled = true;
+      discord.enabled = true;
     };
     __internal__.migrations = {
       inherit (pkgs.youtube-music) version;
