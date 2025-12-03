@@ -40,9 +40,8 @@ in
     # renders weirdly, maybe it doesnt find the font?
     fonts = [
       {
-        # needs the full(?) name, just "Iosevka" doesnt work
-        name = "Iosevka Regular";
-        package = pkgs.iosevka;
+        name = "Aporetic Sans";
+        package = pkgs.aporetic;
       }
     ];
     extraConfig =

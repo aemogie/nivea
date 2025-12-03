@@ -40,6 +40,7 @@
   "full-screen-api.transition.timeout" = 0;
 
   # default fonts
+  "browser.display.use_document_fonts" = 0;
   "font.name.monospace.x-western" = config.fonts.monospace;
   "font.name.sans-serif.x-western" = config.fonts.sans;
   "font.name.serif.x-western" = config.fonts.serif;

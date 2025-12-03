@@ -3,7 +3,8 @@
 (tooltip-mode -1)
 (tool-bar-mode -1)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka 13"))
+;; figure out a way to wire in configs.fonts.monospace from nix land
+(add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono 13"))
 (setq-default line-spacing .5)
 
 ;; looks ugly with spacious-padding

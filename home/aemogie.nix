@@ -19,10 +19,11 @@
       corefonts
       helvetica-neue-lt-std
       carlito
+      aporetic
     ];
-    monospace = "Iosevka Term";
-    serif = "Iosevka Etoile";
-    sans = "Iosevka Aile";
+    monospace = "Aporetic Sans Mono";
+    serif = "Aporetic Serif";
+    sans = "Aporetic Sans";
     fontconfig.enable = true;
   };
 }

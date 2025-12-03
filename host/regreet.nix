@@ -34,8 +34,8 @@ in
       };
     };
     font = {
-      package = pkgs.iosevka-bin.override { variant = "Aile"; };
-      name = "Iosevka Aile";
+      package = pkgs.aporetic;
+      name = "Aporetic Sans";
       size = 11;
     };
     cursorTheme = {
