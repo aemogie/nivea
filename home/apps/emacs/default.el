@@ -39,9 +39,6 @@
   :defer t
   :custom (org-log-into-drawer 1))
 (use-package kotlin-mode :mode "\\.kts?\\'")
-(use-package nix-mode
-  :mode "\\.nix\\'"
-  :config (nix-prettify-global-mode))
 (use-package geiser-guile
   :custom (geiser-guile-load-init-file t))
 (use-package guix
@@ -56,7 +53,11 @@
 
 ;; ts-mode
 
-;; (use-package html-ts-mode :mode "\\.html\\'") ;; crashes emacs
+(use-package treesit
+  :custom
+  (treesit-font-lock-level 4))
+
+(use-package html-ts-mode :mode "\\.html\\'") ;; crashes emacs
 (use-package css-mode :mode ("\\.css\\'" . css-ts-mode))
 (use-package js :mode ("\\(\\.js[mx]\\|\\.har\\)\\'" . js-ts-mode))
 (use-package rust-ts-mode :mode "\\.rs\\'")
@@ -71,6 +72,10 @@
 (use-package toml-ts-mode :mode "\\.toml\\'")
 (use-package yaml-ts-mode :mode "\\.ya?ml\\'")
 (use-package typst-ts-mode :mode "\\.typ\\'")
+(use-package nix-ts-mode
+  :mode "\\.nix\\'"
+  ;:config (nix-prettify-global-mode)
+  )
 
 (use-package erc
   :custom

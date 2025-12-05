@@ -14,7 +14,7 @@
       epkgs.eat
       epkgs.vertico
       epkgs.marginalia
-      epkgs.nix-mode
+      epkgs.nix-ts-mode
       epkgs.magit
       epkgs.envrc
       epkgs.corfu
