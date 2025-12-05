@@ -3,6 +3,7 @@
   lib,
   config,
   osConfig,
+  fetched,
   ...
 }:
 let
@@ -18,12 +19,7 @@ let
       likeButtons = "force";
       themes =
         let
-          ctp = pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "youtubemusic";
-            rev = "dc35fc46232e389ff761adec8242f956af405880";
-            sha256 = "sha256-K5iwNBA/6/JDmmt/u9Dnsk0lvWY12YpY+BIScrRaDGw=";
-          };
+          ctp = toString fetched.catppuccin.ytmusic;
         in
         # TODO: use prefers-color-scheme
         [ "${ctp}/src/${osConfig.paint.active.ctpCompat.flavor}.css" ];

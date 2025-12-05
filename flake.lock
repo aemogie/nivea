@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "fetch-catppuccin-ytmusic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762458561,
+        "narHash": "sha256-K5iwNBA/6/JDmmt/u9Dnsk0lvWY12YpY+BIScrRaDGw=",
+        "owner": "catppuccin",
+        "repo": "youtubemusic",
+        "rev": "dc35fc46232e389ff761adec8242f956af405880",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "youtubemusic",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -38,6 +54,7 @@
     },
     "root": {
       "inputs": {
+        "fetch-catppuccin-ytmusic": "fetch-catppuccin-ytmusic",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }
