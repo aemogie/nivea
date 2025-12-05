@@ -19,7 +19,6 @@ in
     sessionVariables = {
       HYPRCURSOR_THEME = pointerCursor.name;
       HYPRCURSOR_SIZE = pointerCursor.size;
-      NIXOS_OZONE_WL = "1";
     };
   };
 
