@@ -20,9 +20,29 @@ let
       themes =
         let
           ctp = toString fetched.catppuccin.ytmusic;
+          dark = osConfig.paint.dark.ctpCompat.flavor;
+          light = osConfig.paint.light.ctpCompat.flavor;
+          theme = pkgs.concatText "ytmusic.css" [
+            "${pkgs.writeText "1.css-fragment" ''
+              @media (prefers-color-scheme: dark) {
+            ''}"
+            "${ctp}/src/${dark}.css"
+            "${pkgs.writeText "2.css-fragment" ''
+              }
+
+              @media (prefers-color-scheme: light) {
+            ''}"
+            "${ctp}/src/${light}.css"
+            "${pkgs.writeText "3.css-fragment" ''
+              }
+
+              * {
+                font-family: "${config.fonts.sans}" !important;
+              }
+            ''}"
+          ];
         in
-        # TODO: use prefers-color-scheme
-        [ "${ctp}/src/${osConfig.paint.active.ctpCompat.flavor}.css" ];
+        [ theme ];
     };
     plugins = {
       adblocker.enabled = true;
