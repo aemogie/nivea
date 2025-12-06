@@ -16,9 +16,11 @@ let
   cfg = config.services.battery_monitor;
 in
 {
-  options.services.battery_monitor.enable = (lib.mkEnableOption "a battery monitoring daemon") // {
-    default = true;
-  };
+  options.services.battery_monitor.enable =
+    (lib.mkEnableOption "a battery monitoring daemon")
+    // {
+      default = true;
+    };
 
   config = lib.mkIf cfg.enable {
     # Regularly check battery status

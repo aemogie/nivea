@@ -1,7 +1,9 @@
 let
   stringOr = s: other: if (builtins.stringLength s) == 0 then other else s;
   # lsp runs from root anyway on emacs, but in case it doesnt
-  flake = stringOr (builtins.getEnv "PROJECT_ROOT") (builtins.getFlake "git+file://${toString ./.}");
+  flake = stringOr (builtins.getEnv "PROJECT_ROOT") (
+    builtins.getFlake "git+file://${toString ./.}"
+  );
   hostname =
     let
       file = builtins.readFile "/etc/hostname";
@@ -12,5 +14,7 @@ in
 rec {
   nixpkgs = flake.inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
   nixos = flake.nixosConfigurations.${hostname}.options;
-  home-manager = nixos.home-manager.users.type.nestedTypes.elemType.getSubOptions [ ];
+  home-manager =
+    nixos.home-manager.users.type.nestedTypes.elemType.getSubOptions
+      [ ];
 }

@@ -5,7 +5,9 @@
   ...
 }:
 let
-  recursiveToString = lib.mapAttrsRecursiveCond (set: !(set ? __toString)) (_: toString);
+  recursiveToString = lib.mapAttrsRecursiveCond (set: !(set ? __toString)) (
+    _: toString
+  );
   inherit (recursiveToString osConfig.paint.active.custom.term)
     regular
     bright

@@ -32,14 +32,18 @@
         overrides:
         lib.types.submodule {
           options = {
-            gray = mkColOption (overrides.gray or (if scheme.isDark then surface2 else subtext0));
+            gray = mkColOption (
+              overrides.gray or (if scheme.isDark then surface2 else subtext0)
+            );
             red = mkColOption (overrides.red or red);
             green = mkColOption (overrides.green or green);
             yellow = mkColOption (overrides.yellow or yellow);
             blue = mkColOption (overrides.blue or blue);
             magenta = mkColOption (overrides.magenta or pink);
             cyan = mkColOption (overrides.cyan or teal);
-            white = mkColOption (overrides.white or (if scheme.isDark then subtext0 else surface2));
+            white = mkColOption (
+              overrides.white or (if scheme.isDark then subtext0 else surface2)
+            );
           };
         };
     in

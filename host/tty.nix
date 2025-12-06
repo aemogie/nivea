@@ -46,28 +46,30 @@ in
     ];
     extraConfig =
       let
-        colors = builtins.mapAttrs (_: c: "${toString c.r},${toString c.g},${toString c.b}") {
-          palette-black = regular.gray;
-          palette-red = regular.red;
-          palette-green = regular.green;
-          palette-yellow = regular.yellow;
-          palette-blue = regular.blue;
-          palette-magenta = regular.magenta;
-          palette-cyan = regular.cyan;
-          palette-light-grey = regular.white;
+        colors =
+          builtins.mapAttrs (_: c: "${toString c.r},${toString c.g},${toString c.b}")
+            {
+              palette-black = regular.gray;
+              palette-red = regular.red;
+              palette-green = regular.green;
+              palette-yellow = regular.yellow;
+              palette-blue = regular.blue;
+              palette-magenta = regular.magenta;
+              palette-cyan = regular.cyan;
+              palette-light-grey = regular.white;
 
-          palette-dark-grey = bright.gray;
-          palette-light-red = bright.red;
-          palette-light-green = bright.green;
-          palette-light-yellow = bright.yellow;
-          palette-light-blue = bright.blue;
-          palette-light-magenta = bright.magenta;
-          palette-light-cyan = bright.cyan;
-          palette-white = bright.white;
+              palette-dark-grey = bright.gray;
+              palette-light-red = bright.red;
+              palette-light-green = bright.green;
+              palette-light-yellow = bright.yellow;
+              palette-light-blue = bright.blue;
+              palette-light-magenta = bright.magenta;
+              palette-light-cyan = bright.cyan;
+              palette-white = bright.white;
 
-          palette-background = foreground;
-          palette-foreground = background;
-        };
+              palette-background = foreground;
+              palette-foreground = background;
+            };
       in
       lib.generators.toKeyValue { } (
         {

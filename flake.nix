@@ -38,7 +38,9 @@
           ./home
         ];
       };
-      formatter.${system} = pkgs.nixfmt-tree;
+      formatter.${system} = pkgs.nixfmt-tree.override {
+        settings.formatter.nixfmt.options = [ "--width=80" ];
+      };
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           pkgs.nixd

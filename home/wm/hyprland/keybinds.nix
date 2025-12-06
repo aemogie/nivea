@@ -73,8 +73,12 @@ let
 
   workspaces =
     (builtins.concatMap (x: [
-      "${mod},       ${if x == 10 then "0" else toString x}, workspace,       ${toString x}"
-      "${mod} SHIFT, ${if x == 10 then "0" else toString x}, movetoworkspace, ${toString x}"
+      "${mod},       ${
+        if x == 10 then "0" else toString x
+      }, workspace,       ${toString x}"
+      "${mod} SHIFT, ${
+        if x == 10 then "0" else toString x
+      }, movetoworkspace, ${toString x}"
     ]) (lib.range 1 10))
     ++ [
       "${mod},       grave, togglespecialworkspace"

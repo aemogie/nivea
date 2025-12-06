@@ -12,7 +12,10 @@ let
     ;
   theme =
     builtins.mapAttrs
-      (_: c: "rgba(${toString c.r}, ${toString c.g}, ${toString c.b}, ${toString (c.a or 1)})")
+      (
+        _: c:
+        "rgba(${toString c.r}, ${toString c.g}, ${toString c.b}, ${toString (c.a or 1)})"
+      )
       {
         default-fg = text;
         default-bg = base;

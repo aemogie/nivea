@@ -10,7 +10,9 @@ let
 in
 {
   home.packages = [ pkgs.aseprite ];
-  wayland.windowManager.hyprland.settings.windowrulev2 = [ "tile,class:Aseprite" ];
+  wayland.windowManager.hyprland.settings.windowrulev2 = [
+    "tile,class:Aseprite"
+  ];
   xdg.configFile =
     let
       gplHeader = name: ''

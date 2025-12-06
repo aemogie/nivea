@@ -85,7 +85,8 @@ let
           };
           generationOrder = mkOption {
             type = types.listOf (types.enum (attrNames config.palette));
-            default = requiredPalette ++ (attrNames (removeAttrs config.palette requiredPalette));
+            default =
+              requiredPalette ++ (attrNames (removeAttrs config.palette requiredPalette));
             description = "The order the colors should be in, should it matter";
           };
           palette = mkOption {
