@@ -10,7 +10,7 @@
           --set SDL_VIDEODRIVER wayland \
           --add-flags "--turn-screen-off --stay-awake" \
           --add-flags "--power-off-on-close" \
-          --add-flags "--display-buffer=200 --audio-buffer=200 --audio-output-buffer=20"
+          --add-flags "--video-buffer=200 --audio-buffer=200 --audio-output-buffer=20"
       '';
     })
   ];
