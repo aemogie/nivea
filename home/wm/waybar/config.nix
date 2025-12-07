@@ -9,7 +9,7 @@
   modules-left = [ "hyprland/workspaces" ];
   modules-right = [
     "wireplumber"
-    "pulseaudio"
+    "backlight"
     "network"
     "battery"
     "clock"
@@ -61,16 +61,5 @@
     format-linked = "(No IP) 󰈀";
     format-disconnected = "⚠";
     format-alt = "{ifname}: {ipaddr}/{cidr}";
-  };
-
-  wireplumber = {
-    format = "{icon}";
-    format-muted = "󰝟";
-    tooltip-format = "{volume}% {node_name}";
-    format-icons = [
-      "󰕿"
-      "󰖀"
-      "󰕾"
-    ];
   };
 }
