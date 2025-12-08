@@ -21,11 +21,12 @@ let
               type = "application/x-suggestions+json";
             }
           ];
+	  metaData.hidden = true;
         };
         # disable "This time, search with" (part 2, see preferences.nix for rest)
         "google".metaData.hidden = true;
         "bing".metaData.hidden = true;
-        "ddg".metaData.hidden = true;
+        "ddg".metaData.hidden = false;
         "wikipedia".metaData.hidden = true;
         "ebay".metaData.hidden = true;
         "amazondotcom-us".metaData.hidden = true;
