@@ -1,106 +1,99 @@
 ;; try kakoune.el instead
 ;; update: it was very barebones
 (use-package meow
-  :preface
-  (defun meow-setup ()
-    (meow-motion-overwrite-define-key
-     '("j" . meow-next)
-     '("k" . meow-prev)
-     '("<escape>" . keyboard-quit))
+  :bind (()
+	 :map meow-normal-state-keymap
+	 ;; motion cluster
+	 ("n" . meow-back-word)
+	 ("e" . meow-next)
+	 ("i" . meow-prev)
+	 ("a" . meow-next-word)
 
-    (meow-leader-define-key
-     '("w" . save-buffer)
+	 ;; insert in various ways (shift + motion)
+	 ("N" . meow-insert)
+	 ("E" . meow-open-below)
+	 ("I" . meow-open-above)
+	 ("A" . meow-append)
+	 ("F" . meow-change)
 
-     '("e" . (lambda () (interactive)
-	       (if (project-current nil)
-		   (call-interactively #'project-eshell)
-		 (call-interactively #'eshell))))
-     '("E" . eshell)
+	 ;; undo
+	 ("u" . meow-undo)
+	 ("U" . meow-undo-in-selection)
 
-     '("f" . (lambda () (interactive)
-	       (if (project-current nil)
-		   (call-interactively #'project-find-file)
-		 (call-interactively #'find-file))))
-     '("F" . find-file)
+	 ;; mutation cluster
+	 ("c" . meow-yank)
+	 ("C" . meow-replace)
+	 ("r" . meow-block) ;; replaced with expreg below
+	 ("s" . meow-line)
+	 ("t" . meow-kill)
+	 ("y" . meow-save)
 
-     '("d" . (lambda () (interactive)
-	       (if (project-current nil)
-		   (call-interactively #'project-dired)
-		 (call-interactively #'dired))))
-     '("D" . dired)
+	 ("g" . keyboard-quit)
+	 ("<escape>" . keyboard-quit)
 
-     '("b" . (lambda ()
-	       (interactive)
-	       (if (eq major-mode 'erc-mode)
-		   (call-interactively #'erc-switch-to-buffer)
-		 (if (project-current nil)
-		     (call-interactively #'project-switch-to-buffer)
-		   (call-interactively #'switch-to-buffer)))))
-     '("B" . switch-to-buffer)
+	 ;; search
+	 ("h" . meow-visit)
+	 ("d" . meow-search)
 
-     '("k" . kill-buffer)
-     '("K" . project-kill-buffers)
+	 ;; rare
+	 ("G" . meow-grab)
+	 ("k" . meow-till)
+	 ("x" . meow-join)
 
-     '("p" . project-switch-project)
+	 :map meow-motion-state-keymap
+	 ("e" . meow-next)
+	 ("i" . meow-prev)
 
-     '("o" . other-window)
-     '("O" . delete-window))
+	 ("h" . meow-visit)
+	 ("d" . meow-search)
 
-    (meow-normal-define-key
-     '(";" . meow-reverse)
-     '("," . meow-inner-of-thing)
-     '("." . meow-bounds-of-thing)
-     '("[" . meow-beginning-of-thing)
-     '("]" . meow-end-of-thing)
-     '("a" . meow-append)
-     '("o" . meow-open-below)
-     '("b" . meow-back-word)
-     '("B" . meow-back-symbol)
-     '("c" . meow-change)
-     '("d" . meow-delete)
-     '("w" . meow-next-word)
-     '("E" . meow-next-symbol)
-     '("f" . meow-find)
-     '("g" . meow-cancel-selection)
-     '("G" . meow-grab)
-     '("h" . meow-left)
-     '("H" . meow-left-expand)
-     '("i" . meow-insert)
-     '("O" . meow-open-above)
-     '("j" . meow-next)
-     '("J" . meow-next-expand)
-     '("k" . meow-prev)
-     '("K" . meow-prev-expand)
-     '("l" . meow-right)
-     '("L" . meow-right-expand)
-     '("m" . meow-join)
-     '("n" . meow-search)
-     '("M-o" . meow-block)
-     '("M-O" . meow-to-block)
-     '("p" . meow-yank)
-     ;; '("q" . meow-quit)
-     '("Q" . meow-goto-line)
-     '("r" . meow-replace)
-     '("s" . meow-kill)
-     '("t" . meow-till)
-     '("u" . meow-undo)
-     '("U" . meow-undo-in-selection)
-     '("/" . meow-visit)
-     '("e" . meow-mark-word)
-     '("W" . meow-mark-symbol)
-     '("x" . meow-line)
-     '("X" . meow-goto-line)
-     '("y" . meow-save)
-     '("Y" . meow-sync-grab)
-     '("z" . meow-pop-selection)
-     '("'" . repeat)
-     '("<backspace>" . meow-left)
-     '("<escape>" . keyboard-quit)))
-  :config
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  (setq meow-use-clipboard t)
-  (setq meow-expand-hint-counts '((word . 0) (line . 0) (block . 0) (find . 0) (till . 0)))
-  (meow-setup)
+	 ("<escape>" . keyboard-quit)
+
+	 :map mode-specific-map
+	 ;; very frequent
+	 ("<SPC>" . save-buffer)
+	 ("e" .  other-window)
+	 ("E" .  delete-window)
+
+	 ("t" . (lambda () (interactive)
+		  (if (project-current nil)
+		      (call-interactively #'project-find-file)
+		    (call-interactively #'find-file))))
+	 ("T" . find-file)
+
+	 ("s" . (lambda ()
+		  (interactive)
+		  (if (eq major-mode 'erc-mode)
+		      (call-interactively #'erc-switch-to-buffer)
+		    (if (project-current nil)
+			(call-interactively #'project-switch-to-buffer)
+		      (call-interactively #'switch-to-buffer)))))
+	 ("S" . switch-to-buffer)
+
+	 ("r" . (lambda () (interactive)
+		  (if (project-current nil)
+		      (call-interactively #'project-eshell)
+		    (call-interactively #'eshell))))
+	 ("R" . eshell)
+
+	 ("y" . (lambda () (interactive)
+		  (if (project-current nil)
+		      (call-interactively #'project-compile)
+		    (call-interactively #'compile))))
+	 ("Y" . compile)
+
+	 ("j" . kill-buffer)
+	 ("J" . project-kill-buffers)
+
+	 ("p" . project-switch-project))
+
+  :custom
+  (meow-use-clipboard t)
+  (meow-expand-hint-counts '((word . 0)
+			     (line . 0)
+			     (block . 0)
+			     (find . 0)
+			     (till . 0)))
   (meow-global-mode 1))
 
 (use-package multiple-cursors
