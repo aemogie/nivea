@@ -3,12 +3,19 @@
 (tooltip-mode -1)
 (tool-bar-mode -1)
 
-;; figure out a way to wire in configs.fonts.monospace from nix land
-(add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono 13"))
-(setq-default line-spacing .5)
-
-;; looks ugly with spacious-padding
-;; (add-to-list 'default-frame-alist '(alpha-background . 70))
+(use-package frame
+  :custom
+  (line-spacing .5)
+  (default-frame-alist
+   ;; figure out a way to wire in configs.fonts.monospace from nix land
+   '((font . "Aporetic Sans Mono 13")
+     ;; looks ugly with spacious-padding
+     (alpha-background . 70)
+     ;; poor mans spacious padding
+     (internal-border-width . 24)
+     (vertical-scroll-bars . nil)))
+  :config
+  (modify-all-frames-parameters default-frame-alist))
 
 (use-package pixel-scroll
   :bind
@@ -48,5 +55,5 @@
 (use-package org-modern
   :hook (org-mode (org-agenda-finalize . org-modern-agenda)))
 
-(use-package spacious-padding
-  :config (spacious-padding-mode))
+;; (use-package spacious-padding
+;;   :config (spacious-padding-mode))
