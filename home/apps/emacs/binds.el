@@ -101,7 +101,7 @@
 
 (use-package expreg
   :bind (:map meow-normal-state-keymap
-	      ("M-o" . expreg-expand)))
+	      ("r" . expreg-expand)))
 
 (use-package eglot
   :bind (:map eglot-mode-map
