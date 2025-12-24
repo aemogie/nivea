@@ -102,8 +102,8 @@
   :bind (:map meow-normal-state-keymap
 	      ("r" . expreg-expand)))
 
-(use-package eglot
-  :bind (:map eglot-mode-map
-	      ("R" . eglot-rename)
-	      ("M-q" . eglot-format)
-	      ("M-RET" . eglot-code-actions)))
+;; (use-package eglot
+;;   :bind (:map eglot-mode-map
+;; 	      ("R" . eglot-rename)
+;; 	      ("M-q" . eglot-format)
+;; 	      ("M-RET" . eglot-code-actions)))
