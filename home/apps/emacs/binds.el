@@ -56,25 +56,21 @@
 	 ("E" .  delete-window)
 
 	 ("t" . (lambda () (interactive)
-		  (if (project-current nil)
-		      (call-interactively #'project-find-file)
-		    (call-interactively #'find-file))))
-	 ("T" . find-file)
-
-	 ("s" . (lambda ()
-		  (interactive)
 		  (if (eq major-mode 'erc-mode)
 		      (call-interactively #'erc-switch-to-buffer)
 		    (if (project-current nil)
 			(call-interactively #'project-switch-to-buffer)
 		      (call-interactively #'switch-to-buffer)))))
-	 ("S" . switch-to-buffer)
+	 ("T" . switch-to-buffer)
 
-	 ("r" . (lambda () (interactive)
+	 ("s" . (lambda () (interactive)
 		  (if (project-current nil)
-		      (call-interactively #'project-eshell)
-		    (call-interactively #'eshell))))
-	 ("R" . eshell)
+		      (call-interactively #'project-find-file)
+		    (call-interactively #'find-file))))
+	 ("S" . find-file)
+
+	 ("r" . kill-buffer)
+	 ("R" . project-kill-buffers)
 
 	 ("y" . (lambda () (interactive)
 		  (if (project-current nil)
@@ -82,8 +78,11 @@
 		    (call-interactively #'compile))))
 	 ("Y" . compile)
 
-	 ("j" . kill-buffer)
-	 ("J" . project-kill-buffers)
+	 ("l" . (lambda () (interactive)
+		  (if (project-current nil)
+		      (call-interactively #'project-eshell)
+		    (call-interactively #'eshell))))
+	 ("L" . eshell)
 
 	 ("p" . project-switch-project))
 
