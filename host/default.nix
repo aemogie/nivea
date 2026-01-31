@@ -135,7 +135,6 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.adb.enable = true;
   virtualisation.waydroid.enable = true;
 
   # no tofu

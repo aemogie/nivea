@@ -14,7 +14,6 @@ name: path:
       extraGroups = [
         "networkmanager"
         "wheel"
-        "adbusers"
       ];
     };
 

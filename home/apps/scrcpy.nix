@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = [
+    pkgs.android-tools
     (pkgs.symlinkJoin {
       name = "scrcpy-wrapped";
       paths = [ pkgs.scrcpy ];
