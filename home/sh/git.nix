@@ -9,7 +9,7 @@
         init.defaultBranch = "dev";
         commit.gpgsign = true;
         gpg = {
-          format = "ssh";
+          # format = "ssh";
           # thanks to
           # https://www.reddit.com/r/git/comments/1coropv/comment/l3mwfso/
           ssh.program = "${pkgs.writeShellScript "ssh-auto-add" ''
@@ -20,7 +20,7 @@
             exec ${pkgs.openssh}/bin/ssh-keygen "$@"
           ''}";
         };
-        user.signingkey = "~/.ssh/id_ed25519";
+        # user.signingkey = "~/.ssh/id_ed25519";
       };
     };
     gh = {
