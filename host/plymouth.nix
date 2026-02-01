@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, fetched, ... }:
 {
   boot.plymouth = {
     enable = false;
@@ -7,12 +7,7 @@
       (pkgs.stdenv.mkDerivation {
         name = "catppuccin-plymouth";
 
-        src = pkgs.fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "plymouth";
-          rev = "67759fbe15eb9490d096ef8014d9f92fc5748fe7";
-          sha256 = "sha256-IzoyVOi44Uay7DTfzR9RdRLSjORsdBM4pPrgeXk5YMI=";
-        };
+        src = fetched.catppuccin.plymouth;
 
         # github:nekowinston/nur
         installPhase = ''

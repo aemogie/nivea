@@ -64,8 +64,20 @@
     };
 
     # non-flake fetchers, locked through the flake still
+    fetch-catppuccin-grub = {
+      url = "github:catppuccin/grub";
+      flake = false;
+    };
+    fetch-catppuccin-plymouth = {
+      url = "github:catppuccin/plymouth";
+      flake = false;
+    };
     fetch-catppuccin-ytmusic = {
       url = "github:catppuccin/youtubemusic";
+      flake = false;
+    };
+    fetch-catppuccin-starship = {
+      url = "github:catppuccin/starship";
       flake = false;
     };
   };

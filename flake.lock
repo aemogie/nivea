@@ -1,5 +1,53 @@
 {
   "nodes": {
+    "fetch-catppuccin-grub": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752224239,
+        "narHash": "sha256-jgM22pvCQvb0bjQQXoiqGMgScR9AgCK3OfDF5Ud+/mk=",
+        "owner": "catppuccin",
+        "repo": "grub",
+        "rev": "0a37ab19f654e77129b409fed371891c01ffd0b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "grub",
+        "type": "github"
+      }
+    },
+    "fetch-catppuccin-plymouth": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729345076,
+        "narHash": "sha256-He6ER1QNrJCUthFoBBGHBINouW/tozxQy3R79F5tsuo=",
+        "owner": "catppuccin",
+        "repo": "plymouth",
+        "rev": "e0f58d6fcf3dbc2d35dfc4fec394217fbfa92666",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "plymouth",
+        "type": "github"
+      }
+    },
+    "fetch-catppuccin-starship": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754058577,
+        "narHash": "sha256-FLHjbClpTqaK4n2qmepCPkb8rocaAo3qeV4Zp1hia0g=",
+        "owner": "catppuccin",
+        "repo": "starship",
+        "rev": "5906cc369dd8207e063c0e6e2d27bd0c0b567cb8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "starship",
+        "type": "github"
+      }
+    },
     "fetch-catppuccin-ytmusic": {
       "flake": false,
       "locked": {
@@ -54,6 +102,9 @@
     },
     "root": {
       "inputs": {
+        "fetch-catppuccin-grub": "fetch-catppuccin-grub",
+        "fetch-catppuccin-plymouth": "fetch-catppuccin-plymouth",
+        "fetch-catppuccin-starship": "fetch-catppuccin-starship",
         "fetch-catppuccin-ytmusic": "fetch-catppuccin-ytmusic",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
