@@ -10,8 +10,12 @@ let
 in
 {
   home.packages = [ pkgs.aseprite ];
-  wayland.windowManager.hyprland.settings.windowrulev2 = [
-    "tile,class:Aseprite"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    {
+      name = "aseprite";
+      tile = true;
+      "match:class" = "Aseprite";
+    }
   ];
   xdg.configFile =
     let

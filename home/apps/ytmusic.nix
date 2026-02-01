@@ -63,12 +63,12 @@ let
       discord.enabled = true;
     };
     __internal__.migrations = {
-      inherit (pkgs.youtube-music) version;
+      inherit (pkgs.pear-desktop) version;
     };
   };
 in
 {
-  home.packages = [ pkgs.youtube-music ];
+  home.packages = [ pkgs.pear-desktop ];
   # crashes on read-only
   home.activation.ytmusicConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "${config.xdg.configHome}/YouTube Music/"

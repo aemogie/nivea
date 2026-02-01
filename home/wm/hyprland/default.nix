@@ -59,7 +59,7 @@ in
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_autoreload = true;
-        new_window_takes_over_fullscreen = 2; # unfullscreen the current
+        on_focus_under_fullscreen = 2; # unfullscreen the current
         initial_workspace_tracking = 1;
         animate_mouse_windowdragging = true;
         animate_manual_resizes = true;

@@ -39,7 +39,7 @@ let
         in
         lib.getExe pkg;
       firefox = lib.getExe config.programs.firefox.finalPackage;
-      music = lib.getExe pkgs.youtube-music;
+      music = lib.getExe pkgs.pear-desktop;
       foot =
         if config.programs.foot.server.enable then
           "${config.programs.foot.package}/bin/footclient"

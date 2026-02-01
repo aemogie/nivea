@@ -23,7 +23,11 @@ in
     default-timeout = 5000;
   };
   wayland.windowManager.hyprland.settings.layerrule = [
-    "blur,^notifications$"
-    "ignorealpha 0.5,^notifications$"
+    {
+      name = "notifications";
+      blur = true;
+      ignore_alpha = 0.5;
+      "match:namespace" = "notifications";
+    }
   ];
 }
