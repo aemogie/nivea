@@ -7,7 +7,8 @@
 (use-package project
   :custom
   ;; those usually go in the project root right?
-  (project-vc-extra-root-markers '("COPYING" "LICENSE")))
+  (project-vc-extra-root-markers '("COPYING" "LICENSE"))
+  (project-compilation-buffer-name-function #'project-prefixed-buffer-name))
 
 (use-package vertico :config (vertico-mode))
 (use-package marginalia :config (marginalia-mode))
