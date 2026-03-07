@@ -18,6 +18,7 @@ in
     cageArgs = [
       "-s"
       "-d"
+      "-m" "last"
     ];
     theme = {
       name = "catppuccin-${flavor}-${accent}-standard";

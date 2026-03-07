@@ -1,7 +1,7 @@
 { pkgs, config, fetched, ... }:
 {
   boot.plymouth = {
-    enable = false;
+    enable = true;
     theme = "catppuccin-${config.paint.active.ctpCompat.flavor}";
     themePackages = [
       (pkgs.stdenv.mkDerivation {

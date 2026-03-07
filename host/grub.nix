@@ -32,6 +32,10 @@
               chainloader /EFI/Microsoft/Boot/bootmgfw.efi
             }
           '';
+	  gfxmodeBios = "1920x1080";
+	  gfxmodeEfi = "1920x1080";
+	  gfxpayloadBios = "keep";
+	  gfxpayloadEfi = "keep";
         };
     };
     # suppress all messeges
