@@ -1,4 +1,9 @@
-{ pkgs, config, fetched, ... }:
+{
+  pkgs,
+  config,
+  fetched,
+  ...
+}:
 {
   boot.plymouth = {
     enable = true;

@@ -31,7 +31,7 @@ let
         ''
       # sh
       else
-        ''nixos-rebuild switch'';
+        "nixos-rebuild switch";
   };
   sudoSwitch = pkgs.writeShellApplication {
     name = "switch";

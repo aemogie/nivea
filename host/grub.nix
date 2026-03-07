@@ -1,4 +1,9 @@
-{ pkgs, config, fetched, ... }:
+{
+  pkgs,
+  config,
+  fetched,
+  ...
+}:
 {
   # thanks to github.com/Stonks3141/ctp-nix
   boot = {
@@ -6,11 +11,10 @@
       efi.canTouchEfiVariables = true;
       grub =
         let
-          theme =
-            pkgs.runCommand "catppuccin-grub-theme" { } ''
-              mkdir -p "$out"
-              cp -r ${fetched.catppuccin.grub}/src/catppuccin-${config.paint.dark.ctpCompat.flavor}-grub-theme/* "$out"/
-            '';
+          theme = pkgs.runCommand "catppuccin-grub-theme" { } ''
+            mkdir -p "$out"
+            cp -r ${fetched.catppuccin.grub}/src/catppuccin-${config.paint.dark.ctpCompat.flavor}-grub-theme/* "$out"/
+          '';
         in
         {
           enable = true;
@@ -32,10 +36,12 @@
               chainloader /EFI/Microsoft/Boot/bootmgfw.efi
             }
           '';
-	  gfxmodeBios = "1920x1080";
-	  gfxmodeEfi = "1920x1080";
-	  gfxpayloadBios = "keep";
-	  gfxpayloadEfi = "keep";
+          gfxmodeBios = "auto";
+          gfxmodeEfi = "auto";
+          gfxpayloadBios = "keep";
+          gfxpayloadEfi = "keep";
+          font = "${pkgs.aporetic}/share/fonts/truetype/aporetic-sans-normalregularupright.ttf";
+          fontSize = 16;
         };
     };
     # suppress all messeges

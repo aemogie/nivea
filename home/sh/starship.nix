@@ -1,4 +1,9 @@
-{ pkgs, osConfig, fetched, ... }:
+{
+  pkgs,
+  osConfig,
+  fetched,
+  ...
+}:
 let
   inherit (osConfig.paint.active.ctpCompat) flavor;
 in
