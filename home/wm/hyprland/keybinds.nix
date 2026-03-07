@@ -9,16 +9,9 @@ let
 
   basic = [
     "${mod}, Q, killactive"
-    "${mod} SHIFT, V, togglefloating"
     "${mod}, O, fullscreen, 1" # maximise, not fullscreen
     "${mod} SHIFT, O, fullscreen, 0" # fullscreen
-    "${mod}, T, layoutmsg,  togglesplit"
-
-    # QWERTY
-    "${mod}, H, movefocus,  l"
-    "${mod}, J, movefocus,  d"
-    "${mod}, K, movefocus,  u"
-    "${mod}, L, movefocus,  r"
+    "${mod}, U, layoutmsg,  togglesplit"
 
     # Canary
     "${mod}, N, movefocus,  l"
@@ -55,20 +48,17 @@ let
           fi
           ${pkg}/bin/emacsclient "''${@:---create-frame}"
         '';
-      # testing
-      term = "${emacs} --create-frame --eval '(eshell-frame t)'";
     in
     [
       # figure out pyprland scratchpads and use that
       "${mod}, Space,    exec, ${foot}" # for emergencies
-      "${mod}, KP_Enter, exec, ${term}"
-      "${mod}, Return,   exec, ${term}"
-      # "${mod}, E,        exec, ${emacs}"
-      "${mod}, D,        exec, ${discord}"
-      "${mod}, M,        exec, ${music}"
-      "${mod}, F,        exec, ${firefox}"
-      "${mod}, S,        exec, ${grimblast}/bin/grimblast --freeze copy area"
-      ",            PRINT,    exec, ${grimblast}/bin/grimblast --freeze copy screen"
+      "${mod}, R,        exec, ${emacs}"
+      "${mod}, S,        exec, ${firefox}"
+      "${mod}, B,        exec, ${discord}"
+      "${mod} SHIFT, T,  exec, ${music}"
+      "${mod}, C,        exec, ${grimblast}/bin/grimblast --freeze copy area"
+      "${mod} SHIFT, C,  exec, ${grimblast}/bin/grimblast --freeze copy screen"
+      ", PRINT,          exec, ${grimblast}/bin/grimblast --freeze copy screen"
     ];
 
   workspaces =
@@ -103,7 +93,9 @@ let
       notif = lib.getExe pkgs.libnotify;
       volStep = "5%";
       briStep = "5%";
+      useWireplumber = true;
       pactl = "${pkgs.pulseaudio}/bin/pactl";
+      wpctl = "${pkgs.wireplumber}/bin/wpctl";
       brictl = lib.getExe pkgs.brightnessctl;
       playctl = lib.getExe pkgs.playerctl;
       play-toggle = pkgs.writeShellScript "playtoggle" ''
@@ -119,16 +111,36 @@ let
     # TODO: better notifs
     [
       ", XF86AudioRaiseVolume, exec, ${pkgs.writeShellScript "volup" ''
-        ${pactl} set-sink-volume @DEFAULT_SINK@ +${volStep}
+        ${
+          if useWireplumber then
+            "${wpctl} set-volume @DEFAULT_SINK@ ${volStep}+"
+          else
+            "${pactl} set-sink-volume @DEFAULT_SINK@ +${volStep}"
+        }
         ${notif} "Volume +${volStep}"
       ''}"
       ", XF86AudioLowerVolume, exec, ${pkgs.writeShellScript "voldown" ''
-        ${pactl} set-sink-volume @DEFAULT_SINK@ -${volStep}
+        ${
+          if useWireplumber then
+            "${wpctl} set-volume @DEFAULT_SINK@ ${volStep}-"
+          else
+            "${pactl} set-sink-volume @DEFAULT_SINK@ -${volStep}"
+        }
         ${notif} "Volume -${volStep}"
       ''}"
       ", XF86AudioMute, exec, ${pkgs.writeShellScript "volmut" ''
-        ${pactl} set-sink-mute @DEFAULT_SINK@ toggle
-        ${notif} "Speaker $([[ $(wpctl get-volume @DEFAULT_SINK@ | grep ' \[MUTED\]$') ]] && echo Muted || echo Unmuted)"
+        ${
+          if useWireplumber then
+            "${wpctl} set-mute @DEFAULT_SINK@ toggle"
+          else
+            "${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
+        }
+        ${notif} "Speaker $([[ $(${
+          if useWireplumber then
+            "${wpctl} get-volume @DEFAULT_SINK@ | grep ' \[MUTED\]$'"
+          else
+            "${pactl} get-sink-mute @DEFAULT_SINK@ | grep 'Mute: yes'"
+        }) ]] && echo Muted || echo Unmuted)"
       ''}"
     ]
     ++ [
@@ -143,7 +155,7 @@ let
     ]
     ++ [
       # TODO: fix laptop keyboard
-      "${mod}, P, exec, ${play-toggle}"
+      "${mod}, T, exec, ${play-toggle}"
       ", XF86AudioPlay, exec, ${play-toggle}"
       ", XF86AudioPause, exec, ${play-toggle}"
       ", XF86AudioPrev, exec, ${pkgs.writeShellScript "playprev" ''
