@@ -30,6 +30,7 @@
       epkgs.spacious-padding
       epkgs.typst-ts-mode
       epkgs.ox-typst
+      epkgs.emms
     ];
 
     extraConfig = ''

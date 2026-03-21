@@ -17,5 +17,6 @@
     # pkgs.winetricks
     pkgs.wineWowPackages.waylandFull
     pkgs.vial
+    pkgs.mpv
   ];
 }
