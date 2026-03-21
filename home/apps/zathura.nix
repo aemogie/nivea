@@ -69,5 +69,13 @@ in
       selection-notification = false;
       database = "sqlite";
     };
+    mappings = {
+      "[normal] n" = "scroll left";
+      "[normal] E" = "scroll down";
+      "[normal] e" = "navigate next";
+      "[normal] I" = "scroll up";
+      "[normal] i" = "navigate previous";
+      "[normal] a" = "scroll right";
+    };
   };
 }
