@@ -40,7 +40,10 @@
       enableDefaultConfig = false;
       matchBlocks."*".addKeysToAgent = "yes";
     };
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      settings.armor = true;
+    };
   };
   services = {
     ssh-agent.enable = true;
