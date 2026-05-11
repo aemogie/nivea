@@ -146,6 +146,7 @@
   ];
 
   services.blueman.enable = true;
+  services.sshd.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;

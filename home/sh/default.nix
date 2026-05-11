@@ -46,7 +46,7 @@
     };
   };
   services = {
-    ssh-agent.enable = true;
+    ssh-agent.enable = false;
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
