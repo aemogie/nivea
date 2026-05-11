@@ -57,3 +57,9 @@
 
 ;; (use-package spacious-padding
 ;;   :config (spacious-padding-mode))
+
+(use-package page-break-lines
+  :custom
+  (page-break-lines-modes '(prog-mode))
+  :config
+  (global-page-break-lines-mode))

@@ -31,6 +31,7 @@
       epkgs.typst-ts-mode
       epkgs.ox-typst
       epkgs.emms
+      epkgs.page-break-lines
     ];
 
     extraConfig = ''
