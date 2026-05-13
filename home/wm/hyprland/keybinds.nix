@@ -71,8 +71,10 @@ let
       }, movetoworkspace, ${toString x}"
     ]) (lib.range 1 10))
     ++ [
-      "${mod},       grave, togglespecialworkspace"
-      "${mod} SHIFT, grave, movetoworkspace, special"
+      "${mod},           grave, togglespecialworkspace"
+      "${mod} SHIFT,     grave, movetoworkspace, special"
+      "${mod},       semicolon, togglespecialworkspace"
+      "${mod} SHIFT, semicolon, movetoworkspace, special"
     ]
     ++ [
       "${mod}, mouse_down, workspace, e+1"

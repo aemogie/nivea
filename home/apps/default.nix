@@ -15,7 +15,7 @@
     # pkgs.jetbrains.idea-community
     # pkgs.lutris
     # pkgs.winetricks
-    pkgs.wineWowPackages.waylandFull
+    pkgs.wineWow64Packages.waylandFull
     pkgs.vial
     pkgs.mpv
   ];

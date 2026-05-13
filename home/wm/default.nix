@@ -2,7 +2,7 @@
 {
   imports = [
     ./hyprland
-    ./swww.nix
+    ./awww.nix
     ./waybar
     ./mako.nix
     ./swaylock.nix
@@ -24,6 +24,7 @@
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
     };
     portal = {
       enable = true;

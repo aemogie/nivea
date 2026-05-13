@@ -39,6 +39,7 @@ in
         variant = flavor;
       };
     };
+    gtk4.theme = config.gtk.theme;
 
     iconTheme = {
       name = "Papirus-${caps dark_str}";

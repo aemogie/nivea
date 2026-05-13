@@ -1,4 +1,4 @@
-{ pkgs, ... }@args:
+{ pkgs, config, ... }@args:
 let
   profile = {
     name = "dev-edition-default";
@@ -41,6 +41,7 @@ in
 {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     package = pkgs.firefox-devedition;
     profiles.default = profile;
     profiles.old.id = 1;

@@ -8,10 +8,10 @@ let
 in
 {
   wayland.windowManager.hyprland.settings = {
-    exec-once = [ "${pkgs.swww}/bin/swww-daemon" ];
+    exec-once = [ "${pkgs.awww}/bin/awww-daemon" ];
     exec = [
-      "${pkgs.writeShellScript "swww-switch" ''
-        ${pkgs.swww}/bin/swww img --transition-type center ${wallpaper}
+      "${pkgs.writeShellScript "awww-switch" ''
+        ${pkgs.awww}/bin/awww img --transition-type center ${wallpaper}
       ''}"
     ];
   };
