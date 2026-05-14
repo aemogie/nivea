@@ -8,7 +8,6 @@
   imports = [
     ./git.nix
     ./helix
-    ./starship.nix
     ./direnv.nix
     ../../modules/typst.nix
   ];

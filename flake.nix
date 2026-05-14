@@ -76,9 +76,5 @@
       url = "github:catppuccin/youtubemusic";
       flake = false;
     };
-    fetch-catppuccin-starship = {
-      url = "github:catppuccin/starship";
-      flake = false;
-    };
   };
 }

@@ -32,22 +32,6 @@
         "type": "github"
       }
     },
-    "fetch-catppuccin-starship": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1754058577,
-        "narHash": "sha256-FLHjbClpTqaK4n2qmepCPkb8rocaAo3qeV4Zp1hia0g=",
-        "owner": "catppuccin",
-        "repo": "starship",
-        "rev": "5906cc369dd8207e063c0e6e2d27bd0c0b567cb8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "starship",
-        "type": "github"
-      }
-    },
     "fetch-catppuccin-ytmusic": {
       "flake": false,
       "locked": {
@@ -104,7 +88,6 @@
       "inputs": {
         "fetch-catppuccin-grub": "fetch-catppuccin-grub",
         "fetch-catppuccin-plymouth": "fetch-catppuccin-plymouth",
-        "fetch-catppuccin-starship": "fetch-catppuccin-starship",
         "fetch-catppuccin-ytmusic": "fetch-catppuccin-ytmusic",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
