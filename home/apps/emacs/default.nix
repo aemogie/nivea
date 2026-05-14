@@ -32,6 +32,7 @@
       epkgs.ox-typst
       epkgs.emms
       epkgs.page-break-lines
+      epkgs.writeroom-mode
     ];
 
     extraConfig = ''

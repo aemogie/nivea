@@ -63,3 +63,6 @@
   (page-break-lines-modes '(prog-mode))
   :config
   (global-page-break-lines-mode))
+
+(use-package visual-fill-column
+  :custom (visual-fill-column-center-text t))
