@@ -90,3 +90,14 @@
    '(log autojoin button completion fill imenu irccontrols list match
 	 menu move-to-prompt netsplit networks readonly ring stamp
 	 track)))
+
+(use-package emms
+  :custom
+  (emms-player-list (list emms-player-mpv))
+  (emms-player-mpv-parameters '("--ao=alsa" "--audio-exclusive"
+			       "--audio-spdif=ac3,dts-hd,eac3,truehd"
+			       "--no-video" "--no-audio-display"
+			       "--quiet" "--really-quiet")))
+
+(use-package emms-mpris :requires emms
+  :config (emms-mpris-enable))
