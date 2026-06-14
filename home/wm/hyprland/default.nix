@@ -24,6 +24,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
       monitor = [ ",preferred,auto,1" ];

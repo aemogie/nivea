@@ -14,7 +14,7 @@ let
 in
 {
   programs.regreet = {
-    enable = true;
+    enable = false;
     cageArgs = [
       "-s"
       "-d"
