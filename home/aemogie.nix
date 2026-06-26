@@ -4,6 +4,8 @@
     ./sh
     ./apps
     ./wm
+    # trying something out
+    ./syncthing.nix
     # TODO: use snowfall
     ../modules/fonts.nix
   ];
