@@ -91,13 +91,13 @@
 	 menu move-to-prompt netsplit networks readonly ring stamp
 	 track)))
 
-(use-package emms
+(use-package emms-setup
+  :config
+  (emms-all)
+  (emms-mpris-enable)
   :custom
-  (emms-player-list (list emms-player-mpv))
+  (emms-player-list '(emms-player-mpv))
   (emms-player-mpv-parameters '("--ao=alsa" "--audio-exclusive"
-			       "--audio-spdif=ac3,dts-hd,eac3,truehd"
-			       "--no-video" "--no-audio-display"
-			       "--quiet" "--really-quiet")))
-
-(use-package emms-mpris :requires emms
-  :config (emms-mpris-enable))
+				"--audio-spdif=ac3,dts-hd,eac3,truehd"
+				"--no-video" "--no-audio-display"
+				"--quiet" "--really-quiet")))
