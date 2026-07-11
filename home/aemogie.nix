@@ -6,6 +6,7 @@
     # wm
     ./wm
     ./waybar
+    ./awww.nix
     # services
     ./syncthing.nix
     ../modules/fonts.nix

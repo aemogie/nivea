@@ -2,7 +2,6 @@
 {
   imports = [
     ./hyprland
-    ./awww.nix
     ./mako.nix
     ./swaylock.nix
   ];
