@@ -3,10 +3,11 @@
   imports = [
     ./sh
     ./apps
+    # wm
     ./wm
-    # trying something out
+    ./waybar
+    # services
     ./syncthing.nix
-    # TODO: use snowfall
     ../modules/fonts.nix
   ];
 

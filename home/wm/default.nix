@@ -3,7 +3,6 @@
   imports = [
     ./hyprland
     ./awww.nix
-    ./waybar
     ./mako.nix
     ./swaylock.nix
   ];
