@@ -49,4 +49,5 @@
     defaultEditor = true;
     startWithUserSession = "graphical";
   };
+  systemd.user.services.emacs.Service.Slice = "app-graphical.slice";
 }
