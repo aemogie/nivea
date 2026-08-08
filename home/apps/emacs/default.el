@@ -94,10 +94,5 @@
 (use-package emms-setup
   :config
   (emms-all)
-  (emms-mpris-enable)
   :custom
-  (emms-player-list '(emms-player-mpv))
-  (emms-player-mpv-parameters '("--ao=alsa" "--audio-exclusive"
-				"--audio-spdif=ac3,dts-hd,eac3,truehd"
-				"--no-video" "--no-audio-display"
-				"--quiet" "--really-quiet")))
+  (emms-player-list '(emms-player-mpd)))

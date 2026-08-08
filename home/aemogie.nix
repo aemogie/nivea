@@ -12,6 +12,7 @@
     ./swaylock.nix
     # services
     ./syncthing.nix
+    ./mpd.nix
     ../modules/fonts.nix
   ];
 
