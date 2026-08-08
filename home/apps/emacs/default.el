@@ -90,9 +90,3 @@
    '(log autojoin button completion fill imenu irccontrols list match
 	 menu move-to-prompt netsplit networks readonly ring stamp
 	 track)))
-
-(use-package emms-setup
-  :config
-  (emms-all)
-  :custom
-  (emms-player-list '(emms-player-mpd)))

@@ -30,7 +30,6 @@
       epkgs.spacious-padding
       epkgs.typst-ts-mode
       epkgs.ox-typst
-      epkgs.emms
       epkgs.page-break-lines
       epkgs.writeroom-mode
     ];
