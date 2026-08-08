@@ -4,9 +4,12 @@
     ./sh
     ./apps
     # wm
-    ./wm
+    ./hyprland
+    ./xdg.nix
     ./waybar
     ./awww.nix
+    ./mako.nix
+    ./swaylock.nix
     # services
     ./syncthing.nix
     ../modules/fonts.nix

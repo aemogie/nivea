@@ -28,4 +28,5 @@
         };
       };
   };
+  systemd.user.services.syncthing.Services.Slice = "background.slice";
 }

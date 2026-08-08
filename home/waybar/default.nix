@@ -18,9 +18,9 @@ in
     enable = true;
     settings = [ (import ./config.nix) ];
     style = replaceVars osConfig.paint.active.palette (readFile ./style.css);
+    systemd.enable = true;
   };
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [ (lib.getExe config.programs.waybar.package) ];
-  };
+  # uwsm
+  systemd.user.services.waybar.Service.Slice = "background-graphical.slice";
 }

@@ -15,8 +15,12 @@ in
   ];
 
   home = {
-    packages = [ pkgs.hyprpicker ];
+    packages = [
+      pkgs.wl-clipboard # wl-copy/wl-paste
+      pkgs.hyprpicker
+    ];
     sessionVariables = {
+      NIXOS_OZONE_WL = "1";
       HYPRCURSOR_THEME = pointerCursor.name;
       HYPRCURSOR_SIZE = pointerCursor.size;
     };
@@ -56,7 +60,6 @@ in
         };
 
       misc = {
-        enable_swallow = true; # swallow_regex set in terminal module
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_autoreload = true;

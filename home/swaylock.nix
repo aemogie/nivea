@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   osConfig,
   ...
@@ -61,8 +62,8 @@ in
   services.swayidle = {
     enable = true;
     events = {
-      "before-sleep" = "${pkgs.systemd}/bin/loginctl lock-session";
-      "lock" = "${pkgs.swaylock-effects}/bin/swaylock";
+      "before-sleep" = "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
+      "lock" = lib.getExe config.programs.swaylock.package;
     };
   };
 }

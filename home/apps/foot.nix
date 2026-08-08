@@ -41,16 +41,6 @@ let
     };
 in
 {
-  wayland.windowManager.hyprland.settings = {
-    misc.swallow_regex = "^(foot)$";
-    exec = [
-      "${pkgs.writeShellScript "foot-switch-paint" ''
-        ${pkgs.procps}/bin/pkill -xHf '/nix/store/[^-]+-foot-[0-9\.]+/bin/foot' ${
-          if osConfig.paint.active.isDark then "-USR1" else "-USR2"
-        }
-      ''}"
-    ];
-  };
   programs.foot = {
     enable = true;
     settings =
@@ -72,4 +62,33 @@ in
           if osConfig.paint.active.isDark then "dark" else "light";
       };
   };
+
+  systemd.user.services.foot-reload =
+    let
+      root =
+        if config.programs.foot.server.enable then
+          [ "foot.service" ]
+        else
+          [ config.wayland.systemd.target ];
+    in
+    {
+      Unit = {
+        Description = "foot reload colorscheme";
+        Requires = root;
+        After = root;
+        X-RestartIfChanged = true;
+      };
+      Install.WantedBy = root;
+
+      Service = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = lib.escapeShellArgs [
+          (lib.getExe' pkgs.procps "pkill")
+          "-xHf"
+          "/nix/store/[^-]+-foot-[0-9\\.]+/bin/foot"
+          (if osConfig.paint.active.isDark then "-USR1" else "-USR2")
+        ];
+      };
+    };
 }
