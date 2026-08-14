@@ -14,7 +14,7 @@ let
 in
 {
   home.packages = [
-      pkgs.wl-clipboard # wl-copy/wl-paste
+    pkgs.wl-clipboard # wl-copy/wl-paste
   ];
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";

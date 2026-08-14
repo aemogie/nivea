@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  imports = [ ./use-package.nix ];
   programs.emacs = {
     enable = true;
     package = pkgs.emacs30-pgtk;
@@ -35,7 +36,6 @@
     ];
 
     extraConfig = ''
-      ;; -*- lexical-binding: t; -*-
       ${builtins.readFile ./default.el}
       ${builtins.readFile ./binds.el}
       ${builtins.readFile ./look.el}

@@ -6,7 +6,6 @@
     ./zathura.nix
     ./aseprite.nix
     ./foot.nix
-    ./emacs
     ./scrcpy.nix
     ./ytmusic.nix
   ];

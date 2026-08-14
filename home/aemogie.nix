@@ -15,6 +15,8 @@
     ./syncthing.nix
     ./mpd.nix
     ../modules/fonts.nix
+    # apps
+    ./emacs
   ];
 
   # misc
