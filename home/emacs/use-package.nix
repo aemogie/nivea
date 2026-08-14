@@ -53,7 +53,7 @@ let
           };
 
           custom = mkUsePackageOption {
-            mapper = elisp.plist;
+            mapper = elisp.alist-list;
           };
 
           extraConfig = mkOption {
@@ -64,18 +64,15 @@ let
           finalConfig = mkOption {
             type = types.str;
             default = elisp.toElisp {
-              _printer =
+              __printer =
                 self:
                 let
-                  extraConfig = filterAttrs (_: v: v != null) self;
+                  decls = filterAttrs (_: v: v != null) self;
+                  declsStr = elisp.toElisp (
+                    elisp.call "use-package" (elisp.sym name) (elisp.plist decls)
+                  );
                 in
-                "(use-package ${name}${
-                  if extraConfig == { } then
-                    ""
-                  else
-                    " ${elisp.toElisp (elisp.kwArgs extraConfig)}"
-                })"
-                + config.extraConfig;
+                declsStr + config.extraConfig;
               inherit (config) custom;
             };
             visible = false;
@@ -104,10 +101,12 @@ in
       extraPackages =
         epkgs: remove null (mapAttrsToList (_: { package, ... }: package epkgs) cfg);
       extraConfig =
-	let
-	  usePackageConfigs = mapAttrsToList (_: { finalConfig, ... }: finalConfig) cfg;
-	in
+        let
+          usePackageConfigs = mapAttrsToList (_: { finalConfig, ... }: finalConfig) cfg;
+        in
         (optionalString config.programs.emacs.lexical-binding ";; -*- lexical-binding: t; -*-")
-        + (if usePackageConfigs == [] then "" else "\n" + (concatLines usePackageConfigs));
+        + (
+          if usePackageConfigs == [ ] then "" else "\n" + (concatLines usePackageConfigs)
+        );
     };
 }

@@ -16,16 +16,26 @@ let
     ;
 
   mkElispInline = expr: {
-    _printer = { expr }: "${expr}";
+    __printer = { expr }: "${expr}";
     inherit expr;
+  };
+  sym = name: mkElispInline "${name}";
+  fnref = name: mkElispInline "#'${name}";
+  quote = expr: mkElispInline "'${toElisp expr}";
+  quasi = expr: mkElispInline "`${toElisp expr}";
+  unquote = expr: mkElispInline ",${toElisp expr}";
+  call = name: {
+    __printer = { args, ... }: "(${concatMapStringsSep " " toElisp args})";
+    __functor = self: arg: self // { args = self.args ++ [ arg ]; };
+    args = [ (sym name) ];
   };
 
   mkKvPrinter =
-    kvFmt: attrs: attrs // { _printer = concatMapAttrsStringSep " " kvFmt; };
+    kvFmt: attrs: attrs // { __printer = concatMapAttrsStringSep " " kvFmt; };
 
-  kwArgs = mkKvPrinter (key: value: ":${key} ${toElisp value}");
-  plist = mkKvPrinter (key: value: "(${key} ${toElisp value})");
-  alist = mkKvPrinter (key: value: "(${key} . ${toElisp value})");
+  plist = mkKvPrinter (key: value: ":${key} ${toElisp value}");
+  alist-list = mkKvPrinter (key: value: "(${key} ${toElisp value})");
+  alist-cons = mkKvPrinter (key: value: "(${key} . ${toElisp value})");
 
   toElisp =
     v:
@@ -41,8 +51,8 @@ let
       "(list " + (concatMapStringsSep " " toElisp v) + ")"
     else if isAttrs v then
       (
-        if v ? _printer then
-          v._printer (removeAttrs v [ "_printer" ])
+        if v ? __printer then
+          v.__printer (removeAttrs v [ "__printer" ])
         else
           abort "toElisp: bare attrsets not support, please use a printer"
       )
@@ -52,10 +62,16 @@ in
 {
   inherit
     mkElispInline
+    sym
+    call
+    fnref
+    quote
+    quasi
+    unquote
     mkKvPrinter
-    kwArgs
     plist
-    alist
+    alist-list
+    alist-cons
     toElisp
     ;
 }
