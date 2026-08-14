@@ -13,7 +13,7 @@ let
   dark_str = if isDark then "dark" else "light";
 in
 {
-  programs.regreet = {
+  services.displayManager.regreet = {
     enable = false;
     cageArgs = [
       "-s"

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ./gtk.nix
     ./firefox
     ./discord.nix
     ./zathura.nix

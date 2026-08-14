@@ -1,5 +1,6 @@
 { pkgs, osConfig, ... }:
 {
+  services.arrpc.enable = true;
   programs.vesktop = {
     enable = true;
     settings = {
@@ -10,27 +11,20 @@
       splashPixelated = true;
       enabledThemes = [ "catppuccin.css" ];
     };
-    vencord = {
-      useSystem = true;
-      themes =
-        let
-          darkUrl =
-            let
-              inherit (osConfig.paint.dark.ctpCompat) flavor accent;
-            in
-            "https://catppuccin.github.io/discord/dist/catppuccin-${flavor}-${accent}.theme.css";
-          lightUrl =
-            let
-              inherit (osConfig.paint.light.ctpCompat) flavor accent;
-            in
-            "https://catppuccin.github.io/discord/dist/catppuccin-${flavor}-${accent}.theme.css";
-        in
-        {
-          catppuccin = pkgs.writeText "ctpCompat.css" ''
-            @import url("${darkUrl}") (prefers-color-scheme: dark);
-            @import url("${lightUrl}") (prefers-color-scheme: light);
-          '';
-        };
-    };
+    vencord.themes.catppuccin =
+      let
+        line =
+          { isDark, ctpCompat, ... }:
+          let
+            color-scheme = if isDark then "dark" else "light";
+            file = "catppuccin-${ctpCompat.flavor}-${ctpCompat.accent}.theme.css";
+            url = "https://catppuccin.github.io/discord/dist/${file}";
+          in
+          "@import url(${url}) (prefers-color-scheme: ${color-scheme});";
+      in
+      pkgs.writeText "ctpCompat.css" ''
+        ${line osConfig.paint.dark}
+        ${line osConfig.paint.light}
+      '';
   };
 }

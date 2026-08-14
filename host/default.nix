@@ -140,6 +140,7 @@
 
   # no tofu
   fonts.packages = with pkgs; [
+    aporetic
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif

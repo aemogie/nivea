@@ -49,5 +49,18 @@
     defaultEditor = true;
     startWithUserSession = "graphical";
   };
-  systemd.user.services.emacs.Service.Slice = "app-graphical.slice";
+  systemd.user.services.emacs = {
+    Service.Slice = "app-graphical.slice";
+    Unit =
+      let
+        softDeps = [
+          # for look.el
+          "xdg-desktop-portal-gtk.service"
+        ];
+      in
+      {
+        Wants = softDeps;
+        After = softDeps;
+      };
+  };
 }

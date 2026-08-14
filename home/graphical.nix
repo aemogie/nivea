@@ -13,17 +13,23 @@ let
   dark_str = if isDark then "dark" else "light";
 in
 {
+  home.packages = [
+      pkgs.wl-clipboard # wl-copy/wl-paste
+  ];
   home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
     GTK_THEME = config.gtk.theme.name;
     GTK_USE_PORTAL = 1;
   };
 
   home.pointerCursor = {
+    enable = true;
     package = pkgs.catppuccin-cursors."${flavor}${caps dark_str}";
     name = "catppuccin-${flavor}-${dark_str}-cursors";
     size = 24;
     gtk.enable = true;
     x11.enable = true;
+    hyprcursor.enable = true;
   };
 
   dconf = {

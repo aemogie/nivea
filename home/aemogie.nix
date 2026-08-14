@@ -5,6 +5,7 @@
     ./apps
     # wm
     ./hyprland
+    ./graphical.nix
     ./xdg.nix
     ./waybar
     ./awww.nix

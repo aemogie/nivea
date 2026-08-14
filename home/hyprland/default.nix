@@ -14,20 +14,9 @@ in
     ./keybinds.nix
   ];
 
-  home = {
-    packages = [
-      pkgs.wl-clipboard # wl-copy/wl-paste
-      pkgs.hyprpicker
-    ];
-    sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      HYPRCURSOR_THEME = pointerCursor.name;
-      HYPRCURSOR_SIZE = pointerCursor.size;
-    };
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = false;
     configType = "hyprlang";
     settings = {
       # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
