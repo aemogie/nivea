@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib', ... }:
 {
   services.mpd = {
     enable = true;
@@ -8,26 +8,43 @@
   services.mpdris2-rs.enable = true;
   systemd.user.services.mpdris2-rs.Service.Slice = "background-graphical.slice";
   home.packages = [ pkgs.mpc ];
-  programs.emacs.extraConfig = ''
-    (defun mpd-play-artist (artist)
-      "Play an artist via MusicPD"
-      (interactive (list
-                    (completing-read "Select artist:"
-                                     (split-string
-                                      (if current-prefix-arg
-                                          (shell-command-to-string "${lib.getExe pkgs.mpc} -q list artist")
-                                        ;; album artists just are a smaller list than artist
-                                        (shell-command-to-string "${lib.getExe pkgs.mpc} -q list albumartist"))
-                                      "\n" t)
-                                     nil t)))
-      (message "%s" (string-trim
-                     (shell-command-to-string
-                      (string-join
-                       (list
-                        "${lib.getExe pkgs.mpc} -q clear"
-                        (format "${lib.getExe pkgs.mpc} -q findadd artist %s" (shell-quote-argument artist))
-                        "${lib.getExe pkgs.mpc} -q shuffle"
-                        "${lib.getExe pkgs.mpc} play")
-                       " && ")))))
-  '';
+  programs.emacs.use-package.emacs.config' =
+    let
+      inherit (lib'.elisp)
+        defun
+        call
+        var
+        if'
+        ;
+      shell-command-to-string = call "shell-command-to-string";
+    in
+    defun {
+      name = "mpd-play-artist";
+      args = [ "artist" ];
+      docstring = "Play an artist via MusicPD";
+      interactive.artist =
+        let
+          artistCmd = "${lib'.getExe pkgs.mpc} -q list artist";
+          albumArtistCmd = "${lib'.getExe pkgs.mpc} -q list albumartist";
+        in
+        call "completing-read" "Select artist:" (call "split-string" (if'
+          (var "current-prefix-arg")
+          (shell-command-to-string artistCmd)
+          # album artists just are a smaller list than artist
+          (shell-command-to-string albumArtistCmd)
+        ) "\n" true) false true;
+      body =
+        { artist }:
+        let
+          artist' = call "shell-quote-argument" artist;
+          cmdSeq = [
+            "${lib'.getExe pkgs.mpc} -q clear"
+            "${lib'.getExe pkgs.mpc} -q findadd artist %s"
+            "${lib'.getExe pkgs.mpc} -q shuffle"
+            "${lib'.getExe pkgs.mpc} play"
+          ];
+          cmd = call "format" (lib'.concatStringsSep " && " cmdSeq) artist';
+        in
+        call "message" "%s" (call "string-trim" (shell-command-to-string cmd));
+    };
 }

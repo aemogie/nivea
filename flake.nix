@@ -28,15 +28,43 @@
           in
           lib.recursiveUpdate acc new
         ) { } inputs;
-        modules = [
-          home-manager.nixosModules.home-manager
-          {
-            networking.hostName = hostName;
-            home-manager.extraSpecialArgs = specialArgs;
-          }
-          ./host
-          ./home
-        ];
+        modules =
+          let
+            libExtender = prev: { config, ... }: {
+              options.lib' = prev.mkOption {
+                type = prev.types.mkOptionType {
+                  name = "overlays for lib";
+                  merge =
+                    locs: defs:
+                    let
+                      extensions = prev.composeManyExtensions (
+                        map prev.toExtension (prev.options.getValues defs)
+                      );
+                    in
+                    prev.fix (prev.extends extensions (prev.const prev));
+                };
+                default = { };
+              };
+              config._module.args.lib' = config.lib';
+              config.lib' = final: { extenderModule = libExtender final; };
+            };
+          in
+          [
+            (libExtender lib)
+            home-manager.nixosModules.home-manager
+            ({ lib', ... }: {
+              networking.hostName = hostName;
+              home-manager = {
+                extraSpecialArgs = specialArgs;
+                sharedModules = [
+                  lib'.extenderModule
+                  ({ lib, ... }: { config.lib'.hm = lib.hm; })
+                ];
+              };
+            })
+            ./host
+            ./home
+          ];
       };
       formatter.${system} = pkgs.nixfmt-tree.override {
         settings.formatter.nixfmt.options = [ "--width=80" ];
