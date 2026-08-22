@@ -5,6 +5,7 @@
     network.startWhenNeeded = true;
   };
   systemd.user.services.mpd.Service.Slice = "app-graphical.slice";
+  # playerctl -F metadata -f 'notify-send -i "{{mpris:artUrl}}" "{{emoji(status)}} {{title}}" "{{artist}}"' | bash
   services.mpdris2-rs.enable = true;
   systemd.user.services.mpdris2-rs.Service.Slice = "background-graphical.slice";
   home.packages = [ pkgs.mpc ];

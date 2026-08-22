@@ -14,6 +14,7 @@
           bash.enable = true; # for the env vars
           git.enable = true;
         };
+        manual.manpages.enable = false;
       }
     ];
     useUserPackages = true;

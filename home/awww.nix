@@ -14,11 +14,11 @@ let
 in
 {
   services.awww.enable = true;
+  services.awww.extraArgs = [ "--no-cache" ];
 
-  # uwsm
   systemd.user.services.awww.Service = {
     Type = "notify"; # awww-daemon supports it: daemon/src/systemd.rs
-    Slice = "background-graphical.slice";
+    Slice = "background-graphical.slice"; # uwsm
   };
   systemd.user.services.awww-reload = {
     Unit = {
@@ -33,6 +33,7 @@ in
     Service = {
       Type = "oneshot";
       RemainAfterExit = true;
+      Slice = "background-graphical.slice";
       ExecStart = lib.escapeShellArgs [
         (lib.getExe config.services.awww.package)
         "img"
