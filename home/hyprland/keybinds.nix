@@ -38,16 +38,7 @@ let
           "${config.programs.foot.package}/bin/footclient"
         else
           "${config.programs.foot.package}/bin/foot";
-      emacs =
-        let
-          pkg = config.programs.emacs.finalPackage;
-        in
-        pkgs.writeShellScript "emacsclient" ''
-          if ! ${pkgs.systemd}/bin/systemctl --user status emacs.service >/dev/null 2>&1; then
-             ${pkgs.systemd}/bin/systemctl --user start emacs.service
-          fi
-          ${pkg}/bin/emacsclient "''${@:---create-frame}"
-        '';
+      emacs = config.home.sessionVariables.EDITOR;
     in
     [
       # figure out pyprland scratchpads and use that

@@ -15,6 +15,7 @@
     enable = true;
     defaultEditor = true;
     startWithUserSession = "graphical";
+    socketActivation.enable = true;
   };
   systemd.user.services.emacs.Service.Slice = "app-graphical.slice";
 }
