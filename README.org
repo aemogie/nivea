@@ -1,0 +1,11 @@
+# -*- mode: org -*-
+#+title: nivea
+
+attempt at rewriting nivea from a clean tree. main tree is still available [[https://github.com/aemogie/nivea/tree/dev][here]].
+
+goals,
++ standalone packages
++ unified theming
++ everything is a unit. if nixos is systemd-based, then go all-in
++ impermenance (later)
++ see if i can integrate with password-store for secrets
