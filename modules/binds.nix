@@ -1,24 +1,25 @@
-{lib, ...}@args: {
+{ lib, ... }@args:
+{
   options.binds = {
     layouts = lib.mkOption {
-    # action = key, not the other way around
+      # action = key, not the other way around
       type = lib.types.attrsOf lib.types.anything;
       default = {
-      move = {
-	left = "h";
-	down = "j";
-	up = "k";
-	right = "l";
+        move = {
+          left = "h";
+          down = "j";
+          up = "k";
+          right = "l";
+        };
+        simple = {
+          copy = "y";
+          paste = "p";
+          delete = "d";
+          change = "c";
+        };
+        wm.mod = "super";
       };
-      simple = {
-	copy = "y";
-	paste = "p";
-	delete = "d";
-	change = "c";
-      };
-      wm.mod = "super";
     };
-  };
   };
 
   # if we're an hm module in nixos, just inherit the nixos ones
