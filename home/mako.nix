@@ -22,12 +22,12 @@ in
     outer-margin = 20; # from hyprland config. move to global option
     default-timeout = 5000;
   };
-  wayland.windowManager.hyprland.settings.layerrule = [
+  wayland.windowManager.hyprland.settings.layer_rule = [
     {
       name = "notifications";
       blur = true;
       ignore_alpha = 0.5;
-      "match:namespace" = "notifications";
+      match.namespace = "notifications";
     }
   ];
 }

@@ -17,21 +17,23 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
-    configType = "hyprlang";
-    settings = {
-      # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
-      monitor = [ ",preferred,auto,1" ];
+    configType = "lua";
+    # monitor = ",${toString mon.w}x${toString mon.h},0x0,1";
+    # monitor = [ ",preferred,auto,1" ];
+    settings.monitor = {
+      output = "";
+      mode = "highres";
+      position = "auto";
+      scale = 1;
+    };
 
-      exec-once = [
-        "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl setcursor ${pointerCursor.name} ${toString pointerCursor.size}"
-      ];
-
+    settings.config = {
       input = {
         numlock_by_default = true;
         touchpad = {
           natural_scroll = true;
           disable_while_typing = true;
-          "tap-to-click" = false; # disable while typing doesnt work
+          tap_to_click = false; # disable while typing doesnt work
         };
       };
 
@@ -45,7 +47,7 @@ in
           gaps_in = 10;
           # dont be fooled, these are all hex not dec
           "col.active_border" = "rgb(${primary})";
-          "col.inactive_border" = "rgba(${crust}FF)";
+          "col.inactive_border" = "rgb(${crust})";
         };
 
       misc = {
