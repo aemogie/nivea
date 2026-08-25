@@ -18,6 +18,16 @@
         if'
         ;
       shell-command-to-string = call "shell-command-to-string";
+      buildMpcFilters =
+        filters:
+        lib'.escapeShellArg "(${
+          lib'.concatMapAttrsStringSep " AND " (
+            tag: regex: "(${tag} =~ ${lib'.toJSON regex})"
+          ) filters
+        })";
+      commonFilters = {
+        filename = ".flac$";
+      };
     in
     defun {
       name = "mpd-play-artist";
@@ -25,8 +35,8 @@
       docstring = "Play an artist via MusicPD";
       interactive.artist =
         let
-          artistCmd = "${lib'.getExe pkgs.mpc} -q list artist";
-          albumArtistCmd = "${lib'.getExe pkgs.mpc} -q list albumartist";
+          artistCmd = "${lib'.getExe pkgs.mpc} -q list artist ${buildMpcFilters commonFilters}";
+          albumArtistCmd = "${lib'.getExe pkgs.mpc} -q list albumartist ${buildMpcFilters commonFilters}";
         in
         call "completing-read" "Select artist:" (call "split-string" (if'
           (var "current-prefix-arg")
@@ -37,10 +47,12 @@
       body =
         { artist }:
         let
-          artist' = call "shell-quote-argument" artist;
+          artist' = call "shell-quote-argument" (call "regexp-quote" artist);
           cmdSeq = [
             "${lib'.getExe pkgs.mpc} -q clear"
-            "${lib'.getExe pkgs.mpc} -q findadd artist %s"
+            "${lib'.getExe pkgs.mpc} -q findadd ${
+              buildMpcFilters (commonFilters // { artist = "^%s$"; })
+            }"
             "${lib'.getExe pkgs.mpc} -q shuffle"
             "${lib'.getExe pkgs.mpc} play"
           ];
