@@ -4,7 +4,10 @@
       settings.formatter.nixfmt.options = [ "--width=80" ];
     };
     devShells.default = pkgs.mkShellNoCC {
-      packages = [ pkgs.nixd ];
+      packages = [
+        pkgs.nixd
+        pkgs.nixfmt # nixd expcets this in $PATH
+      ];
     };
   };
 }
