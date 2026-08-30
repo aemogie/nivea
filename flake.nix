@@ -9,22 +9,7 @@
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  # thanks vimjoyer (https://github.com/Goxore/nixconf/blob/main/flake.nix)
   outputs =
     inputs:
-    let
-      inherit (inputs.nixpkgs) lib;
-      inherit (lib) fix;
-      inherit (lib.fileset) toList fileFilter;
-      inherit (inputs.flake-parts.lib) evalFlakeModule;
-
-      isNixModule =
-        file:
-        file.hasExt "nix" && file.name != "flake.nix" && !lib.hasPrefix "_" file.name;
-
-      importTree = path: toList (fileFilter isNixModule path);
-
-      mkFlake = inputs.flake-parts.lib.mkFlake { inherit inputs; };
-    in
-    mkFlake { imports = importTree ./.; };
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./modules ]; };
 }
