@@ -5,6 +5,6 @@
   flake.nixosModules.serena =
     { config, ... }:
     lib.mkIf (config.networking.hostName == "serena") {
-      # TODO: serena-specific tweaks
+      users.users.aemogie.enable = true;
     };
 }
