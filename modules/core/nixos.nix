@@ -7,4 +7,7 @@
       }
     );
   };
+  config.flake.nixosModules.default = {
+    system.stateVersion = "26.05";
+  };
 }
