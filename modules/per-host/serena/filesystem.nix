@@ -31,5 +31,12 @@
       };
 
       swapDevices = [ ];
+
+      virtualisation.vmVariant.virtualisation.qemu.drives = [
+        {
+          name = "serena-persist";
+          file = ''"''$(dirname "$NIX_DISK_IMAGE")/persist.qcow2"'';
+        }
+      ];
     };
 }
