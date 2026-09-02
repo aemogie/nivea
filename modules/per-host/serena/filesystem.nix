@@ -11,22 +11,22 @@
         "/" = {
           label = "serena";
           fsType = "btrfs";
-          options = [ "subvol=/@nivea-root" ];
+          subvol = "/@nivea-root";
+          wipeOnBoot = true;
         };
         "/nix/store" = {
           label = "serena";
           fsType = "btrfs";
-          options = [ "subvol=/@nivea-store" ];
+          subvol = "/@nivea-store";
         };
         "/nix/var/nix" = {
           label = "serena";
           fsType = "btrfs";
-          options = [ "subvol=/@nivea-meta" ];
+          subvol = "/@nivea-meta";
         };
         "/@persist" = {
           label = "serena-persist";
           fsType = "btrfs";
-          mountPoint = "/@persist";
         };
       };
 
