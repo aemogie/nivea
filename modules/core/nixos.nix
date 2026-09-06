@@ -9,5 +9,6 @@
   };
   config.flake.nixosModules.default = {
     system.stateVersion = "26.05";
+    nix.settings.experimental-features = "nix-command flakes";
   };
 }
