@@ -7,6 +7,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     wrapper-modules.url = "github:nix-community/nix-wrapper-modules";
     wrapper-modules.inputs.nixpkgs.follows = "nixpkgs";
+    reka.url = "git+https://code.tvl.fyi/depot.git:/tools/emacs-pkgs/reka.git";
+    reka.flake = false;
   };
 
   outputs =

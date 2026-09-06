@@ -57,11 +57,28 @@
         "type": "github"
       }
     },
+    "reka": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786840506,
+        "narHash": "sha256-jdggakCHHRNpRQUjpHHHWyBsU1SL61QIWZMV6A0IWfU=",
+        "ref": "refs/heads/canon",
+        "rev": "07de418fedd226b3a807c9ed0fb06eda9f697e0c",
+        "revCount": 126,
+        "type": "git",
+        "url": "https://code.tvl.fyi/depot.git:/tools/emacs-pkgs/reka.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.tvl.fyi/depot.git:/tools/emacs-pkgs/reka.git"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "reka": "reka",
         "wrapper-modules": "wrapper-modules"
       }
     },

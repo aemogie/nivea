@@ -3,6 +3,7 @@
   inputs,
   flake-parts-lib,
   lib',
+  withSystem,
   ...
 }:
 {
@@ -39,4 +40,19 @@
     description = "wrapped packages";
   };
   config.transposition.wrappedPackages = { };
+
+  config.flake.homeModules.wrappedPackages = { config, pkgs, ... }: {
+    options.home.wrappedPackages = lib'.mkOption {
+      type = lib'.wrappers.types.withPackagesType;
+      default = wrapped: [ ];
+      description = "wrapped packages to install for the user";
+    };
+    config.home.packages = config.home.wrappedPackages (
+      withSystem pkgs.stdenv.hostPlatform.system (args: args.self'.wrappedPackages)
+    );
+  };
+
+  config.flake.wrapperModules.default = { pkgs, ... }: {
+    _module.args.self' = withSystem pkgs.stdenv.hostPlatform.system (args: args.self');
+  };
 }
