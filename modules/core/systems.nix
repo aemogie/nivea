@@ -1,3 +1,3 @@
 { lib, ... }: {
-  systems = lib.systems.flakeExposed;
+  systems = [ "x86_64-linux" ];
 }
