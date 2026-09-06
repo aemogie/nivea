@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, self, ... }: {
   flake.nixosModules.aemogie-user = {
     users.users.aemogie = {
       enable = lib.mkDefault false;
@@ -6,11 +6,10 @@
       isNormalUser = true;
       extraGroups = [ "wheel" ];
     };
+    home-manager.users.aemogie = self.homeConfigurations.aemogie;
   };
-  # this depends on above, so can't be in the same module
-  flake.nixosModules.aemogie-config =
-    { config, ... }:
-    lib.mkIf config.users.users.aemogie.enable {
-      # rest
-    };
+  flake.homeConfigurations.aemogie = { config, ... }: {
+    home.username = lib.mkOptionDefault "aemogie";
+    home.homeDirectory = lib.mkOptionDefault "/home/${config.home.username}";
+  };
 }
