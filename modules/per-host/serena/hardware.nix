@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.nixosModules.serena-hardware =
+  flake.modules.nixos.serena-hardware =
     { config, ... }:
     lib.mkIf (config.networking.hostName == "serena") {
       boot.initrd.availableKernelModules = [

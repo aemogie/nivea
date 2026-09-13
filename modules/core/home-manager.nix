@@ -5,20 +5,27 @@
   ...
 }:
 {
-  imports = [ inputs.home-manager.flakeModules.home-manager ];
-
   options.flake.homeConfigurations = lib.mkOption {
+    type = lib.types.lazyAttrsOf lib.types.raw;
     apply = lib.mapAttrs (
       _: m: {
-        imports = [ m ] ++ (lib.attrValues self.homeModules);
+        imports = lib.concatLists [
+          (lib.attrValues self.modules.generic or { })
+          (lib.attrValues self.modules.homeManager or { })
+          [ m ]
+        ];
       }
     );
   };
-  config.flake.homeModules.default = {
+
+  config.flake.modules.homeManager.default = {
     home.stateVersion = "26.05";
   };
-  config.flake.nixosModules.home-manager = inputs.home-manager.nixosModules.home-manager;
-  config.flake.nixosModules.home-manager-defaults = {
+
+  # add it into nixos auto-imports
+  config.flake.modules.nixos.home-manager =
+    inputs.home-manager.nixosModules.home-manager;
+  config.flake.modules.nixos.home-manager-defaults = {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;

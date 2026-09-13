@@ -12,7 +12,7 @@ let
   };
 in
 {
-  flake.nixosModules.btrfs = {
+  flake.modules.nixos.btrfs = {
     options.fileSystems = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule [ module ]);
     };

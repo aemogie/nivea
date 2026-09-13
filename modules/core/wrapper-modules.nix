@@ -8,19 +8,19 @@
 }:
 {
   config.lib.wrappers = inputs.wrapper-modules.lib;
-  options.flake.wrapperModules = lib'.mkOption {
-    type = lib'.types.lazyAttrsOf lib'.types.deferredModule;
-    default = { };
-    description = "an unevaluated reusable wrapper module";
-  };
   options.perSystem = flake-parts-lib.mkPerSystemOption (
     { pkgs, ... }: {
       options.wrappedPackages = lib'.mkOption {
         type = lib'.types.lazyAttrsOf (
           lib'.wrappers.types.subWrapperModuleWith {
-            modules = (lib'.attrValues self.wrapperModules) ++ [
-              lib'.wrappers.modules.default
-              { inherit pkgs; }
+            modules = lib'.concatLists [
+              (lib'.attrValues self.modules.generic or { })
+              (lib'.attrValues self.modules.wrapper or { })
+              [
+                lib'.wrappers.modules.default
+                lib'.wrappers.modules.systemd
+                { inherit pkgs; }
+              ]
             ];
           }
         );
@@ -41,7 +41,7 @@
   };
   config.transposition.wrappedPackages = { };
 
-  config.flake.homeModules.wrappedPackages = { config, pkgs, ... }: {
+  config.flake.modules.homeManager.wrappedPackages = { config, pkgs, ... }: {
     options.home.wrappedPackages = lib'.mkOption {
       type = lib'.wrappers.types.withPackagesType;
       default = wrapped: [ ];
@@ -52,7 +52,7 @@
     );
   };
 
-  config.flake.wrapperModules.default = { pkgs, ... }: {
+  config.flake.modules.wrapper.default = { pkgs, ... }: {
     _module.args.self' = withSystem pkgs.stdenv.hostPlatform.system (args: args.self');
   };
 }

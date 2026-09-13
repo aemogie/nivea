@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.root-user = {
+  flake.modules.nixos.root-user = {
     users.users.root = {
       initialHashedPassword = "";
     };

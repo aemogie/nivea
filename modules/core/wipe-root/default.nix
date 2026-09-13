@@ -1,5 +1,5 @@
 { lib, ... }: {
-  flake.nixosModules.wipe-root =
+  flake.modules.nixos.wipe-root =
     { config, utils, ... }:
     let
       fsOption = { config, ... }: {

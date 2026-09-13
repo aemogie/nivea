@@ -1,5 +1,5 @@
 { lib, self, ... }: {
-  flake.nixosModules.aemogie-user = {
+  flake.modules.nixos.aemogie-user = {
     users.users.aemogie = {
       enable = lib.mkDefault false;
       initialHashedPassword = "";

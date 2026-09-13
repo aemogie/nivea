@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.nixosModules.serena-filesystem =
+  flake.modules.nixos.serena-filesystem =
     { config, ... }:
     lib.mkIf (config.networking.hostName == "serena") {
       fileSystems = {

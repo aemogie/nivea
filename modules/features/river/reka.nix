@@ -5,7 +5,7 @@
   ...
 }:
 {
-  flake.wrapperModules.river =
+  flake.modules.wrapper.river =
     { self', config, ... }:
     let
       cfg = config.features.river;
@@ -27,7 +27,7 @@
       };
     };
 
-  flake.wrapperModules.emacs-reka =
+  flake.modules.wrapper.emacs-reka =
     {
       pkgs,
       config,

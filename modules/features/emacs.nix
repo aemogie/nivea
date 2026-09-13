@@ -1,5 +1,5 @@
 { lib', ... }: {
-  flake.wrapperModules.emacs =
+  flake.modules.wrapper.emacs =
     { config, pkgs, ... }:
     let
       cfg = config.features.emacs;

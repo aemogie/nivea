@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.wrapperModules.river =
+  flake.modules.wrapper.river =
     {
       pkgs,
       config,

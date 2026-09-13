@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.vm = { config, ... }: {
+  flake.modules.nixos.vm = { config, ... }: {
     virtualisation.vmVariant = {
       virtualisation = {
         useDefaultFilesystems = false;
