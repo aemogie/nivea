@@ -8,11 +8,11 @@
     };
     home-manager.users.aemogie = self.homeConfigurations.aemogie;
   };
-  flake.homeConfigurations.aemogie = { config, ... }: {
+  flake.homeConfigurations.aemogie = { config, self', ... }: {
     home.username = lib.mkOptionDefault "aemogie";
     home.homeDirectory = lib.mkOptionDefault "/home/${config.home.username}";
-    home.wrappedPackages = wrapped: [
-      wrapped.river
+    home.packages = [
+      self'.wrappedPackages.river
     ];
   };
 }
