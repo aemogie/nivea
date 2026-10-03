@@ -1,13 +1,9 @@
 { lib, ... }:
 {
-  flake.modules.wrapper.river =
-    { config, ... }:
-    let
-      cfg = config.features.river;
-      isRiver = lib.elem "river" config.name;
-    in
+  flake.modules.features.river =
+    { ... }:
     {
-      options.features.river = {
+      options.river = {
         enable = lib.mkEnableOption "the river window manager";
         windowManager = lib.mkOption {
           type = lib.types.enum [ ];
@@ -18,7 +14,15 @@
           description = "the initial command launched by river";
         };
       };
+    };
 
+  flake.modules.wrapper.river =
+    { config, ... }:
+    let
+      cfg = config.features.river;
+      isRiver = lib.elem "river" config.name;
+    in
+    {
       config = lib.mkIf (isRiver && cfg.enable) {
         flags."-c" = cfg.windowManagerLaunch;
       };

@@ -5,38 +5,39 @@
   ...
 }:
 {
-  flake.modules.wrapper.river =
+  flake.modules.features.reka =
     { self', config, ... }:
     let
-      cfg = config.features.river;
+      cfg = config.river;
     in
     {
-      options.features.river.windowManager = lib.mkOption {
+      options.river.windowManager = lib.mkOption {
         type = lib.types.enum [ "reka" ];
         default = "reka";
       };
-      options.features.river.reka.emacs = lib.mkOption {
+      options.river.reka.emacs = lib.mkOption {
         type = lib.types.package;
         default = self'.wrappedPackages.emacs;
         description = "default emacs package to use";
       };
+
       config = lib.mkIf (cfg.windowManager == "reka") {
-        features.river.windowManagerLaunch = lib.getExe (
+        river.windowManagerLaunch = lib.getExe (
           cfg.reka.emacs.wrap { features.emacs.packages.reka = true; }
         );
       };
     };
 
-  flake.modules.wrapper.emacs-reka =
+  flake.modules.features.emacs-reka =
     { config, self', ... }:
     {
-      options.features.emacs.packages.reka =
+      options.emacs.packages.reka =
         lib.mkEnableOption "reka window manager (only. to be used alongside river compositor)";
-      config = lib.mkIf config.features.emacs.packages.reka {
-        features.emacs.init = ''
+      config = lib.mkIf config.emacs.packages.reka {
+        emacs.init = ''
           (use-package reka :config (reka-enable))
         '';
-        features.emacs.emacsPackages = emacsPackages: [
+        emacs.emacsPackages = emacsPackages: [
           (self'.packages.emacs-reka.override { inherit emacsPackages; })
         ];
       };

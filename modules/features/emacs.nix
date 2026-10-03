@@ -1,4 +1,20 @@
 { lib', ... }: {
+  flake.modules.features.emacs =
+    { ... }:
+    {
+      options.emacs.enable = lib'.mkEnableOption "emacs";
+      options.emacs.emacsPackages = lib'.mkOption {
+        type = lib'.wrappers.types.withPackagesType;
+        default = epkgs: [ ];
+        description = "emacs packages (eg. magit)";
+      };
+      options.emacs.init = lib'.mkOption {
+        type = lib'.types.lines;
+        default = "";
+        description = "lisp to run on emacs startup";
+      };
+    };
+
   flake.modules.wrapper.emacs =
     { config, pkgs, ... }:
     let
@@ -14,17 +30,6 @@
         };
     in
     {
-      options.features.emacs.enable = lib'.mkEnableOption "emacs";
-      options.features.emacs.emacsPackages = lib'.mkOption {
-        type = lib'.wrappers.types.withPackagesType;
-        default = epkgs: [ ];
-        description = "emacs packages (eg. magit)";
-      };
-      options.features.emacs.init = lib'.mkOption {
-        type = lib'.types.lines;
-        default = "";
-        description = "lisp to run on emacs startup";
-      };
       config = lib'.mkIf (isEmacs && cfg.enable) {
         overrides = [
           { data = emacs: emacs.pkgs.withPackages (epkgs: [ (init epkgs) ]); }
