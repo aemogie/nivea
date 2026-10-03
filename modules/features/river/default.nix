@@ -1,13 +1,10 @@
 { lib, ... }:
 {
   flake.modules.wrapper.river =
-    {
-      pkgs,
-      config,
-      ...
-    }:
+    { config, ... }:
     let
       cfg = config.features.river;
+      isRiver = lib.elem "river" config.name;
     in
     {
       options.features.river = {
@@ -22,13 +19,13 @@
         };
       };
 
-      config = lib.mkIf cfg.enable {
-        package = pkgs.river;
+      config = lib.mkIf (isRiver && cfg.enable) {
         flags."-c" = cfg.windowManagerLaunch;
       };
     };
 
-  perSystem.wrappedPackages.river = {
+  perSystem.wrappedPackages.river = { pkgs, ... }: {
+    base = pkgs.river;
     features.river.enable = true;
   };
 }

@@ -3,6 +3,7 @@
     { config, pkgs, ... }:
     let
       cfg = config.features.emacs;
+      isEmacs = lib'.elem "emacs" config.name;
       init =
         epkgs:
         epkgs.trivialBuild {
@@ -24,14 +25,16 @@
         default = "";
         description = "lisp to run on emacs startup";
       };
-      config = lib'.mkIf cfg.enable {
-        package = pkgs.emacs-pgtk;
+      config = lib'.mkIf (isEmacs && cfg.enable) {
         overrides = [
           { data = emacs: emacs.pkgs.withPackages (epkgs: [ (init epkgs) ]); }
         ];
       };
     };
-  perSystem.wrappedPackages.emacs = {
+
+  # standalone package
+  perSystem.wrappedPackages.emacs = { pkgs, ... }: {
+    base = pkgs.emacs-pgtk;
     features.emacs.enable = true;
   };
 }
