@@ -28,39 +28,7 @@
     };
 
   flake.modules.wrapper.emacs-reka =
-    {
-      pkgs,
-      config,
-      ...
-    }:
-    let
-      # fork of https://code.tvl.fyi/tree/tools/emacs-pkgs/reka/default.nix
-      libreka =
-        epkgs:
-        pkgs.rustPlatform.buildRustPackage {
-          name = "libreka";
-          src = inputs.reka;
-          nativeBuildInputs = [ pkgs.pkg-config ];
-          buildInputs = [
-            epkgs.emacs
-            pkgs.libxkbcommon
-          ];
-          cargoLock.lockFile = inputs.reka + /Cargo.lock;
-
-          postInstall = ''
-            mkdir -p $out/share/emacs/site-lisp
-            ln -s $out/lib/libreka.so $out/share/emacs/site-lisp/libreka.so
-          '';
-        };
-      reka-el =
-        epkgs:
-        epkgs.trivialBuild {
-          pname = "reka";
-          version = "0.1.0";
-          src = inputs.reka + /lisp;
-          packageRequires = [ (libreka epkgs) ];
-        };
-    in
+    { config, self', ... }:
     {
       options.features.emacs.packages.reka =
         lib.mkEnableOption "reka window manager (only. to be used alongside river compositor)";
@@ -68,7 +36,46 @@
         features.emacs.init = ''
           (use-package reka :config (reka-enable))
         '';
-        features.emacs.emacsPackages = epkgs: [ (reka-el epkgs) ];
+        features.emacs.emacsPackages = emacsPackages: [
+          (self'.packages.emacs-reka.override { inherit emacsPackages; })
+        ];
       };
     };
+
+  # fork of https://code.tvl.fyi/tree/tools/emacs-pkgs/reka/default.nix
+  perSystem = { self', ... }: {
+    packages.libreka =
+      {
+        pkgs,
+        emacs ? pkgs.emacs-nox,
+        rustPlatform,
+        pkg-config,
+        libxkbcommon,
+      }:
+      rustPlatform.buildRustPackage {
+        name = "libreka";
+        src = inputs.reka;
+        nativeBuildInputs = [ pkg-config ];
+        buildInputs = [
+          emacs
+          libxkbcommon
+        ];
+        cargoLock.lockFile = inputs.reka + /Cargo.lock;
+
+        postInstall = ''
+          mkdir -p $out/share/emacs/site-lisp
+          ln -s $out/lib/libreka.so $out/share/emacs/site-lisp/libreka.so
+        '';
+      };
+    packages.emacs-reka =
+      { emacsPackages, ... }:
+      emacsPackages.trivialBuild {
+        pname = "reka";
+        version = "0.1.0";
+        src = inputs.reka + /lisp;
+        packageRequires = [
+          (self'.packages.libreka.override { inherit (emacsPackages) emacs; })
+        ];
+      };
+  };
 }
