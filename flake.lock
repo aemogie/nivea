@@ -79,7 +79,24 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "reka": "reka",
+        "tinyrwm": "tinyrwm",
         "wrapper-modules": "wrapper-modules"
+      }
+    },
+    "tinyrwm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786444048,
+        "narHash": "sha256-pvPLRUm4CPBHOlHL7m7ZV7wWgMz0gkP93kLMf4JmEpQ=",
+        "ref": "refs/heads/main",
+        "rev": "5c01698cf605305fcb2a26a932fbc0e0b3d813f4",
+        "revCount": 88,
+        "type": "git",
+        "url": "https://codeberg.org/river/tinyrwm.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/river/tinyrwm.git"
       }
     },
     "wrapper-modules": {

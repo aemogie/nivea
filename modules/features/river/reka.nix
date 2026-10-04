@@ -13,7 +13,6 @@
     {
       options.river.windowManager = lib.mkOption {
         type = lib.types.enum [ "reka" ];
-        default = "reka";
       };
       options.river.reka.emacs = lib.mkOption {
         type = lib.types.package;

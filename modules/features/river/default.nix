@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 {
   flake.modules.features.river =
     {
@@ -97,6 +97,43 @@
         };
       };
     };
+
+  perSystem.packages.tinyrwm =
+    {
+      stdenv,
+      meson,
+      ninja,
+      wayland,
+      libxkbcommon,
+      pkg-config,
+      wayland-scanner,
+    }:
+    stdenv.mkDerivation {
+      name = "tinyrwm";
+      src = inputs.tinyrwm + /c;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+        wayland-scanner
+      ];
+      buildInputs = [
+        wayland
+        libxkbcommon
+      ];
+      meta.mainProgram = "tinyrwm";
+    };
+
+  flake.modules.features.tinyrwm = { config, self', ... }: {
+    options.river.windowManager = lib.mkOption {
+      type = lib.types.enum [ "tinyrwm" ];
+      default = "tinyrwm";
+    };
+
+    config = lib.mkIf (config.river.windowManager == "tinyrwm") {
+      river.launch = lib.getExe self'.packages.tinyrwm;
+    };
+  };
 
   perSystem.wrappedPackages.river = { pkgs, ... }: {
     base = pkgs.river;
