@@ -50,4 +50,12 @@
     };
     config.package = config.base;
   };
+
+  config.flake.modules.wrapper.services = {
+    options.makeSystemd = lib'.mkOption {
+      type = lib'.types.bool;
+      default = false; # usually a saner default for top-level flake exports
+      description = "whether to build the package for use as a systemd-service";
+    };
+  };
 }

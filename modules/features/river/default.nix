@@ -9,12 +9,11 @@
     }:
     {
       options.river = {
-        enable = lib.mkEnableOption "the river window manager";
+        enable = lib.mkEnableOption "river the non-monolithic wayland compositor";
         windowManager = lib.mkOption {
           type = lib.types.enum [ ];
           description = "the window manager for the river compositor";
         };
-        # this flag is a bit fragile, need to tweak it a bit
         systemd = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -26,16 +25,8 @@
         };
       };
       config.install = lib.mkIf (config.river.enable && parentClass != "wrapper") {
-        packages = [
-          (self'.wrappedPackages.river.wrap {
-            features.river.systemd = lib.mkForce false;
-          })
-        ];
-        systemd = lib.mkIf config.river.systemd [
-          (self'.wrappedPackages.river.wrap {
-            features.river.systemd = lib.mkForce true;
-          })
-        ];
+        packages = lib.mkIf (!config.river.systemd) [ self'.wrappedPackages.river ];
+        systemd = lib.mkIf config.river.systemd [ self'.wrappedPackages.river ];
       };
     };
 
@@ -62,9 +53,10 @@
     in
     {
       config = lib.mkIf (isRiver && cfg.enable) {
-        flags."-c" = if cfg.systemd then lib.getExe systemd-start else cfg.launch;
+        flags."-c" =
+          if config.makeSystemd then lib.getExe systemd-start else cfg.launch;
         # ref: https://devork.be/blog/2025/07/river-as-systemd/
-        systemd.user.service.river = {
+        systemd.user.service.river = lib.mkIf config.makeSystemd {
           Unit = {
             Description = config.base.meta.description;
             BindsTo = [ "graphical-session.target" ];
@@ -81,7 +73,7 @@
             Slice = "session.slice";
           };
         };
-        systemd.user.service.${cfg.windowManager} = {
+        systemd.user.service.${cfg.windowManager} = lib.mkIf config.makeSystemd {
           Unit = {
             After = [ "river.service" ];
             BindsTo = [ "river.service" ];
@@ -138,6 +130,5 @@
   perSystem.wrappedPackages.river = { pkgs, ... }: {
     base = pkgs.river;
     features.river.enable = true;
-    features.river.systemd = false;
   };
 }

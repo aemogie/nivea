@@ -6,11 +6,13 @@
       };
       packages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
+        apply = map (p: if p ? wrap then p.wrap { makeSystemd = false; } else p);
         default = [ ];
         description = "list of packages to be installed";
       };
       systemd = lib.mkOption {
         type = lib.types.listOf lib.types.package;
+        apply = map (p: if p ? wrap then p.wrap { makeSystemd = true; } else p);
         default = [ ];
         description = "list of packages providing services to be installed";
       };

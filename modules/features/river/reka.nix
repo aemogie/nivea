@@ -22,6 +22,7 @@
       };
 
       config = lib.mkIf (cfg.windowManager == "reka") {
+        emacs.systemd = lib.mkDefault false;
         river.launch = lib.getExe cfg.reka.emacs;
       };
     };

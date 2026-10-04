@@ -59,7 +59,7 @@
           { data = emacs: emacs.pkgs.withPackages packages; }
         ];
 
-        systemd.user.service.emacs = {
+        systemd.user.service.emacs = lib'.mkIf config.makeSystemd {
           Unit = {
             Description = config.base.meta.description;
             X-RestartIfChanged = false;
