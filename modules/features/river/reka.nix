@@ -23,7 +23,7 @@
 
       config = lib.mkIf (cfg.windowManager == "reka") {
         river.windowManagerLaunch = lib.getExe (
-          cfg.reka.emacs.wrap { features.emacs.packages.reka = true; }
+          cfg.reka.emacs.wrap { features._internal.emacs.forReka = true; }
         );
       };
     };
@@ -31,13 +31,13 @@
   flake.modules.features.emacs-reka =
     { config, self', ... }:
     {
-      options.emacs.packages.reka =
-        lib.mkEnableOption "reka window manager (only. to be used alongside river compositor)";
-      config = lib.mkIf config.emacs.packages.reka {
+      options._internal.emacs.forReka = lib.mkEnableOption "build emacs to run with reka";
+      config = lib.mkIf config._internal.emacs.forReka {
         emacs.init = ''
-          (use-package reka :config (reka-enable))
+          (require 'reka)
+          (reka-enable)
         '';
-        emacs.emacsPackages = emacsPackages: [
+        emacs.packages = emacsPackages: [
           (self'.packages.emacs-reka.override { inherit emacsPackages; })
         ];
       };

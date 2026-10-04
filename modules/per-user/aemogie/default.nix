@@ -14,5 +14,8 @@
     home.packages = [
       self'.wrappedPackages.river
     ];
+
+    features.emacs.enable = true;
+    features.emacs.init = ''(message "hello from %s" "${toString ./.}")'';
   };
 }
