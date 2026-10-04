@@ -1,6 +1,5 @@
 {
   inputs,
-  withSystem,
   lib,
   ...
 }:
@@ -16,14 +15,14 @@
       };
       options.river.reka.emacs = lib.mkOption {
         type = lib.types.package;
-        default = self'.wrappedPackages.emacs;
+        default = self'.wrappedPackages.emacs.wrap {
+          features._internal.emacs.forReka = true;
+        };
         description = "default emacs package to use";
       };
 
       config = lib.mkIf (cfg.windowManager == "reka") {
-        river.launch = lib.getExe (
-          cfg.reka.emacs.wrap { features._internal.emacs.forReka = true; }
-        );
+        river.launch = lib.getExe cfg.reka.emacs;
       };
     };
 
@@ -33,7 +32,7 @@
       options._internal.emacs.forReka = lib.mkEnableOption "build emacs to run with reka";
       config = lib.mkIf config._internal.emacs.forReka {
         emacs.systemd = lib.mkForce false;
-        emacs.init = ''
+        emacs.init = lib.mkBefore ''
           (require 'reka)
           (reka-enable)
         '';
@@ -78,5 +77,14 @@
           (self'.packages.libreka.override { inherit (emacsPackages) emacs; })
         ];
       };
+
+    wrappedPackages.reka = { pkgs, ... }: {
+      base = pkgs.river;
+      features.river = {
+        enable = true;
+        systemd = false;
+        windowManager = "reka";
+      };
+    };
   };
 }

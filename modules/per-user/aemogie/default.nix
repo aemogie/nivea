@@ -13,6 +13,7 @@
     home.homeDirectory = lib.mkOptionDefault "/home/${config.home.username}";
 
     features.river.enable = true;
+    features.river.windowManager = "reka";
     features.emacs.enable = true;
     features.emacs.init = ''(message "hello from %s" "${toString ./.}")'';
   };
