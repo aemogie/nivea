@@ -33,9 +33,15 @@
             null;
         description = "lisp to run on emacs startup";
       };
+      options.emacs.systemd = lib'.mkOption {
+        type = lib'.types.bool;
+        default = true;
+        description = "whether to run emacs daemon";
+      };
 
       config.install = lib'.mkIf (config.emacs.enable && parentClass != "wrapper") {
         packages = [ self'.wrappedPackages.emacs ];
+        systemd = lib'.mkIf config.emacs.systemd [ self'.wrappedPackages.emacs ];
       };
     };
 
@@ -52,6 +58,22 @@
         overrides = [
           { data = emacs: emacs.pkgs.withPackages packages; }
         ];
+
+        systemd.user.service.emacs = {
+          Unit = {
+            Description = config.base.meta.description;
+            X-RestartIfChanged = false;
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
+          Service = {
+            Type = "notify";
+            ExecStart = "${config.wrapperPaths.placeholder} --fg-daemon";
+            Restart = "on-failure";
+            Slice = "session.slice";
+          };
+        };
       };
     };
 

@@ -33,6 +33,7 @@
     {
       options._internal.emacs.forReka = lib.mkEnableOption "build emacs to run with reka";
       config = lib.mkIf config._internal.emacs.forReka {
+        emacs.systemd = lib.mkForce false;
         emacs.init = ''
           (require 'reka)
           (reka-enable)
