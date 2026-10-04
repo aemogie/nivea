@@ -8,13 +8,11 @@
     };
     home-manager.users.aemogie = self.homeConfigurations.aemogie;
   };
-  flake.homeConfigurations.aemogie = { config, self', ... }: {
+  flake.homeConfigurations.aemogie = { config, ... }: {
     home.username = lib.mkOptionDefault "aemogie";
     home.homeDirectory = lib.mkOptionDefault "/home/${config.home.username}";
-    home.packages = [
-      self'.wrappedPackages.river
-    ];
 
+    features.river.enable = true;
     features.emacs.enable = true;
     features.emacs.init = ''(message "hello from %s" "${toString ./.}")'';
   };

@@ -22,7 +22,7 @@
       };
 
       config = lib.mkIf (cfg.windowManager == "reka") {
-        river.windowManagerLaunch = lib.getExe (
+        river.launch = lib.getExe (
           cfg.reka.emacs.wrap { features._internal.emacs.forReka = true; }
         );
       };
